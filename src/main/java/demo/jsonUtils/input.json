@@ -1,0 +1,57 @@
+{
+    "id":1,
+    "code":"TEST111",
+    "resourceList":[
+        {
+            "id":1,
+            "speed":500,
+            "type":"打孔",
+            "isAvaiable":0
+        },
+        {
+            "id":2,
+            "speed":500,
+            "type":"填孔",
+            "isAvaiable":0
+        }
+
+    ],
+    "orderList":[
+        {
+            "id":1,
+            "code":"o01",
+            "name":"工单01",
+            "productList":[
+                {
+                    "id":"1",
+                    "amount":100,
+                    "name":"产品名称",
+                    "expectedStartTime":"2022-09-02 21:00:00",
+                    "expectedEndTime":"2022-09-02 21:00:00",
+                    "combinedMethod":"0",
+                    "combinedIndex":[
+                        {
+                            "index":[1,2,3]
+                        }
+                    ],
+                    "layerList":[
+                        {
+                            "id":1,
+                            "name":"层名"
+                        },
+                        {
+                            "id":2,
+                            "name":"层名"
+                        }
+
+                    ]
+                    
+                }
+            ],
+            "priority":1 
+
+            
+        }
+    ]
+    
+}

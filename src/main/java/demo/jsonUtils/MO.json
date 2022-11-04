@@ -1,0 +1,1115 @@
+{
+  "id": 2,
+  "code": "MOS001",
+  "daemon" : "true",
+  "planningPeriod": {
+    "startTime": "2022/03/10 08:00:00",
+    "endTime": "2022/03/15 23:00:00"
+  },
+  "outputSetting": {
+    "resultOutputTypeList" : [
+      "WEB_API"
+    ],
+    "feedBackUrl": "http://localhost:8080/APSEngine/receive",
+    "dbConnectionSetting" : {
+      "connectionString": "jdbc:mysql://localhost:3306/planningdb?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC",
+      "uid": "root",
+      "password": "abcd1234"
+    },
+    "excelFileName" : "MOResult-123.xlsx"
+  },
+  "planningInstruction": {
+    "planningStrategy": "BALANCE",
+    "balanceField": "TIME_SPAN",
+    "planningTermination": {
+      "totalPlanningTime": 5,
+      "timeUnit": "MINUTE"
+    },
+    "haveNeighborGap" : true
+  },
+  "dateTimeFormat": "yyyy/MM/dd HH:mm:ss",
+  "planningTimeUnit": "HOUR",
+  "resourcePool":   [
+    {
+      "id": 1,
+      "code": "Resource01",
+      "availableType" : "CALENDAR",
+      "calendarId" : 1,
+      "renewable": true,
+      "availableList": null
+    },
+    {
+      "id": 2,
+      "code": "Resource02",
+      "availableType" : "CALENDAR",
+      "calendarId" : 1,
+      "renewable": true,
+      "availableList": null
+    },
+    {
+      "id": 3,
+      "code": "Resource03",
+      "availableType" : "CALENDAR",
+      "calendarId" : 1,
+      "renewable": true,
+      "availableList": null
+    },
+    {
+      "id": 4,
+      "code": "Resource04",
+      "availableType" : "AVAILABLE_LIST",
+      "calendarId" : null,
+      "renewable": true,
+      "availableList": [
+        {
+          "id": 12,
+          "code": "Resource04,Available1",
+          "period" : {
+            "startTime": "2022/03/11 08:00:00",
+            "endTime": "2022/03/30 18:00:00"
+          },
+          "capacity": 1
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "code": "Resource05",
+      "availableType" : "AVAILABLE_LIST",
+      "calendarId" : null,
+      "renewable": true,
+      "availableList": [
+        {
+          "id": 16,
+          "code": "Resource05,Available1",
+          "period" : {
+            "startTime": "2022/03/11 08:00:00",
+            "endTime": "2022/03/30 08:00:00"
+          },
+          "capacity": 1
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "code": "Resource06",
+      "availableType" : "AVAILABLE_LIST",
+      "calendarId" : null,
+      "renewable": true,
+      "availableList": [
+        {
+          "id": 18,
+          "code": "Resource06,Available1",
+          "period" : {
+            "startTime": "2022/03/11 12:00:00",
+            "endTime": "2022/03/30 20:00:00"
+          },
+          "capacity": 1
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "code": "Resource07",
+      "availableType" : "AVAILABLE_LIST",
+      "calendarId" : null,
+      "renewable": true,
+      "availableList": [
+        {
+          "id": 21,
+          "code": "Resource07,Available1",
+          "period" : {
+            "startTime": "2022/03/11 12:00:00",
+            "endTime": "2022/03/30 20:00:00"
+          },
+          "capacity": 1
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "code": "Resource08",
+      "availableType" : "AVAILABLE_LIST",
+      "calendarId" : null,
+      "renewable": true,
+      "availableList": [
+        {
+          "id": 24,
+          "code": "Resource08,Available1",
+          "period" : {
+            "startTime": "2022/03/11 12:00:00",
+            "endTime": "2022/03/30 20:00:00"
+          },
+          "capacity": 1
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "code": "Resource09",
+      "availableType" : "AVAILABLE_LIST",
+      "calendarId" : null,
+      "renewable": true,
+      "availableList": [
+        {
+          "id": 24,
+          "code": "Resource09,Available1",
+          "period" : {
+            "startTime": "2022/03/11 12:00:00",
+            "endTime": "2022/03/30 20:00:00"
+          },
+          "capacity": 1
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "code": "Resource10",
+      "availableType" : "AVAILABLE_LIST",
+      "calendarId" : null,
+      "renewable": true,
+      "availableList": [
+        {
+          "id": 28,
+          "code": "Resource10,Available1",
+          "period" : {
+            "startTime": "2022/03/11 12:00:00",
+            "endTime": "2022/03/30 20:00:00"
+          },
+          "capacity": 1
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "code": "Resource11",
+      "availableType" : "AVAILABLE_LIST",
+      "calendarId" : null,
+      "renewable": true,
+      "availableList": [
+        {
+          "id": 30,
+          "code": "Resource11,Available1",
+          "period" : {
+            "startTime": "2022/03/11 12:00:00",
+            "endTime": "2022/03/30 20:00:00"
+          },
+          "capacity": 1
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "code": "Resource12",
+      "availableType" : "AVAILABLE_LIST",
+      "calendarId" : null,
+      "renewable": true,
+      "availableList": [
+        {
+          "id": 30,
+          "code": "Resource12,Available1",
+          "period" : {
+            "startTime": "2022/03/11 12:00:00",
+            "endTime": "2022/03/30 20:00:00"
+          },
+          "capacity": 1
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "code": "Resource13",
+      "availableType" : "AVAILABLE_LIST",
+      "calendarId" : null,
+      "renewable": true,
+      "availableList": [
+        {
+          "id": 32,
+          "code": "Resource12,Available1",
+          "period" : {
+            "startTime": "2022/03/11 12:00:00",
+            "endTime": "2022/03/30 20:00:00"
+          },
+          "capacity": 1
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "code": "Resource14",
+      "availableType" : "AVAILABLE_LIST",
+      "calendarId" : null,
+      "renewable": true,
+      "availableList": [
+        {
+          "id": 34,
+          "code": "Resource14,Available1",
+          "period" : {
+            "startTime": "2022/03/11 12:00:00",
+            "endTime": "2022/03/30 20:00:00"
+          },
+          "capacity": 1
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "code": "Resource15",
+      "availableType" : "AVAILABLE_LIST",
+      "calendarId" : null,
+      "renewable": true,
+      "availableList": [
+        {
+          "id": 36,
+          "code": "Resource15,Available1",
+          "period" : {
+            "startTime": "2022/03/11 12:00:00",
+            "endTime": "2022/03/30 20:00:00"
+          },
+          "capacity": 1
+        }
+      ]
+    }
+  ],
+  "resourceCalendarList": [
+    {
+      "id": 1,
+      "code" : "Res.Calendar-01",
+      "periodList" : [
+        {
+          "startTime": "2022/03/11 00:00:00",
+          "endTime": "2022/03/11 12:00:00"
+        },
+        {
+          "startTime": "2022/03/11 13:00:00",
+          "endTime": "2022/03/11 23:00:00"
+        },
+        {
+          "startTime": "2022/03/12 00:00:00",
+          "endTime": "2022/03/12 12:00:00"
+        },
+        {
+          "startTime": "2022/03/12 13:00:00",
+          "endTime": "2022/03/12 23:00:00"
+        },
+        {
+          "startTime": "2022/03/13 00:00:00",
+          "endTime": "2022/03/13 13:00:00"
+        },
+        {
+          "startTime": "2022/03/13 13:00:00",
+          "endTime": "2022/03/13 23:00:00"
+        },
+        {
+          "startTime": "2022/03/14 00:00:00",
+          "endTime": "2022/03/14 13:00:00"
+        },
+        {
+          "startTime": "2022/03/14 13:00:00",
+          "endTime": "2022/03/14 23:00:00"
+        },
+        {
+          "startTime": "2022/03/15 00:00:00",
+          "endTime": "2022/03/30 23:00:00"
+        }
+      ],
+      "capacity": 1
+    },
+    {
+      "id": 2,
+      "code": "Res.Calendar-01",
+      "periodList": [
+        {
+          "startTime": "2022/03/11 00:00:00",
+          "endTime": "2022/03/11 12:00:00"
+        },
+        {
+          "startTime": "2022/03/11 00:00:00",
+          "endTime": "2022/03/11 12:00:00"
+        }
+      ]
+    }
+  ],
+  "manufacturerOrderList": [
+    {
+      "id": 1,
+      "code": "MO01",
+      "name": "工单01(20220315-01)",
+      "quantity": 150,
+      "period": {
+        "startTime": "2022/03/11 12:00:00",
+        "endTime": "2022/03/18 12:00:00"
+      },
+      "planningDirection" : "BACKWARD",
+      "jobControlling" : "ALAP",
+      "product": {
+        "id": 1,
+        "code": "MO01.Product01",
+        "name" : "产品01",
+        "taskList": [
+          {
+            "id": 1,
+            "code": "MO01.Product01-Task01(Process01)",
+            "name" : "工单01,产品01,任务01(源自工序01)",
+            "successorTaskIdList" : [
+              2,3
+            ],
+            "originalResourceRequirementGroup" : {
+              "id": 1,
+              "code": "MO01.Product01.Process01-RRG01",
+              "speed" : 50,
+              "duration" : null,
+              "priority" : 5,
+              "resourceRequirementList": [
+                {
+                  "id" : 1,
+                  "resourceId" : 1,
+                  "requirement" : 1
+                }
+              ]
+            },
+            "resourceRequirementGroupList":  [
+              {
+                "id": 1,
+                "code": "MO01.Product01.Process01-RRG01",
+                "speed" : 50,
+                "duration" : 5,
+                "priority" : 5,
+                "resourceRequirementList": [
+                  {
+                    "id" : 1,
+                    "resourceId" : 1,
+                    "requirement" : 1
+                  }
+                ]
+              }
+            ,
+              {
+                "id": 2,
+                "code": "MO01.Product01.Process01-RRG02",
+                "speed" : 30,
+                "duration" : 8,
+                "priority" : 5,
+                "resourceRequirementList": [
+                  {
+                    "id" : 2,
+                    "resourceId" : 2,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 3,
+                "code": "MO01.Product01.Process01-RRG03",
+                "speed" : 50,
+                "duration" : 10,
+                "priority" : 3,
+                "resourceRequirementList": [
+                  {
+                    "id" : 3,
+                    "resourceId" : 3,
+                    "requirement" : 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "code": "MO01.Product01-Process02",
+            "name" : "工单01,产品01,任务02(源自工序02)",
+            "successorTaskIdList" : [
+              3,5
+            ],
+            "originalResourceRequirementGroup" :{
+              "id": 5,
+              "code": "MO01.Product01.Process02-RRG02",
+              "speed" : 30,
+              "duration" : 5,
+              "priority" : 2,
+              "resourceRequirementList": [
+                {
+                  "id" : 5,
+                  "resourceId" : 5,
+                  "requirement" : 1
+                }
+              ]
+            },
+            "resourceRequirementGroupList":  [
+              {
+                "id": 4,
+                "code": "MO01.Product01.Process02-RRG01",
+                "speed" : 40,
+                "duration" : 4,
+                "priority" : 1,
+                "resourceRequirementList": [
+                  {
+                    "id" : 4,
+                    "resourceId" : 4,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 5,
+                "code": "MO01.Product01.Process02-RRG02",
+                "speed" : 30,
+                "duration" : 10,
+                "priority" : 2,
+                "resourceRequirementList": [
+                  {
+                    "id" : 5,
+                    "resourceId" : 5,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 6,
+                "code": "MO01.Product01.Process02-RRG03",
+                "speed" : 50,
+                "duration" : 6,
+                "priority" : 3,
+                "resourceRequirementList": [
+                  {
+                    "id" : 6,
+                    "resourceId" : 6,
+                    "requirement" : 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "code": "MO01.Product01-Process03",
+            "name" : "工单01,产品01,任务03(源自工序03)",
+            "successorTaskIdList" : [
+              4
+            ],
+            "originalResourceRequirementGroup": {
+              "id": 7,
+              "code": "MO01.Product01.Process03-RRG01",
+              "speed" : 30,
+              "duration" : 5,
+              "priority" : 1,
+              "resourceRequirementList": [
+                {
+                  "id" : 7,
+                  "resourceId" : 7,
+                  "requirement" : 1
+                }
+              ]
+            },
+            "resourceRequirementGroupList":  [
+              {
+                "id": 7,
+                "code": "MO01.Product01.Process03-RRG01",
+                "speed" : 30,
+                "duration" : 5,
+                "priority" : 1,
+                "resourceRequirementList": [
+                  {
+                    "id" : 7,
+                    "resourceId" : 7,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 8,
+                "code": "MO01.Product01.Process03-RRG02",
+                "speed" : 30,
+                "duration" : 5,
+                "priority" : 2,
+                "resourceRequirementList": [
+                  {
+                    "id" : 8,
+                    "resourceId" : 8,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 9,
+                "code": "MO01.Product01.Process03-RRG03",
+                "speed" : 50,
+                "duration" : 8,
+                "priority" : 3,
+                "resourceRequirementList": [
+                  {
+                    "id" : 9,
+                    "resourceId" : 9,
+                    "requirement" : 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": 4,
+            "code": "MO01.Product01-Process04",
+            "name" : "工单01,产品01,任务04(源自工序04)",
+            "successorTaskIdList" : [
+              6
+            ],
+            "originalResourceRequirementGroup": {
+              "id": 12,
+              "code": "MO01.Product01.Process04-RRG03",
+              "speed" : 50,
+              "duration" : 5,
+              "priority" : 3,
+              "resourceRequirementList": [
+                {
+                  "id" : 12,
+                  "resourceId" : 12,
+                  "requirement" : 1
+                }
+              ]
+            },
+            "resourceRequirementGroupList" :  [
+              {
+                "id": 10,
+                "code": "MO01.Product01.Process04-RRG01",
+                "speed" : 20,
+                "duration" : 5,
+                "priority" : 1,
+                "resourceRequirementList": [
+                  {
+                    "id" : 10,
+                    "resourceId" : 10,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 11,
+                "code": "MO01.Product01.Process04-RRG02",
+                "speed" : 30,
+                "duration" : 6,
+                "priority" : 2,
+                "resourceRequirementList": [
+                  {
+                    "id" : 11,
+                    "resourceId" : 11,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 12,
+                "code": "MO01.Product01.Process04-RRG03",
+                "speed" : 50,
+                "duration" : 8,
+                "priority" : 3,
+                "resourceRequirementList": [
+                  {
+                    "id" : 12,
+                    "resourceId" : 12,
+                    "requirement" : 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": 5,
+            "code": "MO01.Product01-Process05",
+            "name" : "工单01,产品01,任务05(源自工序05)",
+            "successorTaskIdList" : [
+              4
+            ],
+            "originalResourceRequirementGroup": null,
+            "resourceRequirementGroupList":  [
+              {
+                "id": 13,
+                "code": "MO01.Product01.Process05-RRG01",
+                "speed" : 50,
+                "duration" : 5,
+                "priority" : 1,
+                "resourceRequirementList": [
+                  {
+                    "id" : 13,
+                    "resourceId" : 2,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 14,
+                "code": "MO01.Product01.Process05-RRG02",
+                "speed" : 30,
+                "priority" : 2,
+                "resourceRequirementList": [
+                  {
+                    "id" : 14,
+                    "resourceId" : 3,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 15,
+                "code": "MO01.Product01.Process05-RRG03",
+                "speed" : 50,
+                "priority" : 3,
+                "resourceRequirementList": [
+                  {
+                    "id" : 15,
+                    "resourceId" : 4,
+                    "requirement" : 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": 6,
+            "code": "MO01.Product01-Process06",
+            "name" : "工单01,产品01,任务06(源自工序06)",
+            "successorTaskIdList" : null,
+            "originalResourceRequirementGroup":{
+              "id": 16,
+              "code": "MO01.Product01.Process06-RRG01",
+              "speed" : 60,
+              "duration" : 5,
+              "priority" : 1,
+              "resourceRequirementList": [
+                {
+                  "id" : 16,
+                  "resourceId" : 1,
+                  "requirement" : 1
+                }
+              ]
+            },
+            "resourceRequirementGroupList":  [
+              {
+                "id": 16,
+                "code": "MO01.Product01.Process06-RRG01",
+                "speed" : 60,
+                "duration" : 4,
+                "priority" : 1,
+                "resourceRequirementList": [
+                  {
+                    "id" : 16,
+                    "resourceId" : 1,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 17,
+                "code": "MO01.Product01.Process06-RRG02",
+                "speed" : 30,
+                "duration" : 6,
+                "priority" : 2,
+                "resourceRequirementList": [
+                  {
+                    "id" : 17,
+                    "resourceId" : 4,
+                    "requirement" : 1
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "code": "MO02",
+      "name": "工单02(20220315-02)",
+      "quantity": 100,
+      "period": {
+        "startTime": "2022/03/11 12:00:00",
+        "endTime": "2022/03/15 12:00:00"
+      },
+      "planningDirection" : "FORWARD",
+      "jobControlling" : "ASAP",
+      "product": {
+        "id": 2,
+        "code": "MO02.Product01",
+        "name" : "工单02,产品01,任务01(源自工序01)",
+        "taskList": [
+          {
+            "id": 7,
+            "code": "MO02.Product01-Process07",
+            "successorTaskIdList" : [
+              8
+            ],
+            "originalResourceRequirementGroup": null,
+            "resourceRequirementGroupList":  [
+              {
+                "id": 18,
+                "code": "MO02.Product01.Process07-RRG01",
+                "speed" : 50,
+                "duration" : 5,
+                "priority" : 1,
+                "resourceRequirementList": [
+                  {
+                    "id" : 18,
+                    "resourceId" : 1,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 19,
+                "code": "MO02.Product01.Process07-RRG02",
+                "speed" : 30,
+                "duration" : 5,
+                "priority" : 2,
+                "resourceRequirementList": [
+                  {
+                    "id" : 19,
+                    "resourceId" : 2,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 20,
+                "code": "MO02.Product01.Process07-RRG03",
+                "speed" : 50,
+                "duration" : 8,
+                "priority" : 3,
+                "resourceRequirementList": [
+                  {
+                    "id" : 20,
+                    "resourceId" : 3,
+                    "requirement" : 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": 8,
+            "code": "MO02.Product01-Process08",
+            "name" : "工单02,产品01,任务08(源自工序08)",
+            "successorTaskIdList" : [
+              9, 10
+            ],
+            "originalResourceRequirementGroup": {
+              "id": 21,
+              "code": "MO02.Product01.Process08-RRG01",
+              "speed" : 40,
+              "duration" : 5,
+              "priority" : 2,
+              "resourceRequirementList": [
+                {
+                  "id" : 21,
+                  "resourceId" : 4,
+                  "requirement" : 1
+                }
+              ]
+            },
+            "resourceRequirementGroupList":  [
+              {
+                "id": 21,
+                "code": "MO02.Product01.Process08-RRG01",
+                "speed" : 40,
+                "duration" : 8,
+                "priority" : 2,
+                "resourceRequirementList": [
+                  {
+                    "id" : 21,
+                    "resourceId" : 4,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 22,
+                "code": "MO02.Product01.Process08-RRG02",
+                "speed" : 30,
+                "duration" : 5,
+                "priority" : 1,
+                "resourceRequirementList": [
+                  {
+                    "id" : 22,
+                    "resourceId" : 5,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 23,
+                "code": "MO02.Product01.Process08-RRG03",
+                "speed" : 50,
+                "duration" : 6,
+                "priority" : 2,
+                "resourceRequirementList": [
+                  {
+                    "id" : 23,
+                    "resourceId" : 6,
+                    "requirement" : 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": 9,
+            "code": "MO02.Product01-Process09",
+            "name" : "工单02,产品01,任务09(源自工序09)",
+            "successorTaskIdList" : [
+              12
+            ],
+            "originalResourceRequirementGroup": null,
+            "resourceRequirementGroupList":  [
+              {
+                "id": 24,
+                "code": "MO02.Product01.Process09-RRG01",
+                "speed" : 30,
+                "duration" : 5,
+                "priority" : 2,
+                "resourceRequirementList": [
+                  {
+                    "id" : 24,
+                    "resourceId" : 7,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 25,
+                "code": "MO02.Product01.Process09-RRG02",
+                "speed" : 30,
+                "priority" : 3,
+                "resourceRequirementList": [
+                  {
+                    "id" :25,
+                    "resourceId" : 8,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 26,
+                "code": "MO02.Product01.Process09-RRG03",
+                "speed" : 50,
+                "priority" : 1,
+                "resourceRequirementList": [
+                  {
+                    "id" : 26,
+                    "resourceId" : 9,
+                    "requirement" : 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": 10,
+            "code": "MO02.Product01-Process10",
+            "name" : "工单02,产品01,任务10(源自工序10)",
+            "successorTaskIdList" : [
+              11
+            ],
+            "originalResourceRequirementGroup":{
+              "id": 27,
+              "code": "MO02.Product01.Process10-RRG01",
+              "speed" : 30,
+              "duration" : 3,
+              "priority" : 1,
+              "resourceRequirementList": [
+                {
+                  "id" : 27,
+                  "resourceId" : 10,
+                  "requirement" : 1
+                }
+              ]
+            },
+            "resourceRequirementGroupList":  [
+              {
+                "id": 27,
+                "code": "MO02.Product01.Process10-RRG01",
+                "speed" : 30,
+                "duration" : 5,
+                "priority" : 1,
+                "resourceRequirementList": [
+                  {
+                    "id" : 27,
+                    "resourceId" : 10,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 28,
+                "code": "MO02.Product01.Process10-RRG02",
+                "speed" : 40,
+                "duration" : 6,
+                "priority" : 2,
+                "resourceRequirementList": [
+                  {
+                    "id" : 28,
+                    "resourceId" : 11,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 29,
+                "code": "MO02.Product01.Process10-RRG03",
+                "speed" : 50,
+                "duration" : 8,
+                "priority" : 3,
+                "resourceRequirementList": [
+                  {
+                    "id" : 29,
+                    "resourceId" : 12,
+                    "requirement" : 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": 11,
+            "code": "MO02.Product01-Process11",
+            "name" : "工单02,产品01,任务11(源自工序11)",
+            "successorTaskIdList" : [
+              12
+            ],
+            "originalResourceRequirementGroup":{
+              "id": 31,
+              "code": "MO02.Product01.Process11-RRG02",
+              "speed" : 30,
+              "duration" : 5,
+              "priority" : 1,
+              "resourceRequirementList": [
+                {
+                  "id" : 31,
+                  "resourceId" : 14,
+                  "requirement" : 1
+                }
+              ]
+            },
+            "resourceRequirementGroupList":  [
+              {
+                "id": 30,
+                "code": "MO02.Product01.Process11-RRG01",
+                "speed" : 50,
+                "duration" : 5,
+                "priority" : 2,
+                "resourceRequirementList": [
+                  {
+                    "id" : 30,
+                    "resourceId" : 13,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 31,
+                "code": "MO02.Product01.Process11-RRG02",
+                "speed" : 30,
+                "duration" : 8,
+                "priority" : 1,
+                "resourceRequirementList": [
+                  {
+                    "id" : 31,
+                    "resourceId" : 14,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 32,
+                "code": "MO02.Product01.Process11-RRG03",
+                "speed" : 50,
+                "duration" : 10,
+                "priority" : 1,
+                "resourceRequirementList": [
+                  {
+                    "id" : 32,
+                    "resourceId" : 15,
+                    "requirement" : 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": 12,
+            "code": "MO02.Product01-Process12",
+            "name" : "工单02,产品01,任务12(源自工序12)",
+            "successorTaskIdList" : [
+              13
+            ],
+            "originalResourceRequirementGroup": null,
+            "resourceRequirementGroupList":  [
+              {
+                "id": 33,
+                "code": "MO02.Product01.Process12-RRG01",
+                "speed" : 60,
+                "duration" : 5,
+                "priority" : 3,
+                "resourceRequirementList": [
+                  {
+                    "id" : 33,
+                    "resourceId" : 1,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 34,
+                "code": "MO02.Product01.Process12-RRG02",
+                "speed" : 30,
+                "priority" : 1,
+                "resourceRequirementList": [
+                  {
+                    "id" : 34,
+                    "resourceId" : 4,
+                    "requirement" : 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": 13,
+            "code": "MO02.Product01-Process13",
+            "name" : "工单02,产品01,任务13(源自工序13)",
+            "successorTaskIdList" : null,
+            "originalResourceRequirementGroup": null,
+            "resourceRequirementGroupList":  [
+              {
+                "id": 35,
+                "code": "MO02.Product01.Process13-RRG01",
+                "speed" : 60,
+                "duration" : 6,
+                "priority" : 2,
+                "resourceRequirementList": [
+                  {
+                    "id" : 35,
+                    "resourceId" : 6,
+                    "requirement" : 1
+                  }
+                ]
+              },
+              {
+                "id": 36,
+                "code": "MO02.Product01.Process13-RRG02",
+                "speed" : 30,
+                "duration" : 4,
+                "priority" : 1,
+                "resourceRequirementList": [
+                  {
+                    "id" : 36,
+                    "resourceId" : 7,
+                    "requirement" : 1
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

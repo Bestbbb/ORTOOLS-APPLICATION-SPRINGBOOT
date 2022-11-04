@@ -1,0 +1,89 @@
+{
+  "id": 1,
+  "relationID": "MOS001",
+  "planningPeriod": {
+    "startTime": "2022/03/10 08:00:00",
+    "endTime": "2022/03/15 23:00:00"
+  },
+  "inputSetting": {
+    "inputTypeList": [
+      "TXT"
+    ],
+    "txtFilePath": "/input/MOS001-Input.txt"
+  },
+  "outputSetting": {
+    "resultOutputTypeList": [
+      "TXT"
+    ],
+    "txtFilePath": "/output/MOS001-Result.txt"
+  },
+  "dateTimeFormat": "yyyy/MM/dd HH:mm:ss",
+  "planningTimeUnit": "schedule",
+  "resourcePool": [
+    {
+      "id": 1,
+      "code": "Resource01",
+      "typeId": "1",
+      "availableList": [
+        {
+          "id": 1,
+          "code": "Resource01,Available1",
+          "period": {
+            "startTime": "2022/03/11 00:00:00",
+            "endTime": "2022/03/30 05:00:00"
+          },
+          "capacity": 1
+        }
+      ]
+    }
+  ],
+  "manufacturerOrderList": [
+    {
+      "id": 1,
+      "code": "MO01",
+      "name": "生产计划01(20220315-01)",
+      "quantity": 150,
+      "priority": 10,
+      "type": 0,
+      "relatedManufactureOrderId": 2,
+      "delayDays": 10,
+      "period": {
+        "startTime": "2022/03/11 12:00:00",
+        "endTime": "2022/03/13 12:00:00"
+      },
+      "product": {
+        "id": 1,
+        "code": "MO01.Product01",
+        "name": "产品01",
+        "stepList": [
+          {
+            "id": 1,
+            "code": "MO01.Product01-Task01(Process01)",
+            "name": "生产计划01,产品01,任务01(源自工序01)",
+            "resourceRequirementList": [
+              {
+                "id": 1,
+                "resourceId": 1,
+                "requirement": 1
+              }
+            ],
+            "taskList": [
+              {
+                "id": 1,
+                "code": "MO01.Product01.Process01-RRG01",
+                "speed": 50,
+                "unit": 0,
+                "layerNum": 0,
+                "relatedLayer": [
+                  0,
+                  1,
+                  2
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

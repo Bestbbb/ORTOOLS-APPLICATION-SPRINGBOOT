@@ -1,0 +1,859 @@
+{
+    "dateTimeFormat": "yyyy-MM-dd HH:mm:ss",
+    "id": 29339828226,
+    "inputSetting": {},
+    "manufacturerOrderList": [
+        {
+            "code": "28924735488",
+            "delayDays": 0,
+            "id": "28924735488",
+            "name": "生产计划0919",
+            "priority": 0,
+            "product": {
+                "code": "104",
+                "id": 104,
+                "name": "0726生产5",
+                "stepList": [
+                    {
+                        "code": "工序类型1",
+                        "id": "28520545297",
+                        "name": "工艺步骤1",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤10",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤10"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "工序类型1_工艺步骤1",
+                                "id": "28520545298",
+                                "layerNum": 0,
+                                "speed": 100,
+                                "unit": 0
+                            },
+                            {
+                                "code": "工序类型1_工艺步骤1",
+                                "id": "28520545299",
+                                "layerNum": 1,
+                                "speed": 200,
+                                "unit": 0
+                            },
+                            {
+                                "code": "工序类型1_工艺步骤1",
+                                "id": "28520545300",
+                                "layerNum": 2,
+                                "speed": 300,
+                                "unit": 0
+                            },
+                            {
+                                "code": "工序类型1_工艺步骤1",
+                                "id": "28520545301",
+                                "layerNum": 3,
+                                "speed": 400,
+                                "unit": 0
+                            }
+                        ]
+                    },
+                    {
+                        "code": "工序类型2",
+                        "id": "28520545302",
+                        "name": "工艺步骤2",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤21",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤21"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "工序类型2_工艺步骤2",
+                                "id": "28520545303",
+                                "layerNum": 0,
+                                "speed": 1100,
+                                "unit": 0
+                            },
+                            {
+                                "code": "工序类型2_工艺步骤2",
+                                "id": "28520545304",
+                                "layerNum": 1,
+                                "speed": 1200,
+                                "unit": 0
+                            },
+                            {
+                                "code": "工序类型2_工艺步骤2",
+                                "id": "28520545305",
+                                "layerNum": 2,
+                                "speed": 1300,
+                                "unit": 0
+                            },
+                            {
+                                "code": "工序类型2_工艺步骤2",
+                                "id": "28520545306",
+                                "layerNum": 3,
+                                "speed": 1400,
+                                "unit": 0
+                            }
+                        ]
+                    }
+                ]
+            },
+            "quantity": 150,
+            "relatedManufactureOrderId": 0,
+            "type": 1
+        },
+        {
+            "code": "28948490496",
+            "delayDays": 0,
+            "id": "28948490496",
+            "name": "0920生产计划",
+            "priority": 0,
+            "product": {
+                "code": "104",
+                "id": 104,
+                "name": "0726生产5",
+                "stepList": [
+                    {
+                        "code": "打孔",
+                        "id": "28838329857",
+                        "name": "工艺步骤1",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤10",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤10"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "打孔_工艺步骤1",
+                                "id": "28838329858",
+                                "layerNum": 0,
+                                "speed": 100,
+                                "unit": 0
+                            },
+                            {
+                                "code": "打孔_工艺步骤1",
+                                "id": "28838329859",
+                                "layerNum": 1,
+                                "speed": 200,
+                                "unit": 0
+                            }
+                        ]
+                    },
+                    {
+                        "code": "印刷",
+                        "id": "28838329860",
+                        "name": "工艺步骤2",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤21",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤21"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "印刷_工艺步骤2",
+                                "id": "28838329861",
+                                "layerNum": 0,
+                                "speed": 1000,
+                                "unit": 0
+                            },
+                            {
+                                "code": "印刷_工艺步骤2",
+                                "id": "28838329862",
+                                "layerNum": 1,
+                                "speed": 2000,
+                                "unit": 0
+                            }
+                        ]
+                    },
+                    {
+                        "code": "叠片",
+                        "id": "28838329863",
+                        "name": "工艺步骤3",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤32",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤32"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "叠片_工艺步骤3",
+                                "id": "28838329864",
+                                "layerNum": 0,
+                                "speed": 10000,
+                                "unit": 0
+                            }
+                        ]
+                    }
+                ]
+            },
+            "quantity": 150,
+            "relatedManufactureOrderId": 0,
+            "type": 1
+        },
+        {
+            "code": "28962080000",
+            "delayDays": 0,
+            "id": "28962080000",
+            "name": "0921生产计划",
+            "priority": 0,
+            "product": {
+                "code": "104",
+                "id": 104,
+                "name": "0726生产5",
+                "stepList": [
+                    {
+                        "code": "打孔",
+                        "id": "28838329857",
+                        "name": "工艺步骤1",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤10",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤10"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "打孔_工艺步骤1",
+                                "id": "28838329858",
+                                "layerNum": 0,
+                                "speed": 100,
+                                "unit": 0
+                            },
+                            {
+                                "code": "打孔_工艺步骤1",
+                                "id": "28838329859",
+                                "layerNum": 1,
+                                "speed": 200,
+                                "unit": 0
+                            }
+                        ]
+                    },
+                    {
+                        "code": "印刷",
+                        "id": "28838329860",
+                        "name": "工艺步骤2",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤21",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤21"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "印刷_工艺步骤2",
+                                "id": "28838329861",
+                                "layerNum": 0,
+                                "speed": 1000,
+                                "unit": 0
+                            },
+                            {
+                                "code": "印刷_工艺步骤2",
+                                "id": "28838329862",
+                                "layerNum": 1,
+                                "speed": 2000,
+                                "unit": 0
+                            }
+                        ]
+                    },
+                    {
+                        "code": "叠片",
+                        "id": "28838329863",
+                        "name": "工艺步骤3",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤32",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤32"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "叠片_工艺步骤3",
+                                "id": "28838329864",
+                                "layerNum": 0,
+                                "speed": 10000,
+                                "unit": 0
+                            }
+                        ]
+                    }
+                ]
+            },
+            "quantity": 200,
+            "relatedManufactureOrderId": 0,
+            "type": 1
+        },
+        {
+            "code": "28965398276",
+            "delayDays": 0,
+            "id": "28965398276",
+            "name": "09211339生产计划",
+            "priority": 0,
+            "product": {
+                "code": "104",
+                "id": 104,
+                "name": "0726生产5",
+                "stepList": [
+                    {
+                        "code": "打孔",
+                        "id": "28838329857",
+                        "name": "工艺步骤1",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤10",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤10"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "打孔_工艺步骤1",
+                                "id": "28838329858",
+                                "layerNum": 0,
+                                "speed": 100,
+                                "unit": 0
+                            },
+                            {
+                                "code": "打孔_工艺步骤1",
+                                "id": "28838329859",
+                                "layerNum": 1,
+                                "speed": 200,
+                                "unit": 0
+                            }
+                        ]
+                    },
+                    {
+                        "code": "印刷",
+                        "id": "28838329860",
+                        "name": "工艺步骤2",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤21",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤21"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "印刷_工艺步骤2",
+                                "id": "28838329861",
+                                "layerNum": 0,
+                                "speed": 1000,
+                                "unit": 0
+                            },
+                            {
+                                "code": "印刷_工艺步骤2",
+                                "id": "28838329862",
+                                "layerNum": 1,
+                                "speed": 2000,
+                                "unit": 0
+                            }
+                        ]
+                    },
+                    {
+                        "code": "叠片",
+                        "id": "28838329863",
+                        "name": "工艺步骤3",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤32",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤32"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "叠片_工艺步骤3",
+                                "id": "28838329864",
+                                "layerNum": 0,
+                                "speed": 10000,
+                                "unit": 0
+                            }
+                        ]
+                    }
+                ]
+            },
+            "quantity": 220,
+            "relatedManufactureOrderId": 0,
+            "type": 1
+        },
+        {
+            "code": "28966388480",
+            "delayDays": 0,
+            "id": "28966388480",
+            "name": "09211445生产计划",
+            "priority": 0,
+            "product": {
+                "code": "104",
+                "id": 104,
+                "name": "0726生产5",
+                "stepList": [
+                    {
+                        "code": "打孔",
+                        "id": "28838329857",
+                        "name": "工艺步骤1",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤10",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤10"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "打孔_工艺步骤1",
+                                "id": "28838329858",
+                                "layerNum": 0,
+                                "speed": 100,
+                                "unit": 0
+                            },
+                            {
+                                "code": "打孔_工艺步骤1",
+                                "id": "28838329859",
+                                "layerNum": 1,
+                                "speed": 200,
+                                "unit": 0
+                            }
+                        ]
+                    },
+                    {
+                        "code": "印刷",
+                        "id": "28838329860",
+                        "name": "工艺步骤2",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤21",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤21"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "印刷_工艺步骤2",
+                                "id": "28838329861",
+                                "layerNum": 0,
+                                "speed": 1000,
+                                "unit": 0
+                            },
+                            {
+                                "code": "印刷_工艺步骤2",
+                                "id": "28838329862",
+                                "layerNum": 1,
+                                "speed": 2000,
+                                "unit": 0
+                            }
+                        ]
+                    },
+                    {
+                        "code": "叠片",
+                        "id": "28838329863",
+                        "name": "工艺步骤3",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤32",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤32"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "叠片_工艺步骤3",
+                                "id": "28838329864",
+                                "layerNum": 0,
+                                "speed": 10000,
+                                "unit": 0
+                            }
+                        ]
+                    }
+                ]
+            },
+            "quantity": 150,
+            "relatedManufactureOrderId": 0,
+            "type": 1
+        },
+        {
+            "code": "28968234761",
+            "delayDays": 0,
+            "id": "28968234761",
+            "name": "09211841生产计划",
+            "priority": 0,
+            "product": {
+                "code": "104",
+                "id": 104,
+                "name": "0726生产5",
+                "stepList": [
+                    {
+                        "code": "打孔",
+                        "id": "28968234753",
+                        "name": "工艺步骤1",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤10",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤10"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "打孔_工艺步骤1",
+                                "id": "28968234754",
+                                "layerNum": 0,
+                                "speed": 100,
+                                "unit": 0
+                            },
+                            {
+                                "code": "打孔_工艺步骤1",
+                                "id": "28968234755",
+                                "layerNum": 1,
+                                "speed": 110,
+                                "unit": 0
+                            }
+                        ]
+                    },
+                    {
+                        "code": "印刷",
+                        "id": "28968234756",
+                        "name": "工艺步骤2",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤21",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤21"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "印刷_工艺步骤2",
+                                "id": "28968234757",
+                                "layerNum": 0,
+                                "speed": 200,
+                                "unit": 0
+                            },
+                            {
+                                "code": "印刷_工艺步骤2",
+                                "id": "28968234758",
+                                "layerNum": 1,
+                                "speed": 210,
+                                "unit": 0
+                            }
+                        ]
+                    },
+                    {
+                        "code": "叠片",
+                        "id": "28968234759",
+                        "name": "工艺步骤3",
+                        "resourceRequirementList": [
+                            {
+                                "id": "工艺步骤32",
+                                "requirement": 1,
+                                "resourceId": "工艺步骤32"
+                            }
+                        ],
+                        "taskList": [
+                            {
+                                "code": "叠片_工艺步骤3",
+                                "id": "28968234760",
+                                "layerNum": 0,
+                                "speed": 300,
+                                "unit": 0
+                            }
+                        ]
+                    }
+                ]
+            },
+            "quantity": 200,
+            "relatedManufactureOrderId": 0,
+            "type": 1
+        }
+    ],
+    "outputSetting": {},
+    "planningPeriod": {
+        "endTime": 1665200809538,
+        "startTime": 1665200809538
+    },
+    "planningTimeUnit": "schedule",
+    "relationID": "29339828227",
+    "resourcePool": [
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "工序类型1设备",
+                    "id": "工序类型1设备———0",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "工序类型1",
+            "id": "28520545296",
+            "typeId": "0"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "工序类型2设备",
+                    "id": "工序类型2设备———1",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "工序类型2",
+            "id": "28520545296",
+            "typeId": "1"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "打孔设备",
+                    "id": "打孔设备———0",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "打孔",
+            "id": "28838329856",
+            "typeId": "28541341440"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "印刷设备",
+                    "id": "印刷设备———1",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "印刷",
+            "id": "28838329856",
+            "typeId": "28607978498"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "叠片设备",
+                    "id": "叠片设备———2",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "叠片",
+            "id": "28838329856",
+            "typeId": "28607978499"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "打孔设备",
+                    "id": "打孔设备———0",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "打孔",
+            "id": "28838329856",
+            "typeId": "28541341440"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "印刷设备",
+                    "id": "印刷设备———1",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "印刷",
+            "id": "28838329856",
+            "typeId": "28607978498"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "叠片设备",
+                    "id": "叠片设备———2",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "叠片",
+            "id": "28838329856",
+            "typeId": "28607978499"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "打孔设备",
+                    "id": "打孔设备———0",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "打孔",
+            "id": "28838329856",
+            "typeId": "28541341440"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "印刷设备",
+                    "id": "印刷设备———1",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "印刷",
+            "id": "28838329856",
+            "typeId": "28607978498"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "叠片设备",
+                    "id": "叠片设备———2",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "叠片",
+            "id": "28838329856",
+            "typeId": "28607978499"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "打孔设备",
+                    "id": "打孔设备———0",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "打孔",
+            "id": "28838329856",
+            "typeId": "28541341440"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "印刷设备",
+                    "id": "印刷设备———1",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "印刷",
+            "id": "28838329856",
+            "typeId": "28607978498"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "叠片设备",
+                    "id": "叠片设备———2",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "叠片",
+            "id": "28838329856",
+            "typeId": "28607978499"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "打孔设备",
+                    "id": "打孔设备———0",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "打孔",
+            "id": "28968234752",
+            "typeId": "28541341440"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "印刷设备",
+                    "id": "印刷设备———1",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "印刷",
+            "id": "28968234752",
+            "typeId": "28607978498"
+        },
+        {
+            "availableList": [
+                {
+                    "capacity": 1,
+                    "code": "叠片设备",
+                    "id": "叠片设备———2",
+                    "period": {
+                        "endTime": "2022-10-08 11:46:49",
+                        "startTime": "2022-10-08 11:46:49"
+                    }
+                }
+            ],
+            "code": "叠片",
+            "id": "28968234752",
+            "typeId": "28607978499"
+        }
+    ]
+}
