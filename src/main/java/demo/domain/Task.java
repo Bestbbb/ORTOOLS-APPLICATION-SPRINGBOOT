@@ -86,6 +86,8 @@ public class Task extends TaskOrResource {
 
     private Integer quantity;
 
+    private String relatedOrderId;//相关联的父订单id
+
     private LocalDateTime taskBeginTime = LocalDateTime.of(2022, 10, 1, 0, 0, 0);
 
 

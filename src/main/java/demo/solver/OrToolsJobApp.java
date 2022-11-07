@@ -149,10 +149,16 @@ public class OrToolsJobApp {
         for (Task task : taskList) {
             Task nextTask = task.getNextTask();
             if(nextTask!=null){
+                Integer unit = task.getUnit();
+                Integer nextUnit = nextTask.getUnit();
+                if(unit==0&&nextUnit==1){
+
+                }
                 String preKey = task.getId();
                 String nextKey = nextTask.getId();
-                model.addGreaterOrEqual(allTasks.get(nextKey).getStart(), LinearExpr.weightedSum(new IntVar[]{allTasks.get(preKey).getEnd(),minConstant},new long[]{1,1}));
-                model.addLessOrEqual(allTasks.get(nextKey).getStart(), LinearExpr.weightedSum(new IntVar[]{allTasks.get(preKey).getEnd(),maxConstant},new long[]{1,1}));
+                model.addGreaterThan(allTasks.get(nextKey).getStart(),allTasks.get(preKey).getEnd());
+//                model.addGreaterOrEqual(allTasks.get(nextKey).getStart(), LinearExpr.weightedSum(new IntVar[]{allTasks.get(preKey).getEnd(),minConstant},new long[]{1,1}));
+//                model.addLessOrEqual(allTasks.get(nextKey).getStart(), LinearExpr.weightedSum(new IntVar[]{allTasks.get(preKey).getEnd(),maxConstant},new long[]{1,1}));
 
             }
         }
@@ -184,9 +190,9 @@ public class OrToolsJobApp {
             for (Task task : taskList) {
                 String taskId = task.getId();
                 String key = taskId;
-//                System.out.println(key);
                 AssignedTask assignedTask = new AssignedTask(
                         taskId, (int) solver.value(allTasks.get(key).getStart()), task.getHourDuration());
+                System.out.println(task.getRelatedLayer());
                 BeanUtils.copyProperties(task,assignedTask);
                 assignedJobs.computeIfAbsent(task.getRequiredResourceId(), k -> new ArrayList<>());
                 assignedJobs.get(task.getRequiredResourceId()).add(assignedTask);
@@ -349,6 +355,7 @@ public class OrToolsJobApp {
         AssignedTask assignedTask = new AssignedTask();
         BeanUtils.copyProperties(task,assignedTask);
         assignedTask.setAmount(amount);
+        assignedTask.setSubId(index++);
         assignedTask.setRunTime(runTime.toLocalDate());
         assignedTask.setSchedule(schedule);
         tempTask = assignedTask;

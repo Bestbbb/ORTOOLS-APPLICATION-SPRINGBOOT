@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class DataGenerator {
-    static String FILE_PATH = "json/input_data_1103_2.json";
+    static String FILE_PATH = "json/input_1104.json";
 //    static Input input;
     public final static String OUTPUT_PATH = "D:\\output.json";
     public final static String RESULT_PATH = "D:\\result.json";
@@ -68,6 +68,9 @@ public class DataGenerator {
                     task.setStepId(step.getId());
                     task.setOrderId(order.getId());
                     task.setQuantity(order.getQuantity());
+                    if(order.getType()==1&&order.getRelatedManufactureOrderId()!=null){
+                        task.setRelatedOrderId(order.getRelatedManufactureOrderId());
+                    }
                     //duration 还得修改
                     task.setDuration((int) Math.ceil((double) order.getQuantity() / task.getSpeed()));
                     task.setSingleTimeSlotSpeed(BigDecimal.valueOf(task.getSpeed()).divide(BigDecimal.valueOf(3), 4, RoundingMode.CEILING));
@@ -221,9 +224,12 @@ public class DataGenerator {
     public static void main(String[] args) {
 //        Integer i = 29;
 //        System.out.println(Math.ceil(52.0 / 17));
-//        List<ManufacturerOrder> manufacturerOrders = DataGenerator.generateOrderList();
+        Input input = LoadFile.readJsonFile(FILE_PATH);
+        List<ManufacturerOrder> manufacturerOrders = DataGenerator.generateOrderList(input);
 
-//        List<ResourceItem> resourceItems = DataGenerator.generateResources();
+        List<ResourceItem> resourceItems = DataGenerator.generateResources(input);
+        List<Task> tasks = DataGenerator.generateTaskList(input);
+        tasks.stream().map(Task::getRelatedLayer).forEach(System.out::println);
 
 //        resourceItems.forEach(i->System.out.println(i.toString()));
 
