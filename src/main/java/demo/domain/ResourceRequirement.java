@@ -5,11 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ResourceRequirement {
+public class ResourceRequirement implements Serializable {
 
     // 资源需求对象ID
     private String id;

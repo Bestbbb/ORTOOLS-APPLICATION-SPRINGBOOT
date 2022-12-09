@@ -11,14 +11,12 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class AssignedTask implements Serializable{
+public class PhaseOneFirstAssignedTask extends AssignedTask implements Serializable{
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
@@ -40,6 +38,8 @@ public class AssignedTask implements Serializable{
 
     private Integer hoursDuration;
 
+    private Integer end;
+
     private Integer stepIndex;
 
     private Integer orderIndex;
@@ -48,14 +48,13 @@ public class AssignedTask implements Serializable{
 
     private String requiredResourceId;
 
-    private String relatedTaskId;
+    private String orderId;
 
-
-
-    public AssignedTask(String originalId,Integer start,Integer hoursDuration){
+    public PhaseOneFirstAssignedTask(String originalId, Integer start, Integer hoursDuration){
         this.originalId =originalId;
         this.start=start;
         this.hoursDuration=hoursDuration;
+        this.end = start+hoursDuration;
     }
 
     public String printInfo() {

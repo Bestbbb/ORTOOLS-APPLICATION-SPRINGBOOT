@@ -1,4 +1,6 @@
 package demo.solver;
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 // [START import]
 
 import com.alibaba.fastjson2.JSONArray;
@@ -9,7 +11,9 @@ import demo.bootstrap.ContextUtil;
 import demo.bootstrap.DataGenerator;
 import demo.domain.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -28,13 +32,15 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 // [END import]
-@Data
+@Setter
+@Getter
 @Service
 public class OrToolsJobApp {
-    public MesConfig config = ContextUtil.getBean(MesConfig.class);
+    private MesConfig config = ContextUtil.getBean(MesConfig.class);
 
 
     Integer horizon = 0;
@@ -87,7 +93,7 @@ public class OrToolsJobApp {
     public Integer calculateHorizon(){
 //        List<Task> taskList = DataGenerator.generateTaskList();
         for (Task task:taskList){
-            horizon+= task.getHourDuration();
+            horizon+= task.getHoursDuration();
         }
         return horizon;
     }
@@ -98,17 +104,17 @@ public class OrToolsJobApp {
             TaskVariable taskVariable = new TaskVariable();
             taskVariable.setStart(model.newIntVar(0, horizon, "start" + suffix));
             taskVariable.setEnd(model.newIntVar(0, horizon, "end" + suffix));
-            taskVariable.setInterval(model.newIntervalVar(taskVariable.getStart(), LinearExpr.constant(task.getHourDuration())
+            taskVariable.setInterval(model.newIntervalVar(taskVariable.getStart(), LinearExpr.constant(task.getHoursDuration())
                     , taskVariable.getEnd(), "interval" + suffix));
             allTasks.put(task.getId(), taskVariable);
             resourceToIntervals.computeIfAbsent(task.getRequiredResourceId(), key -> new ArrayList<>());
             resourceToIntervals.get(task.getRequiredResourceId()).add(taskVariable.getInterval());
         }
-
+        System.out.println(taskList.size());
     }
     //创建时间间隔不能重复的约束
     public void createConstraints(){
-        System.out.println(resourceItems.size());
+        System.out.println(resourceToIntervals.size());
         for(ResourceItem resourceItem:resourceItems){
             List<IntervalVar> list = resourceToIntervals.get(resourceItem.getId());
             model.addNoOverlap(list);
@@ -119,7 +125,8 @@ public class OrToolsJobApp {
         for (Task task : taskList) {
             Integer unit = task.getUnit();
             if(unit==1){
-                List<Integer> relatedLayer = task.getRelatedLayer();
+
+                List<Integer> relatedLayer = Arrays.asList(task.getRelatedLayer().split(",")).stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
                 if(relatedLayer!=null){
                     String currentTaskId = task.getId();
                     String orderId = task.getOrderId();
@@ -178,6 +185,59 @@ public class OrToolsJobApp {
         model.minimize(objVar);
 
     }
+
+
+    public List<PhaseOneAssignedTask> solvePhaseOne(){
+        PhaseOne phaseOne = new PhaseOne();
+        //第一阶段，找到所有公共的task，并将小样单和正常单合并
+        List<Task> beforeIntegratedTaskList = taskList.stream().
+                filter(i->i.getUnit()!=null&&i.getUnit()==0&&i.getOrderType()==0&&i.getIsPublic()).collect(Collectors.toList());
+        phaseOne.setTaskList(beforeIntegratedTaskList);
+        List<Task> beforeIntegratedDemoTaskList = taskList.stream().
+                filter(i->i.getUnit()!=null&&i.getUnit()==0&&i.getOrderType()==1&&i.getIsPublic()).collect(Collectors.toList());
+        phaseOne.setResourceItems(resourceItems);
+        phaseOne.setDemoTaskList(beforeIntegratedDemoTaskList);
+        List<PhaseOneAssignedTask> assignedTasks = phaseOne.solvePhaseOne();
+        List<PhaseOneAssignedTask> demoAssignedTasks = phaseOne.splitPhaseOne();
+        assignedTasks.addAll(demoAssignedTasks);
+        return assignedTasks;
+    }
+    public List<PhaseTwoAssignedTask> solvePhaseTwo(){
+        PhaseTwo phaseTwo = new PhaseTwo();
+        //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
+        List<Task> afterIntegratedDemoTaskList = taskList.stream().
+                filter(i->!i.getIsPublic()&&i.getOrderType()==1).collect(Collectors.toList());
+        phaseTwo.setTaskList(afterIntegratedDemoTaskList);
+        phaseTwo.setResourceItems(resourceItems);
+        List<PhaseTwoAssignedTask> assignedTasks = phaseTwo.solvePhaseTwo();
+        return assignedTasks;
+    }
+    public List<PhaseThreeAssignedTask> solvePhaseThree(){
+        PhaseThree phaseThree = new PhaseThree();
+        //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
+        List<Task> beforeIntegratedNormalTaskList = taskList.stream().
+                filter(i->!i.getIsPublic()&&i.getOrderType()==0&&i.getUnit()==0).collect(Collectors.toList());
+//        List<Task> afterIntegratedNormalTaskList = DataGenerator.createAfterIntegratedNormalTaskList(manufacturerOrders);
+        phaseThree.setTaskList(beforeIntegratedNormalTaskList);
+        phaseThree.setResourceItems(resourceItems);
+        List<PhaseThreeAssignedTask> assignedTasks1 = phaseThree.solveThree();
+
+        PhaseThreeLast phaseThreeLast = new PhaseThreeLast();
+        //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
+        List<Task> afterIntegratedNormalTaskList = taskList.stream().
+                filter(i->!i.getIsPublic()&&i.getOrderType()==0&&i.getUnit()==1).collect(Collectors.toList());
+//        List<Task> afterIntegratedNormalTaskList = DataGenerator.createAfterIntegratedNormalTaskList(manufacturerOrders);
+        phaseThreeLast.setTaskList(afterIntegratedNormalTaskList);
+        phaseThreeLast.setResourceItems(resourceItems);
+        phaseThreeLast.setPhaseThreeList(assignedTasks1);
+        List<PhaseThreeAssignedTask> assignedTasks2 = phaseThreeLast.solveThree();
+        assignedTasks1.addAll(assignedTasks2);
+        return assignedTasks1;
+    }
+
+    public void connectPhase(){
+
+    }
     //求解器配置
     public void solve() {
         CpSolver solver = new CpSolver();
@@ -191,7 +251,7 @@ public class OrToolsJobApp {
                 String taskId = task.getId();
                 String key = taskId;
                 AssignedTask assignedTask = new AssignedTask(
-                        taskId, (int) solver.value(allTasks.get(key).getStart()), task.getHourDuration());
+                        taskId, (int) solver.value(allTasks.get(key).getStart()), task.getHoursDuration());
                 System.out.println(task.getRelatedLayer());
                 BeanUtils.copyProperties(task,assignedTask);
                 assignedJobs.computeIfAbsent(task.getRequiredResourceId(), k -> new ArrayList<>());
@@ -226,7 +286,7 @@ public class OrToolsJobApp {
 
     }
 
-    public void output(){
+    public void output(String algorithmFileId){
         LocalDateTime assignedTime = LocalDateTime.now().plusDays(1).with(LocalTime.MIN);
         Output out = new Output();
         out.setCode(200);
@@ -239,6 +299,36 @@ public class OrToolsJobApp {
             System.out.println("orderId"+i.getId()+"stepSize"+i.getProduct().getStepList().size());
         });
         out.setManufacturerOrderList(manufacturerOrders);
+        System.out.println(firstAssignedTasks.size());
+        if(firstAssignedTasks.size()==0){
+
+            AssignedTask assignedTask = new AssignedTask();
+            assignedTask.setOriginalId("");
+            assignedTask.setSubId(0);
+            assignedTask.setCode("");
+            assignedTask.setSpeed(0);
+            assignedTask.setUnit(0);
+            assignedTask.setLayerNum(0);
+            assignedTask.setTaskType(0);
+            assignedTask.setRelatedLayer("");
+            assignedTask.setAmount(0);
+            assignedTask.setRunTime(LocalDate.now());
+            assignedTask.setSchedule(0);
+            assignedTask.setStepId("");
+            assignedTask.setStart(0);
+            assignedTask.setHoursDuration(0);
+            assignedTask.setStepIndex(0);
+            assignedTask.setOrderIndex(0);
+            assignedTask.setQuantity(0);
+            for(ManufacturerOrder order:out.getManufacturerOrderList()){
+                List<Step> stepList = order.getProduct().getStepList();
+                for(Step step:stepList){
+                    step.getAssignedTaskList().add(assignedTask);
+                }
+            }
+
+            System.out.println(JSON.toJSONString(out));
+        }else{
         firstAssignedTasks.forEach(assignedTask -> {
             LocalDateTime actualStartTime = assignedTime.plusHours(Optional.of(assignedTask.getStart()).orElse(0));
             LocalDateTime actualEndTime = assignedTime.plusHours(Optional.of(assignedTask.getStart()).orElse(0))
@@ -326,22 +416,23 @@ public class OrToolsJobApp {
 //        json.put("result", array);
 
 //        DataGenerator.writeResult(json);
-
-        String outputPath = "D:/data/"+LocalDateTime.now()+"_output.json";
+        }
+        DateTimeFormatter dfDateTime = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss");
+        String outputPath = "D:\\data\\"+dfDateTime.format(LocalDateTime.now())+"output.json";
         DataGenerator.writeObjectToFile(out,outputPath);
-//        sendOutputRequest(outputPath);
-
+        sendOutputRequest(outputPath,algorithmFileId);
 
 
     }
 
 
-    private ResponseEntity<String>  sendOutputRequest(String outputPath){
+    private ResponseEntity<String>  sendOutputRequest(String outputPath,String algorithmFileId){
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         MultiValueMap<String, String> map= new LinkedMultiValueMap();
         map.add("outputPath", outputPath);
+        map.add("algorithmFileId",algorithmFileId);
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity(map, headers);
         String url = config.getUrl();
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);

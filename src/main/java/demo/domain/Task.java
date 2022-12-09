@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Task extends TaskOrResource {
+public class Task extends TaskOrResource implements Serializable {
 
     private String id;
     // 任务code
@@ -29,7 +30,7 @@ public class Task extends TaskOrResource {
     // 层
     private Integer layerNum;
     // unit为1且为叠片工序时传入，代表前置层数约束
-    private List<Integer> relatedLayer;
+    private String relatedLayer;
 
 
     private Product product;
@@ -80,13 +81,31 @@ public class Task extends TaskOrResource {
 
     private Integer halfHourDuration;
 
-    private Integer hourDuration;
+    private Integer hoursDuration;
 
     private Integer orderIndex;
 
     private Integer quantity;
 
     private String relatedOrderId;//相关联的父订单id
+
+    private Integer orderType;//订单类型 0为正常单 1为小样单
+
+    private Integer relatedQuantity;//相关联的父订单的生产数量
+
+    private Integer orderDelayDays;
+
+    private String relatedTaskId;
+
+    private Boolean isSplit = false;//是否是分割后的第一个任务
+
+    private Boolean isPublic = true;
+
+    private String demoTaskId;//小样单对应的任务id list
+
+    private String demoTaskQuantity;//小样单对应的任务数量 list
+
+    private Integer taskIndex;
 
     private LocalDateTime taskBeginTime = LocalDateTime.of(2022, 10, 1, 0, 0, 0);
 
@@ -99,7 +118,7 @@ public class Task extends TaskOrResource {
     }
 
 
-    public Task(String id, String code, Integer speed, Integer unit, String taskOrder, Integer layerNum, List<Integer> relatedLayer) {
+    public Task(String id, String code, Integer speed, Integer unit, String taskOrder, Integer layerNum, String relatedLayer) {
         this.id = id;
         this.code = code;
         this.speed = speed;

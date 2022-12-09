@@ -1,5 +1,7 @@
 package demo.domain;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +33,7 @@ public class ManufacturerOrder {
     // type为0时传入，是为因打样导致的延滞天数
     private Integer delayDays;
     // 生产计划的就绪时间与要求完成日期
+    @JSONField(serialzeFeatures = SerializerFeature.WriteMapNullValue)
     private Period period;
     // 当前生产计划对应的产品，目前的结构设计中，一个生产计划只对应一个产品。未来的版本将会视需求情况，可支持多个产品。
     // 因为产品与工艺信息相关，因此，即命名一个生产计划可对应多个产品，这些产品的工艺路线与资源需求，
@@ -42,6 +45,11 @@ public class ManufacturerOrder {
     private Integer duration;
 
     private Integer releaseDate = 0;
+    //合并小样单和正常后的数量
+    @JSONField(serialize = false)
+    private Integer joinQuantity;
+
+    private Integer index;
 
 
 

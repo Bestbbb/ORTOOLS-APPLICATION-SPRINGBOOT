@@ -27,7 +27,6 @@ public class LoadFile {
 
     public static void write(String str, String path) {
 
-
         try (FileWriter writer = new FileWriter(path)) {
             writer.write("");//清空原文件内容
             writer.write(str);
@@ -70,11 +69,10 @@ public class LoadFile {
 
     // 用于读取JSON文件
     public static Input readJsonFile(String filePath) {
-
+        System.out.println(filePath);
         StringBuilder readJson = new StringBuilder();
         try (InputStreamReader inputStreamReader = new InputStreamReader(
-                Objects.requireNonNull(LoadFile.class.getClassLoader()
-                        .getResourceAsStream(filePath)), StandardCharsets.UTF_8);
+                Objects.requireNonNull(new FileInputStream(filePath)), StandardCharsets.UTF_8);
              BufferedReader reader = new BufferedReader(inputStreamReader)) {
 
             String tempString;

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 @ToString(exclude = "taskList")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Step {
+public class Step implements Serializable {
 
     // 步骤ID
     private String id;
