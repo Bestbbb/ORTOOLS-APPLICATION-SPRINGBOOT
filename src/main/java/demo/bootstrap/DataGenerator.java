@@ -232,7 +232,7 @@ public class DataGenerator {
         taskList.forEach(task ->
 
         {
-            System.out.println(task.getId()+" "+task.getDemoTaskId()+ " "+task.getDemoTaskQuantity());
+            System.out.println(task.getId()+" "+" hourduration:"+task.getHoursDuration()+" " +task.getDemoTaskId()+ " "+task.getDemoTaskQuantity());
         });
         return taskList;
     }

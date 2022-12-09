@@ -34,6 +34,7 @@ public class PhaseOne {
                     List<String> demoTaskIds = Arrays.asList(assignedTask.getDemoTaskId().split(","));
                     List<Integer> demoTaskQuantity = Arrays.asList(assignedTask.getDemoTaskQuantity().
                            split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());
+                    Integer sum = demoTaskQuantity.stream().reduce(Integer::sum).orElse(0);
                     Integer hoursDuration = assignedTask.getHoursDuration();
                     Integer end = assignedTask.getEnd();
                     Integer quantity = assignedTask.getQuantity();
@@ -59,6 +60,7 @@ public class PhaseOne {
                     Integer actualEnd = end-sumDemoHourDuration;
                     assignedTask.setHoursDuration(actualHoursDuration);
                     assignedTask.setEnd(actualEnd);
+                    assignedTask.setQuantity(quantity-sum);
 
 
 
