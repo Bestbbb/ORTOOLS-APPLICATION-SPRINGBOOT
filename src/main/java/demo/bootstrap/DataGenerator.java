@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class DataGenerator {
-    static String FILE_PATH = "D:\\文档\\Idea Projects\\ORTOOLS-APPLICATION\\src\\main\\resources\\json\\2022-11-15.json";
+    static String FILE_PATH = "D:\\文档\\Idea Projects\\ORTOOLS-APPLICATION\\src\\main\\resources\\json\\2022-12-28.json";
     //    static Input input;
     public final static String OUTPUT_PATH = "D:\\output.json";
     public final static String RESULT_PATH = "D:\\result.json";
@@ -103,9 +103,12 @@ public class DataGenerator {
                     task.setSingleTimeSlotSpeed(BigDecimal.valueOf(task.getSpeed()).divide(BigDecimal.valueOf(3), 4, RoundingMode.CEILING));
 //                    task.setTimeSlotDuration(BigDecimal.valueOf(order.getQuantity()).divide(task.getSingleTimeSlotSpeed(), 4, RoundingMode.CEILING));
                     task.setMinutesDuration((int) Math.ceil(24.0 * 60 * order.getQuantity() / task.getSpeed()));
-                    task.setHalfHourDuration((int) Math.ceil(48.0 * order.getQuantity() / task.getSpeed()));
+                    if(task.getHalfHourDuration()==null){
+                       task.setHalfHourDuration((int) Math.ceil(48.0 * order.getJoinQuantity() / task.getSpeed()));
+                    }
+//                    task.setHalfHourDuration((int) Math.ceil(48.0 * order.getQuantity() / task.getSpeed()));
                     if(task.getHoursDuration()==null){
-                        task.setHoursDuration((int) Math.ceil(24.0 * order.getJoinQuantity() / task.getSpeed()));
+                        task.setHoursDuration((int) Math.ceil(24.0* order.getJoinQuantity() / task.getSpeed()));
                     }
                     task.setManufacturerOrder(order);
                     task.setRequiredResourceId(resourceRequirementList.get(0).getId());
@@ -232,7 +235,7 @@ public class DataGenerator {
         taskList.forEach(task ->
 
         {
-            System.out.println(task.getId()+" "+" hourduration:"+task.getHoursDuration()+" " +task.getDemoTaskId()+ " "+task.getDemoTaskQuantity());
+            System.out.println(task.getId()+" "+" minutesduration:"+task.getMinutesDuration()+" hourduration:"+task.getHoursDuration()+" " +task.getDemoTaskId()+ " "+task.getDemoTaskQuantity());
         });
         return taskList;
     }
@@ -265,7 +268,7 @@ public class DataGenerator {
 
         List<ResourceItem> resourceItems = DataGenerator.generateResources(input);
         List<Task> tasks = DataGenerator.generateTaskList(manufacturerOrders);
-        tasks.stream().map(Task::getRelatedLayer).forEach(System.out::println);
+        tasks.stream().map(Task::getHalfHourDuration).forEach(System.out::println);
 //        joinList(tasks);
 //        joinOrderList(manufacturerOrders);
 //        resourceItems.forEach(i->System.out.println(i.toString()));

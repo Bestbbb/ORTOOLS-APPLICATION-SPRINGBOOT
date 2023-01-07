@@ -76,6 +76,13 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+<!--        &lt;!&ndash; okhttp 获取节假日&ndash;&gt;-->
+<!--        &lt;!&ndash;https://www.pangugle.com/lib/maven/view/com.squareup.okhttp3/okhttp.html&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.squareup.okhttp3</groupId>-->
+<!--            <artifactId>okhttp</artifactId>-->
+<!--            <version>3.14.9</version>-->
+<!--        </dependency>-->
 
 
     </dependencies>

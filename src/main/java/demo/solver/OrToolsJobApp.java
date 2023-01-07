@@ -9,6 +9,7 @@ import com.google.ortools.Loader;
 import com.google.ortools.sat.*;
 import demo.bootstrap.ContextUtil;
 import demo.bootstrap.DataGenerator;
+import demo.bootstrap.DateUtil;
 import demo.domain.*;
 import lombok.Data;
 import lombok.Getter;
@@ -287,7 +288,12 @@ public class OrToolsJobApp {
     }
 
     public void output(String algorithmFileId){
-        LocalDateTime assignedTime = LocalDateTime.now().plusDays(1).with(LocalTime.MIN);
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        LocalDateTime assignedTime = LocalDateTime.now().plusDays(1).with(LocalTime.MIN);
+        JSONObject nextWorkDay = DateUtil.getNextWorkDay("");
+        String date = nextWorkDay.get("date")+" 00:00:00";
+        LocalDateTime assignedTime = LocalDateTime.parse(date,df);
+
         Output out = new Output();
         out.setCode(200);
         out.setMessage("成功");
@@ -333,7 +339,6 @@ public class OrToolsJobApp {
             LocalDateTime actualStartTime = assignedTime.plusHours(Optional.of(assignedTask.getStart()).orElse(0));
             LocalDateTime actualEndTime = assignedTime.plusHours(Optional.of(assignedTask.getStart()).orElse(0))
                     .plusHours(Optional.of(assignedTask.getHoursDuration()).orElse(0));
-
             Duration duration = Duration.between(actualStartTime, actualEndTime);
             long totalMinutes = duration.toMinutes();
             List<LocalDateTime[]> everyDay = getEveryDay(actualStartTime, actualEndTime);
@@ -348,10 +353,14 @@ public class OrToolsJobApp {
                     if (tempEndTime.toLocalTime().isAfter(scheduleThree)) {
                         setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(tempStartTime.toLocalTime(),
                                 scheduleTwo).toMinutes(), totalMinutes) + 1));
-                        setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(scheduleTwo,
-                                scheduleThree).toMinutes(), totalMinutes) + 1));
-                        setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(scheduleThree,
-                                tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
+                        if (tempTotal < assignedTask.getQuantity()) {
+                            setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(scheduleTwo,
+                                    scheduleThree).toMinutes(), totalMinutes) + 1));
+                        }
+                        if (tempTotal < assignedTask.getQuantity()) {
+                            setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(scheduleThree,
+                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
+                        }
                     } else if (tempEndTime.toLocalTime().isAfter(scheduleTwo)) {
                         setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(tempStartTime.toLocalTime(),
                                 scheduleTwo).toMinutes(), totalMinutes) + 1));
@@ -378,7 +387,41 @@ public class OrToolsJobApp {
                             tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
                 }
             });
+
+            if (tempTotal < assignedTask.getQuantity()) {
+                tempTask.setAmount(tempTask.getAmount() + assignedTask.getQuantity() - tempTotal);
+            } else if (tempTotal > assignedTask.getQuantity()) {
+                tempTask.setAmount(assignedTask.getQuantity() - tempTotal + tempTask.getAmount());
+            }
         });
+
+        for (ManufacturerOrder mOrder : manufacturerOrders) {
+            Product product = mOrder.getProduct();
+            product.getStepList().forEach(outputStep -> {
+                List<AssignedTask> collect = outputStep.getAssignedTaskList().stream().sorted((o1, o2) -> {
+                            if (o1.getRunTime().isBefore(o2.getRunTime()))
+                                return -1;
+                            if (o1.getRunTime().isAfter(o2.getRunTime()))
+                                return 1;
+                            return 0;
+                        }
+                ).collect(Collectors.toList());
+                finalAssignedTasks.addAll(collect);
+            });
+
+        }
+
+        List<AssignedTask> collectFinal = finalAssignedTasks.stream().sorted((o1, o2) -> {
+                    if (o1.getRunTime().isBefore(o2.getRunTime()))
+                        return -1;
+                    if (o1.getRunTime().isAfter(o2.getRunTime()))
+                        return 1;
+                    return 0;
+                }
+        ).collect(Collectors.toList());
+
+        DateUtil.setOutputDate(collectFinal);
+
         for (ManufacturerOrder mOrder : manufacturerOrders) {
             Product product = mOrder.getProduct();
             product.getStepList().forEach(outputStep -> {
@@ -394,18 +437,9 @@ public class OrToolsJobApp {
                 outputStep.setExecutionDays(collect.get(collect.size() - 1).getRunTime().toEpochDay() -
                         collect.get(0).getRunTime().toEpochDay() + 1);
 
-                finalAssignedTasks.addAll(collect);
             });
 
         }
-//        List<AssignedTask> collectFinal = finalAssignedTasks.stream().sorted((o1, o2) -> {
-//                    if (o1.getRunTime().isBefore(o2.getRunTime()))
-//                        return -1;
-//                    if (o1.getRunTime().isAfter(o2.getRunTime()))
-//                        return 1;
-//                    return 0;
-//                }
-//        ).collect(Collectors.toList());
 //
 //
 //        JSONObject json = new JSONObject();
@@ -442,6 +476,9 @@ public class OrToolsJobApp {
 
     }
     private static void setTask(Output out, AssignedTask task, LocalDateTime runTime, int schedule, Integer amount) {
+        if(amount<0){
+
+        }
         tempTotal += amount;
         AssignedTask assignedTask = new AssignedTask();
         BeanUtils.copyProperties(task,assignedTask);

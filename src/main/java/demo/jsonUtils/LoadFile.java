@@ -26,14 +26,26 @@ public class LoadFile {
     }
 
     public static void write(String str, String path) {
-
-        try (FileWriter writer = new FileWriter(path)) {
-            writer.write("");//清空原文件内容
+        try {
+            BufferedWriter writer = new BufferedWriter (new OutputStreamWriter (new FileOutputStream (path),"UTF-8"));
+            writer.write("");
             writer.write(str);
             writer.flush();
-        } catch (Exception e) {
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
+
+//        try (FileWriter writer = new FileWriter(path)) {
+//            writer.write("");//清空原文件内容
+//            writer.write(str);
+//            writer.flush();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
     public static void saveJson(String filePath) {

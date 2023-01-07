@@ -57,10 +57,12 @@ public class PhaseOne {
                          sumDemoHourDuration+=demoHoursDuration;
                     }
                     Integer actualHoursDuration = hoursDuration-sumDemoHourDuration;
-                    Integer actualEnd = end-sumDemoHourDuration;
-                    assignedTask.setHoursDuration(actualHoursDuration);
-                    assignedTask.setEnd(actualEnd);
-                    assignedTask.setQuantity(quantity-sum);
+                    if(actualHoursDuration!=0) {
+                         Integer actualEnd = end - sumDemoHourDuration;
+                         assignedTask.setHoursDuration(actualHoursDuration);
+                         assignedTask.setEnd(actualEnd);
+                    }
+                    assignedTask.setQuantity(quantity - sum);
 
 
 
