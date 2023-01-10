@@ -9,7 +9,7 @@ public class SortTasks implements Comparator<AssignedTask> {
         if(o1.getStart()!=o2.getStart()){
             return o1.getStart()-o2.getStart();
         }else{
-            return o1.getStart()-o2.getStart();
+            return o1.getHoursDuration()-o2.getHoursDuration();
         }
 
     }

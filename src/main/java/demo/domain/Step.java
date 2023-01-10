@@ -36,4 +36,6 @@ public class Step implements Serializable {
 
     private String productId;
 
+    private List<String> holidayList;
+
 }
