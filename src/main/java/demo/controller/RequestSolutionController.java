@@ -95,12 +95,12 @@ public class RequestSolutionController {
             orToolsJobApp.output(algorithmFileId);
 
             dataSourceTransactionManager.commit(status);
+            jsonObject.put("code", 200);
         } catch (Exception e) {
             jsonObject.put("code", 500);
             jsonObject.put("message", e.getMessage());
         }
 
-        jsonObject.put("code", 200);
         return jsonObject;
     }
 }
