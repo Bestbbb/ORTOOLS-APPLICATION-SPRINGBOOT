@@ -19,6 +19,7 @@ import com.google.ortools.Loader;
 import com.google.ortools.sat.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static java.lang.Math.max;
@@ -32,22 +33,27 @@ public class MinimalJobshopSat {
     class Task {
       int machine;
       int duration;
-      Task(int machine, int duration) {
+      int priority;
+      List<Integer> id;
+      Task(int machine, int duration,int priority) {
         this.machine = machine;
         this.duration = duration;
+        this.priority=priority;
       }
     }
 
     final List<List<Task>> allJobs =
-        Arrays.asList(Arrays.asList(new Task(0, 3), new Task(1, 2), new Task(2, 2)), // Job0
-            Arrays.asList(new Task(0, 2), new Task(2, 1), new Task(1, 4)), // Job1
-            Arrays.asList(new Task(1, 4), new Task(2, 3)) // Job2
+        Arrays.asList(Arrays.asList(new Task(0, 3,1), new Task(1, 2,1), new Task(2, 2,10)), // Job0
+            Arrays.asList(new Task(0, 2,1), new Task(2, 1,1), new Task(1, 4,9)), // Job1
+            Arrays.asList(new Task(1, 4,1), new Task(2, 3,8)) // Job2
         );
+    List<Task> originalTaskList = new ArrayList<>();
 
     int numMachines = 1;
     for (List<Task> job : allJobs) {
       for (Task task : job) {
         numMachines = max(numMachines, 1 + task.machine);
+        originalTaskList.add(task);
       }
     }
     final int[] allMachines = IntStream.range(0, numMachines).toArray();
@@ -88,6 +94,7 @@ public class MinimalJobshopSat {
             taskType.start, LinearExpr.constant(task.duration), taskType.end, "interval" + suffix);
 
         List<Integer> key = Arrays.asList(jobID, taskID);
+        task.id = key;
         allTasks.put(key, taskType);
         machineToIntervals.computeIfAbsent(task.machine, (Integer k) -> new ArrayList<>());
         machineToIntervals.get(task.machine).add(taskType.interval);
@@ -101,7 +108,33 @@ public class MinimalJobshopSat {
       List<IntervalVar> list = machineToIntervals.get(machine);
       model.addNoOverlap(list);
     }
+    List<Task> collect = originalTaskList.stream().sorted((o1, o2) -> {
+      if (o1.priority > o2.priority)
+        return -1;
+      if (o1.priority < o2.priority)
+        return 1;
+      return 0;
 
+    }).collect(Collectors.toList());
+    collect.forEach(i->System.out.println(i.id+" "+i.priority));
+    List<BoolVar> boolVars = new ArrayList<>();
+    for(int i=0;i<collect.size()-1;i++){
+      Task preTask = collect.get(i);
+      Task nextTask = collect.get(i+1);
+      List<Integer> prevKey = preTask.id;
+      List<Integer> nextKey = nextTask.id;
+//      model.addGreaterOrEqual(allTasks.get(prevKey).start,allTasks.get(nextKey).start);
+      BoolVar boolVar = model.newBoolVar("xianhou");
+      model.addGreaterOrEqual(allTasks.get(prevKey).start,allTasks.get(nextKey).start).onlyEnforceIf(boolVar);
+      model.addLessThan(allTasks.get(prevKey).start,allTasks.get(nextKey).start).onlyEnforceIf(boolVar.not());
+      boolVars.add(boolVar);
+//      model.addCircuit().addArc(i,i+1,boolVar);
+
+    }
+    System.out.println(boolVars.size());
+    BoolVar[] boolVarss = new BoolVar[boolVars.size()];
+    BoolVar[] boolVars1 = boolVars.toArray(boolVarss);
+    model.minimize(LinearExpr.sum(boolVars1));
     // Precedences inside a job.
     for (int jobID = 0; jobID < allJobs.size(); ++jobID) {
       List<Task> job = allJobs.get(jobID);
@@ -116,10 +149,17 @@ public class MinimalJobshopSat {
     // [START objective]
     // Makespan objective.
     IntVar objVar = model.newIntVar(0, horizon, "makespan");
+
     List<IntVar> ends = new ArrayList<>();
     for (int jobID = 0; jobID < allJobs.size(); ++jobID) {
       List<Task> job = allJobs.get(jobID);
       List<Integer> key = Arrays.asList(jobID, job.size() - 1);
+      System.out.println(key);
+      System.out.println(job.get(job.size() - 1).priority);
+
+//      LinearExpr linearExpr =
+//              LinearExpr.weightedSum(new IntVar[]{allTasks.get(key).end}, new long[]{job.get(job.size() - 1).priority});
+//      ends.add(linearExpr);
       ends.add(allTasks.get(key).end);
     }
     model.addMaxEquality(objVar, ends);
@@ -139,12 +179,14 @@ public class MinimalJobshopSat {
         int taskID;
         int start;
         int duration;
+        int priority;
         // Ctor
-        AssignedTask(int jobID, int taskID, int start, int duration) {
+        AssignedTask(int jobID, int taskID, int start, int duration,int priority) {
           this.jobID = jobID;
           this.taskID = taskID;
           this.start = start;
           this.duration = duration;
+          this.priority = priority;
         }
       }
       class SortTasks implements Comparator<AssignedTask> {
@@ -166,7 +208,7 @@ public class MinimalJobshopSat {
           Task task = job.get(taskID);
           List<Integer> key = Arrays.asList(jobID, taskID);
           AssignedTask assignedTask = new AssignedTask(
-              jobID, taskID, (int) solver.value(allTasks.get(key).start), task.duration);
+              jobID, taskID, (int) solver.value(allTasks.get(key).start), task.duration,task.priority);
           assignedJobs.computeIfAbsent(task.machine, (Integer k) -> new ArrayList<>());
           assignedJobs.get(task.machine).add(assignedTask);
         }
