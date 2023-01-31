@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 
 public class LoadFile {
 
@@ -27,26 +26,13 @@ public class LoadFile {
 
     public static void write(String str, String path) {
         try {
-            BufferedWriter writer = new BufferedWriter (new OutputStreamWriter (new FileOutputStream (path),"UTF-8"));
+            BufferedWriter writer = new BufferedWriter (new OutputStreamWriter (new FileOutputStream (path), StandardCharsets.UTF_8));
             writer.write("");
             writer.write(str);
             writer.flush();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-//        try (FileWriter writer = new FileWriter(path)) {
-//            writer.write("");//清空原文件内容
-//            writer.write(str);
-//            writer.flush();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
     }
     public static void saveJson(String filePath) {
         String writeString = JSON.toJSONString(SerializerFeature.PrettyFormat);
@@ -84,7 +70,7 @@ public class LoadFile {
         System.out.println(filePath);
         StringBuilder readJson = new StringBuilder();
         try (InputStreamReader inputStreamReader = new InputStreamReader(
-                Objects.requireNonNull(new FileInputStream(filePath)), StandardCharsets.UTF_8);
+                new FileInputStream(filePath), StandardCharsets.UTF_8);
              BufferedReader reader = new BufferedReader(inputStreamReader)) {
 
             String tempString;
@@ -99,24 +85,11 @@ public class LoadFile {
         Input jsonObject = null;
         try {
             jsonObject = JSONObject.parseObject(readJson.toString(), Input.class);
-//            System.out.println(jsonObject.getResourcePool());
-//            JSONArray objects = JSONArray.parseArray(jsonObject.getResourcePool());
-//            List<JSONObject> jsonObjects = objects.toJavaList(JSONObject.class);
-//            jsonObjects.forEach(i->System.out.println(i.get("id")));
-
-
-//            LOGGER.info(JSON.toJSONString(jsonObject));
         } catch (JSONException e) {
             LOGGER.error(e.getMessage());
         }
         return jsonObject;
     }
-
-    public static void main(String[] args) {
-        saveJson("/22.json");
-//        System.out.println(LoadFile.readJsonFile("json/input_1.json"));
-    }
-
 
 }
 
