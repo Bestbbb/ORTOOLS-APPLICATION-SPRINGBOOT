@@ -8,10 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -42,15 +39,35 @@ public class DataGenerator {
 
     public static List<ManufacturerOrder> generateOrderList(Input input) {
         List<ManufacturerOrder> manufacturerOrderList = input.getManufacturerOrderList();
+
+        HashMap<String, List<ManufacturerOrder>> dict = new HashMap<>();
+        manufacturerOrderList.forEach(each -> {
+            if (each.getType().equals(1)) {
+                List<ManufacturerOrder> list = new ArrayList<>();
+                list.add(each);
+                dict.put(each.getId(), list);
+            } else {
+                dict.get(each.getRelatedManufactureOrderId()).add(each);
+            }
+        });
+
+        int listSize = dict.size();
+        List<ManufacturerOrder> list1 = new ArrayList<>();
+        List<ManufacturerOrder> list2 = new ArrayList<>();
+        int i = 0;
+        if (listSize > 1) {
+            for (String key : dict.keySet()) {
+                if (i <= listSize / 2 + 1) {
+                    list1.addAll(dict.get(key));
+                } else {
+                    list2.addAll(dict.get(key));
+                }
+                i++;
+            }
+        }
+
         //合并小样单和正常单
         joinOrderList(manufacturerOrderList);
-//        manufacturerOrderList.forEach(
-//                i->i.getProduct().getStepList().forEach(j->{
-//                    for (Task task : j.getTaskList()) {
-//                        System.out.println(task.getOrderId()+" " +task.getSpeed());
-//                    }
-//                })
-//        );
         return manufacturerOrderList;
     }
 
