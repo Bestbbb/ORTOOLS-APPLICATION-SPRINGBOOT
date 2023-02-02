@@ -42,12 +42,25 @@ public class DataGenerator {
 
         HashMap<String, List<ManufacturerOrder>> dict = new HashMap<>();
         manufacturerOrderList.forEach(each -> {
-            if (each.getType().equals(1)) {
+            if (each.getType().equals(0)) {
+                if (dict.containsKey(each.getId())) {
+                    dict.get(each.getId()).add(each);
+                } else {
+                    List<ManufacturerOrder> list = new ArrayList<>();
+                    list.add(each);
+                    dict.put(each.getId(), list);
+                }
                 List<ManufacturerOrder> list = new ArrayList<>();
                 list.add(each);
                 dict.put(each.getId(), list);
             } else {
-                dict.get(each.getRelatedManufactureOrderId()).add(each);
+                if (dict.containsKey(each.getRelatedManufactureOrderId())) {
+                    dict.get(each.getRelatedManufactureOrderId()).add(each);
+                } else {
+                    List<ManufacturerOrder> list = new ArrayList<>();
+                    list.add(each);
+                    dict.put(each.getRelatedManufactureOrderId(), list);
+                }
             }
         });
 
@@ -57,7 +70,7 @@ public class DataGenerator {
         int i = 0;
         if (listSize > 1) {
             for (String key : dict.keySet()) {
-                if (i <= listSize / 2 + 1) {
+                if (i < (listSize / 2)) {
                     list1.addAll(dict.get(key));
                 } else {
                     list2.addAll(dict.get(key));
