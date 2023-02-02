@@ -14,9 +14,14 @@ import demo.solver.PhaseOne;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +35,11 @@ public class RequestSolutionController {
     private PhaseTwoAssignedTaskService phaseTwoAssignedTaskService;
     @Autowired
     private PhaseThreeAssignedTaskService phaseThreeAssignedTaskService;
+    @Resource
+    private DataSourceTransactionManager dataSourceTransactionManager;
 
     @PostMapping("/planner/requestSolution")
-    public JSONObject requestSolution(String algorithmFileInputPath,String algorithmFileId){
+    public JSONObject requestSolution(String algorithmFileInputPath, String algorithmFileId) {
         System.out.println(config.getUrl());
         JSONObject jsonObject = new JSONObject();
         Input input = LoadFile.readJsonFile(algorithmFileInputPath);
@@ -51,35 +58,49 @@ public class RequestSolutionController {
 //        orToolsJobApp.createPrecedence();
 //        orToolsJobApp.defineObjective();
         List<PhaseOneAssignedTask> phaseOneAssignedTasks = orToolsJobApp.solvePhaseOne();
-        if(phaseOneAssignedTasks==null) {
+        if (phaseOneAssignedTasks == null) {
             jsonObject.put("code", 500);
             jsonObject.put("message", "Error in phase 1");
             return jsonObject;
         }
-        phaseOneAssignedTaskService.saveOrUpdateBatch(phaseOneAssignedTasks);
-        List<PhaseTwoAssignedTask> phaseTwoAssignedTasks = orToolsJobApp.solvePhaseTwo();
-        if(phaseTwoAssignedTasks==null) {
-            jsonObject.put("code", 500);
-            jsonObject.put("message", "Error in phase 2");
-            return jsonObject;
-        }
-        phaseTwoAssignedTaskService.saveOrUpdateBatch(phaseTwoAssignedTasks);
-        List<PhaseThreeAssignedTask> phaseThreeAssignedTasks = orToolsJobApp.solvePhaseThree();
-        if(phaseThreeAssignedTasks==null||phaseThreeAssignedTasks.size()==0) {
-            jsonObject.put("code", 500);
-            jsonObject.put("message", "Error in phase 3");
-            return jsonObject;
-        }
-        phaseThreeAssignedTaskService.saveOrUpdateBatch(phaseThreeAssignedTasks);
 
-        List<AssignedTask> assignedTasks = new ArrayList<>();
-        assignedTasks.addAll(phaseOneAssignedTasks);
-        assignedTasks.addAll(phaseTwoAssignedTasks);
-        assignedTasks.addAll(phaseThreeAssignedTasks);
-        orToolsJobApp.setFirstAssignedTasks(assignedTasks);
-        orToolsJobApp.setFirstAssignedTasksAnother(null);
-        orToolsJobApp.output(algorithmFileId);
-        jsonObject.put("code",200);
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setName("requestSolutionTx");
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        TransactionStatus status = dataSourceTransactionManager.getTransaction(def);
+
+        List<PhaseTwoAssignedTask> phaseTwoAssignedTasks;
+        List<PhaseThreeAssignedTask> phaseThreeAssignedTasks;
+        try {
+            phaseOneAssignedTaskService.saveOrUpdateBatch(phaseOneAssignedTasks);
+            phaseTwoAssignedTasks = orToolsJobApp.solvePhaseTwo();
+            if (phaseTwoAssignedTasks == null) {
+                jsonObject.put("code", 500);
+                jsonObject.put("message", "Error in phase 2");
+                return jsonObject;
+            }
+            phaseTwoAssignedTaskService.saveOrUpdateBatch(phaseTwoAssignedTasks);
+            phaseThreeAssignedTasks = orToolsJobApp.solvePhaseThree();
+            if (phaseThreeAssignedTasks == null || phaseThreeAssignedTasks.size() == 0) {
+                jsonObject.put("code", 500);
+                jsonObject.put("message", "Error in phase 3");
+                return jsonObject;
+            }
+            phaseThreeAssignedTaskService.saveOrUpdateBatch(phaseThreeAssignedTasks);
+            List<AssignedTask> assignedTasks = new ArrayList<>();
+            assignedTasks.addAll(phaseOneAssignedTasks);
+            assignedTasks.addAll(phaseTwoAssignedTasks);
+            assignedTasks.addAll(phaseThreeAssignedTasks);
+            orToolsJobApp.setFirstAssignedTasks(assignedTasks);
+            orToolsJobApp.output(algorithmFileId);
+
+            dataSourceTransactionManager.commit(status);
+            jsonObject.put("code", 200);
+        } catch (Exception e) {
+            jsonObject.put("code", 500);
+            jsonObject.put("message", e.getMessage());
+        }
+
         return jsonObject;
     }
 
