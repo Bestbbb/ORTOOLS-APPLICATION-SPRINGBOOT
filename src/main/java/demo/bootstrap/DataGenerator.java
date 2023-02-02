@@ -1,6 +1,7 @@
 package demo.bootstrap;
 
 import com.google.common.base.Joiner;
+import com.sun.jna.WString;
 import demo.domain.*;
 import demo.jsonUtils.LoadFile;
 import org.springframework.beans.BeanUtils;
@@ -51,25 +52,17 @@ public class DataGenerator {
     private static List<List<ManufacturerOrder>> divideOrderToTwoPart(List<ManufacturerOrder> manufacturerOrderList) {
         HashMap<String, List<ManufacturerOrder>> dict = new HashMap<>();
         manufacturerOrderList.forEach(each -> {
-            if (each.getType().equals(0)) {
-                if (dict.containsKey(each.getId())) {
-                    dict.get(each.getId()).add(each);
-                } else {
-                    List<ManufacturerOrder> list = new ArrayList<>();
-                    list.add(each);
-                    dict.put(each.getId(), list);
-                }
+            String id = each.getId();
+            if (each.getType().equals(1)) {
+                id = each.getRelatedManufactureOrderId();
+            }
+
+            if (dict.containsKey(id)) {
+                dict.get(id).add(each);
+            } else {
                 List<ManufacturerOrder> list = new ArrayList<>();
                 list.add(each);
-                dict.put(each.getId(), list);
-            } else {
-                if (dict.containsKey(each.getRelatedManufactureOrderId())) {
-                    dict.get(each.getRelatedManufactureOrderId()).add(each);
-                } else {
-                    List<ManufacturerOrder> list = new ArrayList<>();
-                    list.add(each);
-                    dict.put(each.getRelatedManufactureOrderId(), list);
-                }
+                dict.put(id, list);
             }
         });
 
