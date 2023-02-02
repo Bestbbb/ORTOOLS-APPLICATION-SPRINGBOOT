@@ -40,6 +40,15 @@ public class DataGenerator {
     public static List<ManufacturerOrder> generateOrderList(Input input) {
         List<ManufacturerOrder> manufacturerOrderList = input.getManufacturerOrderList();
 
+        // 把一个订单才分2个小定单
+        List<List<ManufacturerOrder>> lists = divideOrderToTwoPart(manufacturerOrderList);
+
+        //合并小样单和正常单
+        joinOrderList(manufacturerOrderList);
+        return manufacturerOrderList;
+    }
+
+    private static List<List<ManufacturerOrder>> divideOrderToTwoPart(List<ManufacturerOrder> manufacturerOrderList) {
         HashMap<String, List<ManufacturerOrder>> dict = new HashMap<>();
         manufacturerOrderList.forEach(each -> {
             if (each.getType().equals(0)) {
@@ -79,9 +88,10 @@ public class DataGenerator {
             }
         }
 
-        //合并小样单和正常单
-        joinOrderList(manufacturerOrderList);
-        return manufacturerOrderList;
+        ArrayList<List<ManufacturerOrder>> res = new ArrayList<>();
+        res.add(list1);
+        res.add(list2);
+        return res;
     }
 
 
