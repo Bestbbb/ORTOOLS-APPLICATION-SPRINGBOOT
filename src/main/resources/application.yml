@@ -5,4 +5,4 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/planner?characterEncoding=utf-8&serverTimezone=UTC
     username: root
-    password: iamno.1
+    password: 123456

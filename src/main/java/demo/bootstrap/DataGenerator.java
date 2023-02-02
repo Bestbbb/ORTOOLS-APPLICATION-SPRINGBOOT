@@ -1,36 +1,23 @@
 package demo.bootstrap;
+
 import com.google.common.base.Joiner;
-import demo.domain.TaskOrResource;
-import demo.domain.Task;
-import demo.domain.TaskType;
-import demo.domain.Product;
-import demo.domain.ManufacturerOrder;
-import com.google.common.collect.Lists;
-import java.time.LocalDate;
-
-
+import com.sun.jna.WString;
 import demo.domain.*;
-import demo.jsonUtils.DeepCopyUtil;
 import demo.jsonUtils.LoadFile;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
 public class DataGenerator {
     static String FILE_PATH = "D:\\文档\\Idea Projects\\ORTOOLS-APPLICATION\\src\\main\\resources\\json\\2022-12-28.json";
-    //    static Input input;
     public final static String OUTPUT_PATH = "D:\\output.json";
     public final static String RESULT_PATH = "D:\\result.json";
 
-    //    static {
-//        input = LoadFile.readJsonFile(FILE_PATH);
-//    }
     public static void writeObjectToFile(Object output, String outputPath) {
         LoadFile.writeJsonFile(output, outputPath);
     }
@@ -53,6 +40,10 @@ public class DataGenerator {
 
     public static List<ManufacturerOrder> generateOrderList(Input input) {
         List<ManufacturerOrder> manufacturerOrderList = input.getManufacturerOrderList();
+
+        // 把一个订单才分2个小定单
+        List<List<ManufacturerOrder>> lists = divideOrderToTwoPart(manufacturerOrderList);
+
         //合并小样单和正常单
         joinOrderList(manufacturerOrderList);
 //        manufacturerOrderList.forEach(
@@ -75,6 +66,44 @@ public class DataGenerator {
         return manufacturerOrderList;
     }
 
+    private static List<List<ManufacturerOrder>> divideOrderToTwoPart(List<ManufacturerOrder> manufacturerOrderList) {
+        HashMap<String, List<ManufacturerOrder>> dict = new HashMap<>();
+        manufacturerOrderList.forEach(each -> {
+            String id = each.getId();
+            if (each.getType().equals(1)) {
+                id = each.getRelatedManufactureOrderId();
+            }
+
+            if (dict.containsKey(id)) {
+                dict.get(id).add(each);
+            } else {
+                List<ManufacturerOrder> list = new ArrayList<>();
+                list.add(each);
+                dict.put(id, list);
+            }
+        });
+
+        int listSize = dict.size();
+        List<ManufacturerOrder> list1 = new ArrayList<>();
+        List<ManufacturerOrder> list2 = new ArrayList<>();
+        int i = 0;
+        if (listSize > 1) {
+            for (String key : dict.keySet()) {
+                if (i < (listSize / 2)) {
+                    list1.addAll(dict.get(key));
+                } else {
+                    list2.addAll(dict.get(key));
+                }
+                i++;
+            }
+        }
+
+        ArrayList<List<ManufacturerOrder>> res = new ArrayList<>();
+        res.add(list1);
+        res.add(list2);
+        return res;
+    }
+
 
     public static List<Task> generateTaskList(List<ManufacturerOrder> manufacturerOrderList) {
         List<Task> taskList = new ArrayList<>();
@@ -94,33 +123,32 @@ public class DataGenerator {
                     task.setTaskIndex(taskIndex);
                     task.setProduct(product);
                     task.setStepIndex(stepIndex);
-                    if(task.getOrderIndex()==null){
+                    if (task.getOrderIndex() == null) {
                         task.setOrderIndex(orderIndex);
                     }
                     task.setProductId(product.getId());
                     task.setStepId(step.getId());
                     task.setOrderId(order.getId());
-                    if(task.getOrderType()==null){
+                    if (task.getOrderType() == null) {
                         task.setOrderType(order.getType());
                     }
-                    if(task.getQuantity()==null){
+                    if (task.getQuantity() == null) {
                         task.setQuantity(order.getJoinQuantity());
                     }
                     if (order.getType() == 1 && order.getRelatedManufactureOrderId() != null) {
                         task.setRelatedOrderId(order.getRelatedManufactureOrderId());
                     }
-                    task.setPriority(priority);
                     //duration 还得修改
                     task.setDuration((int) Math.ceil((double) order.getQuantity() / task.getSpeed()));
                     task.setSingleTimeSlotSpeed(BigDecimal.valueOf(task.getSpeed()).divide(BigDecimal.valueOf(3), 4, RoundingMode.CEILING));
 //                    task.setTimeSlotDuration(BigDecimal.valueOf(order.getQuantity()).divide(task.getSingleTimeSlotSpeed(), 4, RoundingMode.CEILING));
                     task.setMinutesDuration((int) Math.ceil(24.0 * 60 * order.getQuantity() / task.getSpeed()));
-                    if(task.getHalfHourDuration()==null){
-                       task.setHalfHourDuration((int) Math.ceil(48.0 * order.getJoinQuantity() / task.getSpeed()));
+                    if (task.getHalfHourDuration() == null) {
+                        task.setHalfHourDuration((int) Math.ceil(48.0 * order.getJoinQuantity() / task.getSpeed()));
                     }
 //                    task.setHalfHourDuration((int) Math.ceil(48.0 * order.getQuantity() / task.getSpeed()));
-                    if(task.getHoursDuration()==null){
-                        task.setHoursDuration((int) Math.ceil(24.0* order.getJoinQuantity() / task.getSpeed()));
+                    if (task.getHoursDuration() == null) {
+                        task.setHoursDuration((int) Math.ceil(24.0 * order.getJoinQuantity() / task.getSpeed()));
                     }
                     task.setManufacturerOrder(order);
                     task.setRequiredResourceId(resourceRequirementList.get(0).getId());
@@ -164,7 +192,7 @@ public class DataGenerator {
         }
         //对每个unit = 0的单个任务设置
         Map<String, Map<Integer, List<Task>>> orderIdToLayerNumberToTasks =
-                taskList.parallelStream().filter(task -> task.getUnit() ==0 ).collect(Collectors.groupingBy(Task::getOrderId, Collectors.groupingBy(Task::getLayerNum)));
+                taskList.parallelStream().filter(task -> task.getUnit() == 0).collect(Collectors.groupingBy(Task::getOrderId, Collectors.groupingBy(Task::getLayerNum)));
         orderIdToLayerNumberToTasks.forEach(
                 (orderId, map) -> {
                     map.forEach((layerNumber, tasks) -> {
@@ -182,7 +210,7 @@ public class DataGenerator {
         );
         //对每个unit=1的套型任务的设置
         Map<String, List<Task>> orderIdToTasks =
-                taskList.parallelStream().filter(task->task.getUnit()==1).collect(Collectors.groupingBy(Task::getOrderId));
+                taskList.parallelStream().filter(task -> task.getUnit() == 1).collect(Collectors.groupingBy(Task::getOrderId));
         orderIdToTasks.forEach((orderId, tasks) -> {
             for (int i = 0; i < tasks.size(); i++) {
                 if (i != tasks.size() - 1) {
@@ -232,11 +260,9 @@ public class DataGenerator {
 //        DataGenerator.createAfterIntegratedNormalTaskList(manufacturerOrderList);
 //        System.out.println(taskList.size());
 //        Collections.reverse(taskList);
-        taskList.forEach(task ->
-
-        {
-            if(task.getNextTask()!=null){
-                System.out.println("id:"+task.getId() +" next:"+task.getNextTask().getId());
+        taskList.forEach(task -> {
+            if (task.getNextTask() != null) {
+                System.out.println("id:" + task.getId() + " next:" + task.getNextTask().getId());
 //                System.out.println("ispublic: "+task.getIsPublic()+" orderid: "+task.getOrderId() +" RElated-orderid"+task.getRelatedOrderId()+" "+"taskid: "+task.getId()+" "+
 //                        "ordertype "+task.getOrderType()+" "+"related task id "+task.getRelatedTaskId() +" unit : "+task.getUnit()
 //                        +" next:"+task.getNextTask().getId()+"step index:"+task.getStepIndex()+" task index"+task.getTaskIndex());
@@ -245,31 +271,8 @@ public class DataGenerator {
         });
         setSplitQuantity(taskList);
         taskList.forEach(task ->
-
-        {
-            System.out.println(task.getId()+" "+" minutesduration:"+task.getMinutesDuration()+" hourduration:"+task.getHoursDuration()+" " +task.getDemoTaskId()+ " "+task.getDemoTaskQuantity());
-        });
+                System.out.println(task.getId() + " " + " minutesduration:" + task.getMinutesDuration() + " hourduration:" + task.getHoursDuration() + " " + task.getDemoTaskId() + " " + task.getDemoTaskQuantity()));
         return taskList;
-    }
-
-    public static List<Timeslot> generateTimeSlotList() {
-        List<Timeslot> timeslotList = new ArrayList<>(3);
-//        timeslotList.add(new Timeslot(0, LocalTime.of(0, 0), LocalTime.of(8, 0)));
-//        timeslotList.add(new Timeslot(1, LocalTime.of(8, 0), LocalTime.of(16, 0)));
-//        timeslotList.add(new Timeslot(2, LocalTime.of(16, 0), LocalTime.of(24, 0)));
-        return timeslotList;
-    }
-
-
-    public static List<ScheduleDate> generateScheduleDateList() {
-        List<ScheduleDate> scheduleDateList = new ArrayList<>(14);
-        scheduleDateList.add(new ScheduleDate(LocalDateTime.now(), null));
-
-        for (int i = 1; i < 14; i++) {
-            scheduleDateList.add(new ScheduleDate(LocalDateTime.now().plusDays(i), null));
-        }
-
-        return scheduleDateList;
     }
 
     public static void main(String[] args) {
@@ -397,17 +400,18 @@ public class DataGenerator {
 
 
     }
-    public static void setSplitQuantity(List<Task> taskList){
 
-        Map<String,List<Task>> relatedOrderIdToTasks = taskList.parallelStream().filter(task -> task.getIsPublic()&&task.getRelatedOrderId()!=null).collect(Collectors.groupingBy(Task::getRelatedOrderId));
-        relatedOrderIdToTasks.forEach((s, taskList1) ->{
+    public static void setSplitQuantity(List<Task> taskList) {
 
-            for(Task task:taskList){
+        Map<String, List<Task>> relatedOrderIdToTasks = taskList.parallelStream().filter(task -> task.getIsPublic() && task.getRelatedOrderId() != null).collect(Collectors.groupingBy(Task::getRelatedOrderId));
+        relatedOrderIdToTasks.forEach((s, taskList1) -> {
+
+            for (Task task : taskList) {
                 List<String> demoTaskIdList = new ArrayList<>();
                 List<Integer> demoTaskQuantityList = new ArrayList<>();
-                if(task.getOrderId().equals(s)){
-                    for(Task demoTask:taskList1){
-                        if(demoTask.getStepIndex()==task.getStepIndex() &&demoTask.getTaskIndex()==task.getTaskIndex()){
+                if (task.getOrderId().equals(s)) {
+                    for (Task demoTask : taskList1) {
+                        if (Objects.equals(demoTask.getStepIndex(), task.getStepIndex()) && Objects.equals(demoTask.getTaskIndex(), task.getTaskIndex())) {
                             demoTaskIdList.add(demoTask.getId());
                             demoTaskQuantityList.add(demoTask.getQuantity());
                         }
