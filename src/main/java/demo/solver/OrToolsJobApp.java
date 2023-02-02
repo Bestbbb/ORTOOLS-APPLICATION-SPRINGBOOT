@@ -54,6 +54,7 @@ public class OrToolsJobApp {
     private List<ManufacturerOrder> manufacturerOrders;
     LocalDateTime taskBeginTime = LocalDateTime.of(2022, 10, 1, 0, 0, 0);
     List<AssignedTask> firstAssignedTasks = new ArrayList<>();
+    List<AssignedTask> firstAssignedTasksAnother = new ArrayList<>();
     List<AssignedTask> finalAssignedTasks = new ArrayList<>();
 
 

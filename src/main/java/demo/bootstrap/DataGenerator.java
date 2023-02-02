@@ -62,6 +62,16 @@ public class DataGenerator {
 //                    }
 //                })
 //        );
+        List<ManufacturerOrder> collect = manufacturerOrderList.stream().sorted(
+                (o1, o2) -> {
+                    if (o1.getPriority() > o2.getPriority())
+                        return -1;
+                    if (o1.getPriority() < o2.getPriority())
+                        return 1;
+                    return 0;
+                }
+        ).collect(Collectors.toList());
+        collect.forEach(i->System.out.println("prioirty"+i.getPriority()));
         return manufacturerOrderList;
     }
 
@@ -72,6 +82,7 @@ public class DataGenerator {
         int orderIndex = 0;
         for (ManufacturerOrder order : manufacturerOrderList) {
             Product product = order.getProduct();
+            Integer priority = order.getPriority();
             List<Step> stepList = product.getStepList();
             int stepIndex = 0;
 
@@ -98,6 +109,7 @@ public class DataGenerator {
                     if (order.getType() == 1 && order.getRelatedManufactureOrderId() != null) {
                         task.setRelatedOrderId(order.getRelatedManufactureOrderId());
                     }
+                    task.setPriority(priority);
                     //duration 还得修改
                     task.setDuration((int) Math.ceil((double) order.getQuantity() / task.getSpeed()));
                     task.setSingleTimeSlotSpeed(BigDecimal.valueOf(task.getSpeed()).divide(BigDecimal.valueOf(3), 4, RoundingMode.CEILING));

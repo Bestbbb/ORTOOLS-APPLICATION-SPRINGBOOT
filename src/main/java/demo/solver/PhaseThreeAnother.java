@@ -5,7 +5,6 @@ import com.google.ortools.sat.*;
 import demo.bootstrap.ContextUtil;
 import demo.domain.*;
 import demo.domain.DTO.OrderIdAndTaskDto;
-import demo.service.AssignedTaskService;
 import demo.service.PhaseOneAssignedTaskService;
 import demo.service.PhaseTwoAssignedTaskService;
 import lombok.Getter;
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 
-public class PhaseThree {
+public class PhaseThreeAnother {
     private PhaseOneAssignedTaskService phaseOneAssignedTaskService = ContextUtil.getBean(PhaseOneAssignedTaskService.class);
     private PhaseTwoAssignedTaskService phaseTwoAssignedTaskService = ContextUtil.getBean(PhaseTwoAssignedTaskService.class);
 

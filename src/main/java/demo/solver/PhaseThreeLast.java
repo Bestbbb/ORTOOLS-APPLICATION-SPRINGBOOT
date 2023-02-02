@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.google.ortools.sat.*;
 import demo.bootstrap.ContextUtil;
 import demo.domain.*;
+import demo.domain.DTO.OrderIdAndTaskDto;
 import demo.service.PhaseOneAssignedTaskService;
 import demo.service.PhaseTwoAssignedTaskService;
 import lombok.Getter;
@@ -92,6 +93,29 @@ public class PhaseThreeLast {
 //                model.addLessOrEqual(allTasks.get(nextKey).getStart(), LinearExpr.weightedSum(new IntVar[]{allTasks.get(preKey).getEnd(),maxConstant},new long[]{1,1}));
 
             }
+        }
+    }
+    private void createPriorityHardConstraint(){
+        List<OrderIdAndTaskDto> orderIdAndTaskDtoList = new ArrayList<>();
+        Map<String, List<Task>> collect =
+                taskList.stream().collect(
+                        Collectors.groupingBy(Task::getOrderId,TreeMap::new,
+                                Collectors.collectingAndThen(Collectors.toList(),taskList->taskList.stream().sorted(Comparator.comparingInt(Task::getPriority).reversed()).collect(Collectors.toList()))));
+        collect.forEach((k,v)->{
+            OrderIdAndTaskDto dto = new OrderIdAndTaskDto();
+            dto.setOrderId(k);
+            dto.setTaskList(v);
+            orderIdAndTaskDtoList.add(dto);
+        });
+
+        for(int i = 0;i<orderIdAndTaskDtoList.size()-1;i++){
+            OrderIdAndTaskDto preDto = orderIdAndTaskDtoList.get(i);
+            OrderIdAndTaskDto nextDto = orderIdAndTaskDtoList.get(i+1);
+            Task prevTask = preDto.getTaskList().get(0);
+            Task nextTask = nextDto.getTaskList().get(0);
+            String prevKey = prevTask.getId();
+            String nextKey = nextTask.getId();
+            model.addLessOrEqual(allTasks.get(prevKey).getStart(),allTasks.get(nextKey).getStart());
         }
     }
 

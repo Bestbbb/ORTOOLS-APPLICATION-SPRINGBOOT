@@ -77,6 +77,7 @@ public class RequestSolutionController {
         assignedTasks.addAll(phaseTwoAssignedTasks);
         assignedTasks.addAll(phaseThreeAssignedTasks);
         orToolsJobApp.setFirstAssignedTasks(assignedTasks);
+        orToolsJobApp.setFirstAssignedTasksAnother(null);
         orToolsJobApp.output(algorithmFileId);
         jsonObject.put("code",200);
         return jsonObject;

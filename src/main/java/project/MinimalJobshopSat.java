@@ -34,6 +34,7 @@ public class MinimalJobshopSat {
       int machine;
       int duration;
       int priority;
+      int jobId;
       List<Integer> id;
       Task(int machine, int duration,int priority) {
         this.machine = machine;
@@ -43,9 +44,9 @@ public class MinimalJobshopSat {
     }
 
     final List<List<Task>> allJobs =
-        Arrays.asList(Arrays.asList(new Task(0, 3,1), new Task(1, 2,1), new Task(2, 2,10)), // Job0
-            Arrays.asList(new Task(0, 2,1), new Task(2, 1,1), new Task(1, 4,9)), // Job1
-            Arrays.asList(new Task(1, 4,1), new Task(2, 3,8)) // Job2
+        Arrays.asList(Arrays.asList(new Task(0, 3,10), new Task(1, 2,10), new Task(2, 2,10)), // Job0
+            Arrays.asList(new Task(0, 2,3), new Task(2, 1,3), new Task(1, 4,3)), // Job1
+            Arrays.asList(new Task(1, 4,1), new Task(2, 3,1)) // Job2
         );
     List<Task> originalTaskList = new ArrayList<>();
 
@@ -95,6 +96,7 @@ public class MinimalJobshopSat {
 
         List<Integer> key = Arrays.asList(jobID, taskID);
         task.id = key;
+        task.jobId=jobID;
         allTasks.put(key, taskType);
         machineToIntervals.computeIfAbsent(task.machine, (Integer k) -> new ArrayList<>());
         machineToIntervals.get(task.machine).add(taskType.interval);
@@ -118,23 +120,36 @@ public class MinimalJobshopSat {
     }).collect(Collectors.toList());
     collect.forEach(i->System.out.println(i.id+" "+i.priority));
     List<BoolVar> boolVars = new ArrayList<>();
-    for(int i=0;i<collect.size()-1;i++){
-      Task preTask = collect.get(i);
-      Task nextTask = collect.get(i+1);
+    for (int jobID = 0; jobID < allJobs.size()-1; ++jobID) {
+      List<Task> job = allJobs.get(jobID);
+      List<Task> nextJob = allJobs.get(jobID+1);
+      Task preTask = job.get(0);
+      Task nextTask = nextJob.get(0);
       List<Integer> prevKey = preTask.id;
       List<Integer> nextKey = nextTask.id;
-//      model.addGreaterOrEqual(allTasks.get(prevKey).start,allTasks.get(nextKey).start);
-      BoolVar boolVar = model.newBoolVar("xianhou");
-      model.addGreaterOrEqual(allTasks.get(prevKey).start,allTasks.get(nextKey).start).onlyEnforceIf(boolVar);
-      model.addLessThan(allTasks.get(prevKey).start,allTasks.get(nextKey).start).onlyEnforceIf(boolVar.not());
-      boolVars.add(boolVar);
-//      model.addCircuit().addArc(i,i+1,boolVar);
+      model.addLessOrEqual(allTasks.get(prevKey).start,allTasks.get(nextKey).start);
 
     }
-    System.out.println(boolVars.size());
-    BoolVar[] boolVarss = new BoolVar[boolVars.size()];
-    BoolVar[] boolVars1 = boolVars.toArray(boolVarss);
-    model.minimize(LinearExpr.sum(boolVars1));
+//    for(int i=0;i<collect.size()-1;i++){
+//      Task preTask = collect.get(i);
+//      Task nextTask = collect.get(i+1);
+//      List<Integer> prevKey = preTask.id;
+//      System.out.println(preTask.id);
+//      List<Integer> nextKey = nextTask.id;
+////      model.addGreaterOrEqual(allTasks.get(prevKey).start,allTasks.get(nextKey).start);
+//      BoolVar boolVar = model.newBoolVar("xianhou");
+//      model.addLessOrEqual(allTasks.get(prevKey).start,allTasks.get(nextKey).start).onlyEnforceIf(boolVar);
+//      model.addGreaterOrEqual(allTasks.get(prevKey).start,allTasks.get(nextKey).start).onlyEnforceIf(boolVar.not());
+//      boolVars.add(boolVar);
+////      model.addCircuit().addArc(i,i+1,boolVar);
+//
+//    }
+//    System.out.println(boolVars.size());
+//    BoolVar[] boolVarss = new BoolVar[boolVars.size()];
+//    BoolVar[] boolVars1 = boolVars.toArray(boolVarss);
+//    model.maximize(LinearExpr.sum(boolVars1));
+//    IntVar minConstant = model.newConstant(1);
+//    IntVar maxConstant = model.newConstant(3);
     // Precedences inside a job.
     for (int jobID = 0; jobID < allJobs.size(); ++jobID) {
       List<Task> job = allJobs.get(jobID);
@@ -142,6 +157,9 @@ public class MinimalJobshopSat {
         List<Integer> prevKey = Arrays.asList(jobID, taskID);
         List<Integer> nextKey = Arrays.asList(jobID, taskID + 1);
         model.addGreaterOrEqual(allTasks.get(nextKey).start, allTasks.get(prevKey).end);
+//        model.addGreaterOrEqual(allTasks.get(nextKey).start, LinearExpr.weightedSum(new IntVar[]{allTasks.get(prevKey).end,minConstant},new long[]{1,1}));
+//        model.addLessOrEqual(allTasks.get(nextKey).start, LinearExpr.weightedSum(new IntVar[]{allTasks.get(prevKey).end,maxConstant},new long[]{1,1}));
+
       }
     }
     // [END constraints]

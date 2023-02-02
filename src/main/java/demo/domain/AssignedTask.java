@@ -50,6 +50,8 @@ public class AssignedTask implements Serializable{
 
     private String relatedTaskId;
 
+    private Integer priority;
+
 
 
     public AssignedTask(String originalId,Integer start,Integer hoursDuration){

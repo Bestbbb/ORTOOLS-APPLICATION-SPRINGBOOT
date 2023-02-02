@@ -1,11 +1,10 @@
 package demo.solver;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.google.ortools.sat.*;
 import demo.bootstrap.ContextUtil;
 import demo.domain.*;
 import demo.domain.DTO.OrderIdAndTaskDto;
-import demo.service.AssignedTaskService;
 import demo.service.PhaseOneAssignedTaskService;
 import demo.service.PhaseTwoAssignedTaskService;
 import lombok.Getter;
@@ -18,11 +17,12 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 
-public class PhaseThree {
+public class PhaseThreeLastAnother {
     private PhaseOneAssignedTaskService phaseOneAssignedTaskService = ContextUtil.getBean(PhaseOneAssignedTaskService.class);
     private PhaseTwoAssignedTaskService phaseTwoAssignedTaskService = ContextUtil.getBean(PhaseTwoAssignedTaskService.class);
 
     private List<Task> taskList;
+    private List<PhaseThreeAssignedTask> phaseThreeList;
     private Integer horizon=0;
     Map<String, TaskVariable> allTasks = new HashMap<>();
     Map<String, List<IntervalVar>> resourceToIntervals = new HashMap<>();
@@ -41,39 +41,21 @@ public class PhaseThree {
 
     private void generateVariables() {
         for (Task task : taskList) {
-            Integer max = 0;
             Integer maxEnd = 0;
-            Integer start = 0;
-
-            if(!task.getIsPublic()){
-                Task pre = task.getPreTask();
-                if(pre!=null&&pre.getIsPublic()){
-                    String taskId = pre.getId();
-                    //                List<Integer> relatedLayer = Arrays.asList(task.getRelatedLayer().
-//                        split(",")).stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
-                    LambdaQueryWrapper<PhaseOneAssignedTask> wrapper = new LambdaQueryWrapper<>();
-//                wrapper.in(PhaseOneAssignedTask::getLayerNum, relatedLayer);
-                    wrapper.eq(PhaseOneAssignedTask::getOrderId,task.getOrderId());
-                    List<PhaseOneAssignedTask> phaseOneAssignedTasks = phaseOneAssignedTaskService.list(wrapper);
-                    max = Collections.max(phaseOneAssignedTasks.stream().map(PhaseOneAssignedTask::getEnd).collect(Collectors.toList()));
-
-                    LambdaQueryWrapper<PhaseTwoAssignedTask> wrapper2 = new LambdaQueryWrapper<>();
-                    wrapper2.eq(PhaseTwoAssignedTask::getRelatedOrderId,task.getOrderId());
-                    List<PhaseTwoAssignedTask> phaseTwoAssignedTasks = phaseTwoAssignedTaskService.list(wrapper2);
-                    maxEnd = Collections.max(phaseTwoAssignedTasks.stream().map(PhaseTwoAssignedTask::getEnd).collect(Collectors.toList()));
-                    if(maxEnd - max<=task.getOrderDelayDays()*24){
-                        start = max+ task.getOrderDelayDays()*24;
-                    }else{
-                        start = maxEnd;
-                    }
-                }
-
+            if (StringUtils.isNotBlank(task.getRelatedLayer())){
+                List<Integer> relatedLayer = Arrays.asList(task.getRelatedLayer().
+                        split(",")).stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+                List<Integer> collect = phaseThreeList.stream().
+                        filter(i -> relatedLayer.contains(i.getLayerNum())).map(PhaseThreeAssignedTask::getEnd).collect(Collectors.toList());
+                maxEnd = Collections.max(collect);
 
             }
+
+
             String suffix = "_" + task.getId();
             TaskVariable taskVariable = new TaskVariable();
-            taskVariable.setStart(model.newIntVar(start, Integer.MAX_VALUE, "start" + suffix));
-            taskVariable.setEnd(model.newIntVar(start,  Integer.MAX_VALUE, "end" + suffix));
+            taskVariable.setStart(model.newIntVar(maxEnd, Integer.MAX_VALUE, "start" + suffix));
+            taskVariable.setEnd(model.newIntVar(maxEnd,  Integer.MAX_VALUE, "end" + suffix));
             taskVariable.setInterval(model.newIntervalVar(taskVariable.getStart(), LinearExpr.constant(task.getHoursDuration())
                     , taskVariable.getEnd(), "interval" + suffix));
             allTasks.put(task.getId(), taskVariable);
@@ -112,7 +94,6 @@ public class PhaseThree {
             }
         }
     }
-
     private void createPriorityHardConstraint(){
         List<OrderIdAndTaskDto> orderIdAndTaskDtoList = new ArrayList<>();
         Map<String, List<Task>> collect =

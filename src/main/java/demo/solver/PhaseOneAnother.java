@@ -1,9 +1,7 @@
 package demo.solver;
-import java.time.LocalDate;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.google.ortools.sat.*;
-import com.google.ortools.*;
 import demo.domain.*;
 import demo.domain.DTO.OrderIdAndTaskDto;
 import lombok.Getter;
@@ -12,11 +10,10 @@ import org.springframework.beans.BeanUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Setter
 @Getter
-public class PhaseOne {
+public class PhaseOneAnother {
 
      private List<Task> taskList;
      private List<Task> demoTaskList;
@@ -260,6 +257,5 @@ public class PhaseOne {
           Collections.sort(firstAssignedTasks, new SortTasks());
 
      }
-
 
 }
