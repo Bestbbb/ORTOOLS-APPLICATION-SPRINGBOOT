@@ -50,8 +50,11 @@ public class OrToolsJobApp {
     Map<String, List<IntervalVar>> resourceToIntervals = new HashMap<>();
     CpModel model = new CpModel();
     private List<Task> taskList;
+    private List<Task> taskList2;
     private List<ResourceItem> resourceItems;
     private List<ManufacturerOrder> manufacturerOrders;
+    private List<ManufacturerOrder> manufacturerOrders2;
+    private
     LocalDateTime taskBeginTime = LocalDateTime.of(2022, 10, 1, 0, 0, 0);
     List<AssignedTask> firstAssignedTasks = new ArrayList<>();
     List<AssignedTask> firstAssignedTasksAnother = new ArrayList<>();
@@ -203,12 +206,45 @@ public class OrToolsJobApp {
         List<PhaseOneAssignedTask> assignedTasks = phaseOne.solvePhaseOne();
         List<PhaseOneAssignedTask> demoAssignedTasks = phaseOne.splitPhaseOne();
         assignedTasks.addAll(demoAssignedTasks);
+        assignedTasks.forEach(i->{
+            System.out.println(" "+i.getStart()+" "+i.getEnd());
+        });
         return assignedTasks;
     }
+
+    public List<PhaseOneAssignedTask> solvePhaseOneAnother(){
+        PhaseOneAnother phaseOne = new PhaseOneAnother();
+        //第一阶段，找到所有公共的task，并将小样单和正常单合并
+        List<Task> beforeIntegratedTaskList = taskList2.stream().
+                filter(i->i.getUnit()!=null&&i.getUnit()==0&&i.getOrderType()==0&&i.getIsPublic()).collect(Collectors.toList());
+        phaseOne.setTaskList(beforeIntegratedTaskList);
+        List<Task> beforeIntegratedDemoTaskList = taskList2.stream().
+                filter(i->i.getUnit()!=null&&i.getUnit()==0&&i.getOrderType()==1&&i.getIsPublic()).collect(Collectors.toList());
+        phaseOne.setResourceItems(resourceItems);
+        phaseOne.setDemoTaskList(beforeIntegratedDemoTaskList);
+        List<PhaseOneAssignedTask> assignedTasks = phaseOne.solvePhaseOne();
+        List<PhaseOneAssignedTask> demoAssignedTasks = phaseOne.splitPhaseOne();
+        assignedTasks.addAll(demoAssignedTasks);
+        assignedTasks.forEach(i->{
+            System.out.println(" "+i.getStart()+" "+i.getEnd());
+        });
+        return assignedTasks;
+    }
+
     public List<PhaseTwoAssignedTask> solvePhaseTwo(){
         PhaseTwo phaseTwo = new PhaseTwo();
         //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
         List<Task> afterIntegratedDemoTaskList = taskList.stream().
+                filter(i->!i.getIsPublic()&&i.getOrderType()==1).collect(Collectors.toList());
+        phaseTwo.setTaskList(afterIntegratedDemoTaskList);
+        phaseTwo.setResourceItems(resourceItems);
+        List<PhaseTwoAssignedTask> assignedTasks = phaseTwo.solvePhaseTwo();
+        return assignedTasks;
+    }
+    public List<PhaseTwoAssignedTask> solvePhaseTwoAnother(){
+        PhaseTwoAnother phaseTwo = new PhaseTwoAnother();
+        //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
+        List<Task> afterIntegratedDemoTaskList = taskList2.stream().
                 filter(i->!i.getIsPublic()&&i.getOrderType()==1).collect(Collectors.toList());
         phaseTwo.setTaskList(afterIntegratedDemoTaskList);
         phaseTwo.setResourceItems(resourceItems);
@@ -228,6 +264,28 @@ public class OrToolsJobApp {
         PhaseThreeLast phaseThreeLast = new PhaseThreeLast();
         //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
         List<Task> afterIntegratedNormalTaskList = taskList.stream().
+                filter(i->!i.getIsPublic()&&i.getOrderType()==0&&i.getUnit()==1).collect(Collectors.toList());
+//        List<Task> afterIntegratedNormalTaskList = DataGenerator.createAfterIntegratedNormalTaskList(manufacturerOrders);
+        phaseThreeLast.setTaskList(afterIntegratedNormalTaskList);
+        phaseThreeLast.setResourceItems(resourceItems);
+        phaseThreeLast.setPhaseThreeList(assignedTasks1);
+        List<PhaseThreeAssignedTask> assignedTasks2 = phaseThreeLast.solveThree();
+        assignedTasks1.addAll(assignedTasks2);
+        return assignedTasks1;
+    }
+    public List<PhaseThreeAssignedTask> solvePhaseThreeAnother(){
+        PhaseThreeAnother phaseThree = new PhaseThreeAnother();
+        //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
+        List<Task> beforeIntegratedNormalTaskList = taskList2.stream().
+                filter(i->!i.getIsPublic()&&i.getOrderType()==0&&i.getUnit()==0).collect(Collectors.toList());
+//        List<Task> afterIntegratedNormalTaskList = DataGenerator.createAfterIntegratedNormalTaskList(manufacturerOrders);
+        phaseThree.setTaskList(beforeIntegratedNormalTaskList);
+        phaseThree.setResourceItems(resourceItems);
+        List<PhaseThreeAssignedTask> assignedTasks1 = phaseThree.solveThree();
+
+        PhaseThreeLastAnother phaseThreeLast = new PhaseThreeLastAnother();
+        //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
+        List<Task> afterIntegratedNormalTaskList = taskList2.stream().
                 filter(i->!i.getIsPublic()&&i.getOrderType()==0&&i.getUnit()==1).collect(Collectors.toList());
 //        List<Task> afterIntegratedNormalTaskList = DataGenerator.createAfterIntegratedNormalTaskList(manufacturerOrders);
         phaseThreeLast.setTaskList(afterIntegratedNormalTaskList);
@@ -460,26 +518,28 @@ public class OrToolsJobApp {
                             return 0;
                         }
                 ).collect(Collectors.toList());
+                System.out.println("outpustep tasks:"+collect.size());
                 LocalDate firstRunTime = collect.get(0).getRunTime();
                 outputStep.setStepStartTime(collect.get(0).getRunTime());
                 outputStep.setExecutionDays(collect.get(collect.size() - 1).getRunTime().toEpochDay() -
                         collect.get(0).getRunTime().toEpochDay() + 1);
                 LocalDate endRunTime = firstRunTime.plusDays(outputStep.getExecutionDays());
-                List<String> holidayList = new ArrayList<>();
-                for (LocalDate i = firstRunTime; i.isBefore(endRunTime); i = i.plusDays(1)){
-                    String dateStr = i.format(df2);
-                    Boolean isHoliday = DateUtil.getIsHolidayRoll(dateStr);
-                    if (isHoliday){
-                        holidayList.add(i.format(df3));
-                    }
-                    try {
-                        Thread.sleep(1000);//单位：毫秒
-
-                    }catch (Exception e){
-
-                    }
-                }
-                outputStep.setHolidayList(holidayList);
+//                List<String> holidayList = new ArrayList<>();
+//                for (LocalDate i = firstRunTime; i.isBefore(endRunTime); i = i.plusDays(1)){
+//                    String dateStr = i.format(df3);
+//                    Boolean isHoliday = DateUtil.getIsHoliday(dateStr);
+//                    if (isHoliday){
+//                        holidayList.add(i.format(df3));
+//                    }
+//                    try {
+//                        Thread.sleep(2000);//单位：毫秒
+//
+//                    }catch (Exception e){
+//
+//                    }
+//                }
+//                System.out.println(holidayList);
+//                outputStep.setHolidayList(holidayList);
 
             });
 
@@ -498,7 +558,9 @@ public class OrToolsJobApp {
         DateTimeFormatter dfDateTime = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss");
         String outputPath = "D:\\data\\"+dfDateTime.format(LocalDateTime.now())+"output.json";
         DataGenerator.writeObjectToFile(out,outputPath);
+        System.out.println("Start sending request");
         sendOutputRequest(outputPath,algorithmFileId);
+        System.out.println("End sending request");
 
 
     }

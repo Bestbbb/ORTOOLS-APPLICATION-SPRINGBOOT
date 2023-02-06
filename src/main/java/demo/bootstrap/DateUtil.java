@@ -112,9 +112,9 @@ public class DateUtil {
 
             LocalDate runTime = assignedTaskList.get(0).getRunTime();
 //            assignedTaskList.forEach(i->i.setRunTime(LocalDate.of(2022,12,1)));
-            String dateStr = runTime.format(df2);
+            String dateStr = runTime.format(df);
             String getNextDateStr = runTime.format(df);
-            Boolean isHoliday = getIsHolidayRoll(dateStr);
+            Boolean isHoliday = getIsHoliday(dateStr);
             if (isHoliday) {
                 JSONObject nextWorkDay = getNextWorkDay(getNextDateStr);
                 String newDate = nextWorkDay.get("date")+"";
@@ -140,11 +140,12 @@ public class DateUtil {
 
         });
         for (AssignedTask assignedTask : assignedTasks) {
-            System.out.println(assignedTask.getRunTime());
+            System.out.println("runTime:"+assignedTask.getRunTime());
         }
     }
 
     public static void main(String[] args) {
+        System.out.println(DateUtil.getIsHoliday("2022-12-31"));
         JSONObject nextWorkDay = DateUtil.getNextWorkDay("2022-12-27");
         System.out.println(nextWorkDay.get("date"));
         LocalDate date1 = LocalDate.of(2022,12,22);

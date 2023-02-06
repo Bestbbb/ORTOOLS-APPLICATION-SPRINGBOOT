@@ -187,4 +187,54 @@ public class PhaseTwoAnother {
         solve();
         return firstAssignedTasks;
     }
+
+
+    public static List<SubPhaseTwoTask> splitTask(List<PhaseTwoAssignedTask> tasks){
+        List<SubPhaseTwoTask> subTasks = new ArrayList<>();
+        for(PhaseTwoAssignedTask phaseOneAssignedTask:tasks){
+            Integer start = phaseOneAssignedTask.getStart();
+            Integer duration = phaseOneAssignedTask.getHoursDuration();
+            Integer end = phaseOneAssignedTask.getEnd();
+            int remainderStart = start%8;
+            int epochStart = start/8;
+            int remainderEnd = end%8;
+            int epochEnd = end/8;
+            int realEnd = 24*epochEnd+remainderEnd+16;
+            int realStart = 24*epochStart+remainderStart+16;
+            int re = realEnd -realStart;
+            int l = (re - duration)/16;
+            for(int i =0;i<l+1;i++){
+                SubPhaseTwoTask subTask = new SubPhaseTwoTask();
+                BeanUtils.copyProperties(phaseOneAssignedTask,subTask);
+                subTask.setSubIndex(i);
+                int tempStart = 0;
+                int tempEnd = 0;
+                if(i==0){
+                    tempStart = realStart;
+                    tempEnd = 24*(epochStart+1);
+                    subTask.setStart(tempStart);
+                    subTask.setEnd(tempEnd);
+                }else if(i==l){
+                    tempStart = 24*(epochEnd)+16;
+                    tempEnd = realEnd;
+                    if(tempStart!=tempEnd){
+                        subTask.setStart(tempStart);
+                        subTask.setEnd(tempEnd);
+                    }
+                }else{
+                    tempStart = 24*(epochStart+i)+16;
+                    tempEnd = 24*(epochStart+i+1);
+                    subTask.setStart(tempStart);
+                    subTask.setEnd(tempEnd);
+                }
+                subTasks.add(subTask);
+            }
+
+
+        }
+        subTasks.forEach(i->{
+            System.out.println("start:"+i.getStart()+" end: "+i.getEnd()+" substart:"+i.getSubStart()+" subend:"+i.getSubEnd());
+        });
+        return subTasks;
+    }
 }

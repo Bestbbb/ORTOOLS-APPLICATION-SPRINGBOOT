@@ -210,4 +210,54 @@ public class PhaseThree {
         solve();
         return firstAssignedTasks;
     }
+
+    public static List<SubPhaseThreeTask> splitTask(List<PhaseThreeAssignedTask> tasks){
+        List<SubPhaseThreeTask> subTasks = new ArrayList<>();
+        for(PhaseThreeAssignedTask phaseThreeAssignedTask:tasks){
+            Integer start = phaseThreeAssignedTask.getStart();
+            Integer duration = phaseThreeAssignedTask.getHoursDuration();
+            Integer end = phaseThreeAssignedTask.getEnd();
+            int remainderStart = start%16;
+            int epochStart = start/16;
+            int remainderEnd = end%16;
+            int epochEnd = end/16;
+            int realEnd = 24*epochEnd+remainderEnd;
+            int realStart = 24*epochStart+remainderStart;
+            int re = realEnd -realStart;
+            int l = (re - duration)/8;
+            for(int i =0;i<l+1;i++){
+                SubPhaseThreeTask subTask = new SubPhaseThreeTask();
+                BeanUtils.copyProperties(phaseThreeAssignedTask,subTask);
+                subTask.setSubIndex(i);
+                int tempStart = 0;
+                int tempEnd = 0;
+                if(i==0){
+                    tempStart = realStart;
+                    tempEnd = 24*epochStart+16;
+                    subTask.setStart(tempStart);
+                    subTask.setEnd(tempEnd);
+                }else if(i==l){
+                    tempStart = 24*(epochEnd);
+                    tempEnd = realEnd;
+                    if(tempStart!=tempEnd){
+                        subTask.setStart(tempStart);
+                        subTask.setEnd(tempEnd);
+                    }
+                }else{
+                    tempStart = 24*(epochStart+i);
+                    tempEnd = 24*(epochStart+i)+16;
+                    subTask.setStart(tempStart);
+                    subTask.setEnd(tempEnd);
+                }
+                subTasks.add(subTask);
+            }
+
+
+        }
+        subTasks.forEach(i->{
+            System.out.println("start:"+i.getStart()+" end: "+i.getEnd()+" substart:"+i.getSubStart()+" subend:"+i.getSubEnd());
+        });
+        return subTasks;
+    }
+
 }

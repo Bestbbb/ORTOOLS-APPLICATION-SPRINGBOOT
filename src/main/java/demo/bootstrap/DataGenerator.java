@@ -42,10 +42,16 @@ public class DataGenerator {
         List<ManufacturerOrder> manufacturerOrderList = input.getManufacturerOrderList();
 
         // 把一个订单才分2个小定单
-        List<List<ManufacturerOrder>> lists = divideOrderToTwoPart(manufacturerOrderList);
 
         //合并小样单和正常单
         joinOrderList(manufacturerOrderList);
+//        List<List<ManufacturerOrder>> lists = divideOrderToTwoPart(manufacturerOrderList);
+
+//        for(List<ManufacturerOrder> i:lists){
+//            for(ManufacturerOrder manufacturerOrder:i){
+//                System.out.println("orderId"+manufacturerOrder.getId());
+//            }
+//        };
 //        manufacturerOrderList.forEach(
 //                i->i.getProduct().getStepList().forEach(j->{
 //                    for (Task task : j.getTaskList()) {
@@ -66,9 +72,41 @@ public class DataGenerator {
         return manufacturerOrderList;
     }
 
+    public static List<List<ManufacturerOrder>> generateOrderListNew(List<ManufacturerOrder> manufacturerOrderList) {
+
+        // 把一个订单才分2个小定单
+
+        //合并小样单和正常单
+        List<List<ManufacturerOrder>> lists = divideOrderToTwoPart(manufacturerOrderList);
+//        for(List<ManufacturerOrder> i:lists){
+//            for(ManufacturerOrder manufacturerOrder:i){
+//                System.out.println("orderId"+manufacturerOrder.getId());
+//            }
+//        };
+//        manufacturerOrderList.forEach(
+//                i->i.getProduct().getStepList().forEach(j->{
+//                    for (Task task : j.getTaskList()) {
+//                        System.out.println(task.getOrderId()+" " +task.getSpeed());
+//                    }
+//                })
+//        );
+
+        return lists;
+    }
+
+
     private static List<List<ManufacturerOrder>> divideOrderToTwoPart(List<ManufacturerOrder> manufacturerOrderList) {
         HashMap<String, List<ManufacturerOrder>> dict = new HashMap<>();
-        manufacturerOrderList.forEach(each -> {
+        List<ManufacturerOrder> collect = manufacturerOrderList.stream().sorted(
+                (o1, o2) -> {
+                    if (o1.getPriority() > o2.getPriority())
+                        return -1;
+                    if (o1.getPriority() < o2.getPriority())
+                        return 1;
+                    return 0;
+                }
+        ).collect(Collectors.toList());
+        collect.forEach(each -> {
             String id = each.getId();
             if (each.getType().equals(1)) {
                 id = each.getRelatedManufactureOrderId();
@@ -87,7 +125,10 @@ public class DataGenerator {
         List<ManufacturerOrder> list1 = new ArrayList<>();
         List<ManufacturerOrder> list2 = new ArrayList<>();
         int i = 0;
-        if (listSize > 1) {
+        if(listSize==1){
+            list1 = manufacturerOrderList;
+        }
+        else if (listSize > 1) {
             for (String key : dict.keySet()) {
                 if (i < (listSize / 2)) {
                     list1.addAll(dict.get(key));
@@ -99,8 +140,14 @@ public class DataGenerator {
         }
 
         ArrayList<List<ManufacturerOrder>> res = new ArrayList<>();
-        res.add(list1);
-        res.add(list2);
+        if(list1.size()>=list2.size()){
+            res.add(list1);
+            res.add(list2);
+        }else{
+            res.add(list2);
+            res.add(list1);
+        }
+
         return res;
     }
 
@@ -120,6 +167,7 @@ public class DataGenerator {
                 List<Task> list = step.getTaskList();
                 Integer taskIndex = 0;
                 for (Task task : list) {
+                    task.setPriority(priority);
                     task.setTaskIndex(taskIndex);
                     task.setProduct(product);
                     task.setStepIndex(stepIndex);
