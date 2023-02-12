@@ -15,6 +15,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -234,21 +235,49 @@ public class OrToolsJobApp {
     public List<PhaseTwoAssignedTask> solvePhaseTwo(){
         PhaseTwo phaseTwo = new PhaseTwo();
         //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
-        List<Task> afterIntegratedDemoTaskList = taskList.stream().
-                filter(i->!i.getIsPublic()&&i.getOrderType()==1).collect(Collectors.toList());
-        phaseTwo.setTaskList(afterIntegratedDemoTaskList);
+        List<Task> beforeIntegratedDemoTaskList = taskList.stream().
+                filter(i->!i.getIsPublic()&&i.getOrderType()==1&&i.getUnit()==0).collect(Collectors.toList());
+
+
+        phaseTwo.setTaskList(beforeIntegratedDemoTaskList);
         phaseTwo.setResourceItems(resourceItems);
         List<PhaseTwoAssignedTask> assignedTasks = phaseTwo.solvePhaseTwo();
+
+        PhaseTwoLast phaseTwoLast = new PhaseTwoLast();
+        //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
+        List<Task> afterIntegratedDemoTaskList = taskList.stream().
+                filter(i->!i.getIsPublic()&&i.getOrderType()==1&&i.getUnit()==1).collect(Collectors.toList());
+//        List<Task> afterIntegratedNormalTaskList = DataGenerator.createAfterIntegratedNormalTaskList(manufacturerOrders);
+        phaseTwoLast.setTaskList(afterIntegratedDemoTaskList);
+        phaseTwoLast.setResourceItems(resourceItems);
+        phaseTwoLast.setPhaseTwoAssignedTasks(assignedTasks);
+        List<PhaseTwoAssignedTask> assignedTasks2 = phaseTwoLast.solvePhaseTwo();
+        assignedTasks.addAll(assignedTasks2);
+
         return assignedTasks;
     }
     public List<PhaseTwoAssignedTask> solvePhaseTwoAnother(){
         PhaseTwoAnother phaseTwo = new PhaseTwoAnother();
         //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
-        List<Task> afterIntegratedDemoTaskList = taskList2.stream().
-                filter(i->!i.getIsPublic()&&i.getOrderType()==1).collect(Collectors.toList());
-        phaseTwo.setTaskList(afterIntegratedDemoTaskList);
+        List<Task> beforeIntegratedDemoTaskList = taskList.stream().
+                filter(i->!i.getIsPublic()&&i.getOrderType()==1&&i.getUnit()==0).collect(Collectors.toList());
+
+
+        phaseTwo.setTaskList(beforeIntegratedDemoTaskList);
         phaseTwo.setResourceItems(resourceItems);
         List<PhaseTwoAssignedTask> assignedTasks = phaseTwo.solvePhaseTwo();
+
+        PhaseTwoLastAnother phaseTwoLast = new PhaseTwoLastAnother();
+        //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
+        List<Task> afterIntegratedDemoTaskList = taskList.stream().
+                filter(i->!i.getIsPublic()&&i.getOrderType()==1&&i.getUnit()==1).collect(Collectors.toList());
+//        List<Task> afterIntegratedNormalTaskList = DataGenerator.createAfterIntegratedNormalTaskList(manufacturerOrders);
+        phaseTwoLast.setTaskList(afterIntegratedDemoTaskList);
+        phaseTwoLast.setResourceItems(resourceItems);
+        phaseTwoLast.setPhaseTwoAssignedTasks(assignedTasks);
+        List<PhaseTwoAssignedTask> assignedTasks2 = phaseTwoLast.solvePhaseTwo();
+        assignedTasks.addAll(assignedTasks2);
+
         return assignedTasks;
     }
     public List<PhaseThreeAssignedTask> solvePhaseThree(){
@@ -347,12 +376,13 @@ public class OrToolsJobApp {
 
     }
 
-    public void output(String algorithmFileId){
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//        LocalDateTime assignedTime = LocalDateTime.now().plusDays(1).with(LocalTime.MIN);
-        JSONObject nextWorkDay = DateUtil.getNextWorkDay("");
-        String date = nextWorkDay.get("date")+" 00:00:00";
-        LocalDateTime assignedTime = LocalDateTime.parse(date,df);
+    public void output(String algorithmFileId,LocalDateTime startTime){
+//        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+////        LocalDateTime assignedTime = LocalDateTime.now().plusDays(1).with(LocalTime.MIN);
+//        JSONObject nextWorkDay = DateUtil.getNextWorkDay("");
+//        String date = nextWorkDay.get("date")+" 00:00:00";
+//        LocalDateTime assignedTime = LocalDateTime.parse(date,df);
+        LocalDateTime assignedTime = startTime;
 
         Output out = new Output();
         out.setCode(200);
@@ -366,6 +396,8 @@ public class OrToolsJobApp {
         });
         out.setManufacturerOrderList(manufacturerOrders);
         System.out.println(firstAssignedTasks.size());
+        firstAssignedTasks.forEach(i->System.out.println(i.getOriginalId() +" orderIndex:"+i.getOrderIndex()+" stepIndex:"+i.getStepIndex()));
+
         if(firstAssignedTasks.size()==0){
 
             AssignedTask assignedTask = new AssignedTask();
@@ -396,6 +428,12 @@ public class OrToolsJobApp {
             System.out.println(JSON.toJSONString(out));
         }else{
         firstAssignedTasks.forEach(assignedTask -> {
+            int quantity = 0;
+            if(assignedTask.getSubQuantity()==null){
+                quantity = assignedTask.getQuantity();
+            }else{
+                quantity = assignedTask.getSubQuantity();
+            }
             LocalDateTime actualStartTime = assignedTime.plusHours(Optional.of(assignedTask.getStart()).orElse(0));
             LocalDateTime actualEndTime = assignedTime.plusHours(Optional.of(assignedTask.getStart()).orElse(0))
                     .plusHours(Optional.of(assignedTask.getHoursDuration()).orElse(0));
@@ -414,66 +452,66 @@ public class OrToolsJobApp {
 
                 if (tempStartTime.toLocalTime().isBefore(scheduleTwo)) {
                     if (tempEndTime.toLocalTime().isAfter(scheduleThree)) {
-                        if (tempTotal < assignedTask.getQuantity()) {
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(tempStartTime.toLocalTime(),
+                        if (tempTotal < quantity) {
+                            setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
                                     scheduleTwo).toMinutes(), totalMinutes) + 1));
                         }
-                        if (tempTotal < assignedTask.getQuantity()) {
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(scheduleTwo,
+                        if (tempTotal < quantity) {
+                            setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(scheduleTwo,
                                     scheduleThree).toMinutes(), totalMinutes) + 1));
                         }
-                        if (tempTotal < assignedTask.getQuantity()) {
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(scheduleThree,
+                        if (tempTotal < quantity) {
+                            setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(quantity * Duration.between(scheduleThree,
                                     tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
                         }
                     } else if (tempEndTime.toLocalTime().isAfter(scheduleTwo)) {
-                        if (tempTotal < assignedTask.getQuantity()) {
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(tempStartTime.toLocalTime(),
+                        if (tempTotal < quantity) {
+                            setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
                                     scheduleTwo).toMinutes(), totalMinutes) + 1));
                         }
-                        if (tempTotal < assignedTask.getQuantity()) {
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(scheduleTwo,
+                        if (tempTotal < quantity) {
+                            setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(scheduleTwo,
                                     tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
                         }
                     } else {
-                        if (tempTotal < assignedTask.getQuantity()) {
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(tempStartTime.toLocalTime(),
+                        if (tempTotal < quantity) {
+                            setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
                                     tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
                         }
                     }
 
                 } else if (tempStartTime.toLocalTime().isBefore(scheduleThree)) {
                     if (tempEndTime.toLocalTime().isAfter(scheduleThree)) {
-                        if (tempTotal < assignedTask.getQuantity()) {
+                        if (tempTotal < quantity) {
 
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(tempStartTime.toLocalTime(),
+                            setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
                                     scheduleThree).toMinutes(), totalMinutes) + 1));
                         }
-                        if (tempTotal < assignedTask.getQuantity()) {
+                        if (tempTotal < quantity) {
 
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(scheduleThree,
+                            setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(quantity * Duration.between(scheduleThree,
                                     tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
                         }
                     } else {
-                        if (tempTotal < assignedTask.getQuantity()) {
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(tempStartTime.toLocalTime(),
+                        if (tempTotal < quantity) {
+                            setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
                                     tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
                         }
                     }
 
                 } else {
-                    if (tempTotal < assignedTask.getQuantity()) {
-                        setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(assignedTask.getQuantity() * Duration.between(tempStartTime.toLocalTime(),
+                    if (tempTotal < quantity) {
+                        setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
                                 tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
                     }
                 }
             }
 //            System.out.println("id:"+assignedTask.getOriginalId() +"quantity:"+assignedTask.getQuantity()+"tempTotal:"+tempTotal);
-            if (tempTotal < assignedTask.getQuantity()) {
-                tempTask.setAmount(tempTask.getAmount() + assignedTask.getQuantity() - tempTotal);
-            } else if (tempTotal > assignedTask.getQuantity()) {
-                if(assignedTask.getQuantity() - tempTotal + tempTask.getAmount()>0){
-                    tempTask.setAmount(assignedTask.getQuantity() - tempTotal + tempTask.getAmount());
+            if (tempTotal < quantity) {
+                tempTask.setAmount(tempTask.getAmount() + quantity - tempTotal);
+            } else if (tempTotal > quantity) {
+                if(quantity - tempTotal + tempTask.getAmount()>0){
+                    tempTask.setAmount(quantity - tempTotal + tempTask.getAmount());
                 }
             }
         });
@@ -503,43 +541,45 @@ public class OrToolsJobApp {
                 }
         ).collect(Collectors.toList());
 
-        DateUtil.setOutputDate(collectFinal);
+//        DateUtil.setOutputDate(collectFinal);
         DateTimeFormatter df2 = DateTimeFormatter.ofPattern("yyyyMMdd");
         DateTimeFormatter df3 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         for (ManufacturerOrder mOrder : manufacturerOrders) {
             Product product = mOrder.getProduct();
             product.getStepList().forEach(outputStep -> {
-                List<AssignedTask> collect = outputStep.getAssignedTaskList().stream().sorted((o1, o2) -> {
-                            if (o1.getRunTime().isBefore(o2.getRunTime()))
-                                return -1;
-                            if (o1.getRunTime().isAfter(o2.getRunTime()))
-                                return 1;
-                            return 0;
-                        }
-                ).collect(Collectors.toList());
-                System.out.println("outpustep tasks:"+collect.size());
-                LocalDate firstRunTime = collect.get(0).getRunTime();
-                outputStep.setStepStartTime(collect.get(0).getRunTime());
-                outputStep.setExecutionDays(collect.get(collect.size() - 1).getRunTime().toEpochDay() -
-                        collect.get(0).getRunTime().toEpochDay() + 1);
-                LocalDate endRunTime = firstRunTime.plusDays(outputStep.getExecutionDays());
-//                List<String> holidayList = new ArrayList<>();
-//                for (LocalDate i = firstRunTime; i.isBefore(endRunTime); i = i.plusDays(1)){
-//                    String dateStr = i.format(df3);
-//                    Boolean isHoliday = DateUtil.getIsHoliday(dateStr);
-//                    if (isHoliday){
-//                        holidayList.add(i.format(df3));
-//                    }
-//                    try {
-//                        Thread.sleep(2000);//单位：毫秒
+                if(outputStep.getAssignedTaskList().size()!=0){
+                    List<AssignedTask> collect = outputStep.getAssignedTaskList().stream().sorted((o1, o2) -> {
+                                if (o1.getRunTime().isBefore(o2.getRunTime()))
+                                    return -1;
+                                if (o1.getRunTime().isAfter(o2.getRunTime()))
+                                    return 1;
+                                return 0;
+                            }
+                    ).collect(Collectors.toList());
+                    System.out.println("outpustep tasks:"+collect.size());
+                    LocalDate firstRunTime = collect.get(0).getRunTime();
+                    outputStep.setStepStartTime(collect.get(0).getRunTime());
+                    outputStep.setExecutionDays(collect.get(collect.size() - 1).getRunTime().toEpochDay() -
+                            collect.get(0).getRunTime().toEpochDay() + 1);
+                    LocalDate endRunTime = firstRunTime.plusDays(outputStep.getExecutionDays());
+//                    List<String> holidayList = new ArrayList<>();
+//                    for (LocalDate i = firstRunTime; i.isBefore(endRunTime); i = i.plusDays(1)){
+//                        String dateStr = i.format(df3);
+//                        Boolean isHoliday = DateUtil.getIsHoliday(dateStr);
+//                        if (isHoliday){
+//                            holidayList.add(i.format(df3));
+//                        }
+//                        try {
+//                            Thread.sleep(2000);//单位：毫秒
 //
-//                    }catch (Exception e){
+//                        }catch (Exception e){
 //
+//                        }
 //                    }
-//                }
-//                System.out.println(holidayList);
-//                outputStep.setHolidayList(holidayList);
+//                    System.out.println(holidayList);
+//                    outputStep.setHolidayList(holidayList);
+                }
 
             });
 

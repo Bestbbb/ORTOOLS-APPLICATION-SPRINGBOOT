@@ -155,18 +155,19 @@ public class DataGenerator {
     public static List<Task> generateTaskList(List<ManufacturerOrder> manufacturerOrderList) {
         List<Task> taskList = new ArrayList<>();
 //        ManufacturerOrder order = manufacturerOrderList.get(0);
-        int orderIndex = 0;
         for (ManufacturerOrder order : manufacturerOrderList) {
             Product product = order.getProduct();
             Integer priority = order.getPriority();
             List<Step> stepList = product.getStepList();
             int stepIndex = 0;
+            int orderIndex = order.getIndex();
 
             for (Step step : stepList) {
                 List<ResourceRequirement> resourceRequirementList = step.getResourceRequirementList();
                 List<Task> list = step.getTaskList();
                 Integer taskIndex = 0;
                 for (Task task : list) {
+
                     task.setPriority(priority);
                     task.setTaskIndex(taskIndex);
                     task.setProduct(product);
@@ -196,11 +197,14 @@ public class DataGenerator {
                     }
 //                    task.setHalfHourDuration((int) Math.ceil(48.0 * order.getQuantity() / task.getSpeed()));
                     if (task.getHoursDuration() == null) {
-                        task.setHoursDuration((int) Math.ceil(24.0 * order.getJoinQuantity() / task.getSpeed()));
+                        task.setHoursDuration((int) Math.ceil(24.0 * order.getQuantity() / task.getSpeed()));
                     }
                     task.setManufacturerOrder(order);
                     task.setRequiredResourceId(resourceRequirementList.get(0).getId());
                     taskIndex++;
+                    if(task.getId().equals("32090057533-1")){
+                        System.out.println("caonimabi"+task.getOrderIndex());
+                    }
                 }
                 taskList.addAll(list);
                 stepIndex++;
@@ -453,21 +457,27 @@ public class DataGenerator {
 
         Map<String, List<Task>> relatedOrderIdToTasks = taskList.parallelStream().filter(task -> task.getIsPublic() && task.getRelatedOrderId() != null).collect(Collectors.groupingBy(Task::getRelatedOrderId));
         relatedOrderIdToTasks.forEach((s, taskList1) -> {
-
             for (Task task : taskList) {
                 List<String> demoTaskIdList = new ArrayList<>();
                 List<Integer> demoTaskQuantityList = new ArrayList<>();
+                List<Integer> demoTaskDurationList = new ArrayList<>();
                 if (task.getOrderId().equals(s)) {
                     for (Task demoTask : taskList1) {
                         if (Objects.equals(demoTask.getStepIndex(), task.getStepIndex()) && Objects.equals(demoTask.getTaskIndex(), task.getTaskIndex())) {
                             demoTaskIdList.add(demoTask.getId());
                             demoTaskQuantityList.add(demoTask.getQuantity());
+                            demoTaskDurationList.add(demoTask.getHoursDuration());
                         }
                     }
                     String demoTaskId = Joiner.on(",").join(demoTaskIdList);
                     String demoTaskQuantity = Joiner.on(",").join(demoTaskQuantityList);
+                    Integer demoTaskDurationSum = demoTaskDurationList.stream().reduce(Integer::sum).orElse(0);
+                    String demoTaskDuration = Joiner.on(",").join(demoTaskDurationList);
+                    int duration = task.getHoursDuration();
                     task.setDemoTaskId(demoTaskId);
+                    task.setHoursDuration(duration+demoTaskDurationSum);
                     task.setDemoTaskQuantity(demoTaskQuantity);
+                    task.setDemoTaskDuration(demoTaskDuration);
                 }
             }
         });

@@ -1,4 +1,5 @@
 package demo.solver;
+import java.time.Duration;
 import java.time.LocalDate;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -26,6 +27,9 @@ public class PhaseOne {
      CpModel model = new CpModel();
      private List<ResourceItem> resourceItems;
      List<PhaseOneAssignedTask> firstAssignedTasks = new ArrayList<>();
+     private static int tempTotal = 0;
+     private static SubPhaseOneTask tempTask;
+
 
      public List<PhaseOneAssignedTask> splitPhaseOne(){
           //TODO:复杂度太高了，想办法重构吧
@@ -35,12 +39,18 @@ public class PhaseOne {
                     List<String> demoTaskIds = Arrays.asList(assignedTask.getDemoTaskId().split(","));
                     List<Integer> demoTaskQuantity = Arrays.asList(assignedTask.getDemoTaskQuantity().
                            split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());
+                    List<Integer> demoTaskDuration = Arrays.asList(assignedTask.getDemoTaskDuration().
+                            split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());
                     Integer sum = demoTaskQuantity.stream().reduce(Integer::sum).orElse(0);
+//                    Integer demoTaskDurationSum = demoTaskDuration.stream().reduce(Integer::sum).orElse(0);
                     Integer hoursDuration = assignedTask.getHoursDuration();
                     Integer end = assignedTask.getEnd();
+                    Integer start = assignedTask.getStart();
                     Integer quantity = assignedTask.getQuantity();
                     Integer sumDemoHourDuration = 0;
                     for(int i =0;i<demoTaskIds.size();i++){
+                         int demoHoursDuration = demoTaskDuration.get(i);
+//                         int demoHoursDuration= (Math.floorDiv(hoursDuration,quantity*demoTaskQuantity.get(i)) + 1);
 //                         int demoHoursDuration = (int) Math.ceil((double)hoursDuration / quantity*demoTaskQuantity.get(i));
                          String demoTaskId = demoTaskIds.get(i);
                          PhaseOneAssignedTask phaseOneAssignedTask = new PhaseOneAssignedTask();
@@ -50,19 +60,25 @@ public class PhaseOne {
                                    BeanUtils.copyProperties(task,phaseOneAssignedTask);
                               }
                          }
-                         int demoHoursDuration = (int) Math.ceil(24.0* demoTaskQuantity.get(i) / phaseOneAssignedTask.getSpeed());
-                         Integer demoEnd = end-sumDemoHourDuration;
-                         phaseOneAssignedTask.setEnd(demoEnd);
+//                         int demoHoursDuration= (Math.floorDiv(24* demoTaskQuantity.get(i), phaseOneAssignedTask.getSpeed()) + 1);
+//                         int demoHoursDuration = (int) Math.ceil(24.0* demoTaskQuantity.get(i) / phaseOneAssignedTask.getSpeed());
+//                         Integer demoEnd = end-sumDemoHourDuration;
+                         Integer demoStart = start+ sumDemoHourDuration;
+
+                         phaseOneAssignedTask.setEnd(demoStart+demoHoursDuration);
                          phaseOneAssignedTask.setHoursDuration(demoHoursDuration);
-                         phaseOneAssignedTask.setStart(demoEnd-demoHoursDuration);
+                         phaseOneAssignedTask.setStart(demoStart);
                          demoAssignedTasks.add(phaseOneAssignedTask);
                          sumDemoHourDuration+=demoHoursDuration;
                     }
                     Integer actualHoursDuration = hoursDuration-sumDemoHourDuration;
                     if(actualHoursDuration!=0) {
-                         Integer actualEnd = end - sumDemoHourDuration;
+//                         Integer actualEnd = end - sumDemoHourDuration;
                          assignedTask.setHoursDuration(actualHoursDuration);
-                         assignedTask.setEnd(actualEnd);
+//                         assignedTask.setEnd(actualEnd);
+                         Integer actualStart = start+ sumDemoHourDuration;
+                         assignedTask.setStart(actualStart);
+
                     }
                     assignedTask.setQuantity(quantity - sum);
 
@@ -264,6 +280,9 @@ public class PhaseOne {
      public static List<SubPhaseOneTask> splitTask(List<PhaseOneAssignedTask> tasks){
           List<SubPhaseOneTask> subTasks = new ArrayList<>();
           for(PhaseOneAssignedTask phaseOneAssignedTask:tasks){
+               tempTotal = 0;
+               tempTask = null;
+               Integer quantity = phaseOneAssignedTask.getQuantity();
                Integer start = phaseOneAssignedTask.getStart();
                Integer duration = phaseOneAssignedTask.getHoursDuration();
                Integer end = phaseOneAssignedTask.getEnd();
@@ -275,38 +294,62 @@ public class PhaseOne {
                int realStart = 24*epochStart+remainderStart;
                int re = realEnd -realStart;
                int l = (re - duration)/8;
-               for(int i =0;i<l+1;i++){
+               for(int i =0;i<l+1;i++) {
+
                     SubPhaseOneTask subTask = new SubPhaseOneTask();
-                    BeanUtils.copyProperties(phaseOneAssignedTask,subTask);
+                    BeanUtils.copyProperties(phaseOneAssignedTask, subTask);
                     subTask.setSubIndex(i);
                     int tempStart = 0;
                     int tempEnd = 0;
-                    if(i==0){
+                    if (i == 0) {
                          tempStart = realStart;
-                         tempEnd = 24*epochStart+16;
+                         tempEnd = 24 * epochStart + 16;
                          subTask.setStart(tempStart);
                          subTask.setEnd(tempEnd);
-                    }else if(i==l){
-                         tempStart = 24*(epochEnd);
+
+                    } else if (i == l) {
+                         tempStart = 24 * (epochEnd);
                          tempEnd = realEnd;
-                         if(tempStart!=tempEnd){
+                         if (tempStart != tempEnd) {
                               subTask.setStart(tempStart);
                               subTask.setEnd(tempEnd);
                          }
-                    }else{
-                         tempStart = 24*(epochStart+i);
-                         tempEnd = 24*(epochStart+i)+16;
+                    } else {
+                         tempStart = 24 * (epochStart + i);
+                         tempEnd = 24 * (epochStart + i) + 16;
                          subTask.setStart(tempStart);
                          subTask.setEnd(tempEnd);
                     }
-                    subTasks.add(subTask);
+                    int newDuration = tempEnd - tempStart;
+
+                    if(newDuration!=0){
+                         if (tempTotal < quantity) {
+
+                              int newQuantity = (int) (Math.floorDiv(phaseOneAssignedTask.getQuantity() * (tempEnd - tempStart), duration) + 1);
+                              tempTotal += newQuantity;
+                              subTask.setSubQuantity(newQuantity);
+                              subTask.setHoursDuration(newDuration);
+                              subTasks.add(subTask);
+                              tempTask = subTask;
+                         }
+                    }
+
                }
+                    if (tempTotal < quantity) {
+                         tempTask.setSubQuantity(tempTask.getSubQuantity() + quantity - tempTotal);
+                    } else if (tempTotal > quantity) {
+                         if(quantity - tempTotal + tempTask.getSubQuantity()>0){
+                              tempTask.setSubQuantity(quantity - tempTotal + tempTask.getSubQuantity());
+                         }
+                    }
+
+
 
 
           }
-          subTasks.forEach(i->{
-               System.out.println("start:"+i.getStart()+" end: "+i.getEnd()+" substart:"+i.getSubStart()+" subend:"+i.getSubEnd());
-          });
+//          subTasks.forEach(i->{
+//               System.out.println("id:"+i.getOriginalId()+" start:"+i.getStart()+" end: "+i.getEnd()+" duration:"+i.getHoursDuration()+" quantity:"+i.getQuantity());
+//          });
           return subTasks;
      }
 

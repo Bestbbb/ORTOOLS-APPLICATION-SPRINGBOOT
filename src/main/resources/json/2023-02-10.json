@@ -1,0 +1,821 @@
+{
+  "dateTimeFormat": "yyyy-MM-dd HH:mm:ss",
+  "id": 32090466411,
+  "inputSetting": {},
+  "manufacturerOrderList": [
+    {
+      "code": "32090466409",
+      "delayDays": 10,
+      "id": "32090466409",
+      "name": "9号生产计划-标准",
+      "period": {
+        "endTime": "2023-02-23 23:59:59",
+        "startTime": "2023-02-11 00:00:00"
+      },
+      "priority": 0,
+      "product": {
+        "code": "1675944248121",
+        "id": "1675944248121",
+        "name": "9号产品批次",
+        "stepList": [
+          {
+            "code": "打孔",
+            "id": "32090466347",
+            "name": "打孔",
+            "resourceRequirementList": [
+              {
+                "id": "29410924800",
+                "requirement": 1,
+                "resourceId": "打孔"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "打孔_打孔",
+                "id": "32090466348-0",
+                "layerNum": 0,
+                "speed": 4,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "32090466349-0",
+                "layerNum": 1,
+                "speed": 4,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "打孔质检",
+            "id": "32090466350",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_打孔质检",
+                "id": "32090466351-0",
+                "layerNum": 0,
+                "speed": 5,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "32090466352-0",
+                "layerNum": 1,
+                "speed": 7,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "填孔",
+            "id": "32090466353",
+            "name": "填孔",
+            "resourceRequirementList": [
+              {
+                "id": "29410924803",
+                "requirement": 1,
+                "resourceId": "填孔"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "填孔_填孔",
+                "id": "32090466354-0",
+                "layerNum": 0,
+                "speed": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "32090466355-0",
+                "layerNum": 1,
+                "speed": 7,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "烘干",
+            "id": "32090466356",
+            "name": "烘干",
+            "resourceRequirementList": [
+              {
+                "id": "29410924804",
+                "requirement": 1,
+                "resourceId": "烘干"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "烘干_烘干",
+                "id": "32090466357-0",
+                "layerNum": 0,
+                "speed": 5,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_烘干",
+                "id": "32090466358-0",
+                "layerNum": 1,
+                "speed": 7,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "烘干质检",
+            "id": "32090466359",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_烘干质检",
+                "id": "32090466360-0",
+                "layerNum": 0,
+                "speed": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_烘干质检",
+                "id": "32090466361-0",
+                "layerNum": 1,
+                "speed": 7,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "压平",
+            "id": "32090466362",
+            "name": "压平",
+            "resourceRequirementList": [
+              {
+                "id": "29410924805",
+                "requirement": 1,
+                "resourceId": "压平"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "压平_压平",
+                "id": "32090466363-0",
+                "layerNum": 0,
+                "speed": 5,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_压平",
+                "id": "32090466364-0",
+                "layerNum": 1,
+                "speed": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "压平质检",
+            "id": "32090466365",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_压平质检",
+                "id": "32090466366-0",
+                "layerNum": 0,
+                "speed": 5,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_压平质检",
+                "id": "32090466367-0",
+                "layerNum": 1,
+                "speed": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          }
+        ]
+      },
+      "quantity": 15,
+      "type": 0
+    },
+    {
+      "code": "32090466410",
+      "delayDays": 0,
+      "id": "32090466410",
+      "name": "9号生产计划-试样",
+      "period": {
+        "endTime": "2023-02-23 23:59:59",
+        "startTime": "2023-02-11 00:00:00"
+      },
+      "priority": 0,
+      "product": {
+        "code": "1675944248121",
+        "id": "1675944248121",
+        "name": "9号产品批次",
+        "stepList": [
+          {
+            "code": "打孔",
+            "id": "32090466369",
+            "name": "打孔",
+            "resourceRequirementList": [
+              {
+                "id": "29410924800",
+                "requirement": 1,
+                "resourceId": "打孔"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "打孔_打孔",
+                "id": "32090466370-1",
+                "layerNum": 0,
+                "speed": 3,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "32090466371-1",
+                "layerNum": 1,
+                "speed": 5,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "打孔质检",
+            "id": "32090466372",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_打孔质检",
+                "id": "32090466373-1",
+                "layerNum": 0,
+                "speed": 5,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "32090466374-1",
+                "layerNum": 1,
+                "speed": 7,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "填孔",
+            "id": "32090466375",
+            "name": "填孔",
+            "resourceRequirementList": [
+              {
+                "id": "29410924803",
+                "requirement": 1,
+                "resourceId": "填孔"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "填孔_填孔",
+                "id": "32090466376-1",
+                "layerNum": 0,
+                "speed": 4,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "32090466377-1",
+                "layerNum": 1,
+                "speed": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "烘干",
+            "id": "32090466378",
+            "name": "烘干",
+            "resourceRequirementList": [
+              {
+                "id": "29410924804",
+                "requirement": 1,
+                "resourceId": "烘干"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "烘干_烘干",
+                "id": "32090466379-1",
+                "layerNum": 0,
+                "speed": 5,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_烘干",
+                "id": "32090466380-1",
+                "layerNum": 1,
+                "speed": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "烘干质检",
+            "id": "32090466381",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_烘干质检",
+                "id": "32090466382-1",
+                "layerNum": 0,
+                "speed": 3,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_烘干质检",
+                "id": "32090466383-1",
+                "layerNum": 1,
+                "speed": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "压平",
+            "id": "32090466384",
+            "name": "压平",
+            "resourceRequirementList": [
+              {
+                "id": "29410924805",
+                "requirement": 1,
+                "resourceId": "压平"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "压平_压平",
+                "id": "32090466385-1",
+                "layerNum": 0,
+                "speed": 3,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_压平",
+                "id": "32090466386-1",
+                "layerNum": 1,
+                "speed": 5,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "压平质检",
+            "id": "32090466387",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_压平质检",
+                "id": "32090466388-1",
+                "layerNum": 0,
+                "speed": 4,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_压平质检",
+                "id": "32090466389-1",
+                "layerNum": 1,
+                "speed": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "印刷",
+            "id": "32090466390",
+            "name": "印刷",
+            "resourceRequirementList": [
+              {
+                "id": "29410924807",
+                "requirement": 1,
+                "resourceId": "印刷"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "印刷_印刷",
+                "id": "32090466391-1",
+                "layerNum": 0,
+                "speed": 4,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "32090466392-1",
+                "layerNum": 1,
+                "speed": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "烘干",
+            "id": "32090466393",
+            "name": "烘干",
+            "resourceRequirementList": [
+              {
+                "id": "29410924804",
+                "requirement": 1,
+                "resourceId": "烘干"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "烘干_烘干",
+                "id": "32090466394-1",
+                "layerNum": 0,
+                "speed": 3,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_烘干",
+                "id": "32090466395-1",
+                "layerNum": 1,
+                "speed": 5,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "烘干质检",
+            "id": "32090466396",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_烘干质检",
+                "id": "32090466397-1",
+                "layerNum": 0,
+                "speed": 4,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_烘干质检",
+                "id": "32090466398-1",
+                "layerNum": 1,
+                "speed": 5,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "叠片",
+            "id": "32090466399",
+            "name": "叠片",
+            "resourceRequirementList": [
+              {
+                "id": "29410924808",
+                "requirement": 1,
+                "resourceId": "叠片"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "叠片_叠片",
+                "id": "32090466400-1",
+                "relatedLayer": "0,1",
+                "speed": 5,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "叠片质检",
+            "id": "32090466401",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_叠片质检",
+                "id": "32090466402-1",
+                "relatedLayer": "",
+                "speed": 6,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "层压",
+            "id": "32090466403",
+            "name": "层压",
+            "resourceRequirementList": [
+              {
+                "id": "29410924809",
+                "requirement": 1,
+                "resourceId": "层压"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "层压_层压",
+                "id": "32090466404-1",
+                "relatedLayer": "",
+                "speed": 6,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "层压质检",
+            "id": "32090466405",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_层压质检",
+                "id": "32090466406-1",
+                "relatedLayer": "",
+                "speed": 5,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "热切",
+            "id": "32090466407",
+            "name": "热切",
+            "resourceRequirementList": [
+              {
+                "id": "29410924810",
+                "requirement": 1,
+                "resourceId": "热切"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "热切_热切",
+                "id": "32090466408-1",
+                "relatedLayer": "",
+                "speed": 4,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          }
+        ]
+      },
+      "quantity": 15,
+      "relatedManufactureOrderId": "32090466409",
+      "type": 1
+    }
+  ],
+  "outputSetting": {},
+  "planningPeriod": {
+    "endTime": "2023-07-16",
+    "startTime": "2023-02-09"
+  },
+  "planningTimeUnit": "schedule",
+  "relationID": "32090466412",
+  "resourcePool": [
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "打孔设备",
+          "id": "29410924800",
+          "period": {
+            "endTime": "2023-02-10 13:13:26",
+            "startTime": "2023-02-10 13:13:26"
+          }
+        }
+      ],
+      "code": "打孔",
+      "id": "32090466346",
+      "typeId": "29410924800"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "质检设备",
+          "id": "29410924798",
+          "period": {
+            "endTime": "2023-02-10 13:13:26",
+            "startTime": "2023-02-10 13:13:26"
+          }
+        }
+      ],
+      "code": "质检",
+      "id": "32090466346",
+      "typeId": "29410924798"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "填孔设备",
+          "id": "29410924803",
+          "period": {
+            "endTime": "2023-02-10 13:13:26",
+            "startTime": "2023-02-10 13:13:26"
+          }
+        }
+      ],
+      "code": "填孔",
+      "id": "32090466346",
+      "typeId": "29410924803"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "烘干设备",
+          "id": "29410924804",
+          "period": {
+            "endTime": "2023-02-10 13:13:26",
+            "startTime": "2023-02-10 13:13:26"
+          }
+        }
+      ],
+      "code": "烘干",
+      "id": "32090466346",
+      "typeId": "29410924804"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "压平设备",
+          "id": "29410924805",
+          "period": {
+            "endTime": "2023-02-10 13:13:26",
+            "startTime": "2023-02-10 13:13:26"
+          }
+        }
+      ],
+      "code": "压平",
+      "id": "32090466346",
+      "typeId": "29410924805"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "印刷设备",
+          "id": "29410924807",
+          "period": {
+            "endTime": "2023-02-10 13:13:26",
+            "startTime": "2023-02-10 13:13:26"
+          }
+        }
+      ],
+      "code": "印刷",
+      "id": "32090466368",
+      "typeId": "29410924807"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "叠片设备",
+          "id": "29410924808",
+          "period": {
+            "endTime": "2023-02-10 13:13:26",
+            "startTime": "2023-02-10 13:13:26"
+          }
+        }
+      ],
+      "code": "叠片",
+      "id": "32090466368",
+      "typeId": "29410924808"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "层压设备",
+          "id": "29410924809",
+          "period": {
+            "endTime": "2023-02-10 13:13:26",
+            "startTime": "2023-02-10 13:13:26"
+          }
+        }
+      ],
+      "code": "层压",
+      "id": "32090466368",
+      "typeId": "29410924809"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "热切设备",
+          "id": "29410924810",
+          "period": {
+            "endTime": "2023-02-10 13:13:26",
+            "startTime": "2023-02-10 13:13:26"
+          }
+        }
+      ],
+      "code": "热切",
+      "id": "32090466368",
+      "typeId": "29410924810"
+    }
+  ]
+}

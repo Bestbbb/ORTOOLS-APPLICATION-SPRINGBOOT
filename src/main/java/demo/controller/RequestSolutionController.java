@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +42,8 @@ public class RequestSolutionController {
         JSONObject jsonObject = new JSONObject();
         Input input = LoadFile.readJsonFile(algorithmFileInputPath);
         List<ResourceItem> resourceItems = DataGenerator.generateResources(input);
+        LocalDateTime startTime = input.getPlanningPeriod().getStartTime();
+
         List<ManufacturerOrder> manufacturerOrders = DataGenerator.generateOrderList(input);
 
         List<List<ManufacturerOrder>> lists = DataGenerator.generateOrderListNew(manufacturerOrders);
@@ -65,16 +69,16 @@ public class RequestSolutionController {
                 return jsonObject;
             }
 
-            DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-            def.setName("requestSolutionTx");
-            def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-            TransactionStatus status = dataSourceTransactionManager.getTransaction(def);
+//            DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+//            def.setName("requestSolutionTx");
+//            def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+//            TransactionStatus status = dataSourceTransactionManager.getTransaction(def);
 
             List<PhaseTwoAssignedTask> phaseTwoAssignedTasks;
             List<PhaseThreeAssignedTask> phaseThreeAssignedTasks;
             try {
                 phaseOneAssignedTaskService.saveOrUpdateBatch(phaseOneAssignedTasks);
-                List<SubPhaseOneTask> subPhaseOneTasks = PhaseOne.splitTask(phaseOneAssignedTasks);
+//                List<SubPhaseOneTask> subPhaseOneTasks = PhaseOne.splitTask(phaseOneAssignedTasks);
             phaseTwoAssignedTasks = orToolsJobApp.solvePhaseTwo();
             if (phaseTwoAssignedTasks == null) {
                 jsonObject.put("code", 500);
@@ -94,9 +98,9 @@ public class RequestSolutionController {
                 assignedTasks.addAll(phaseTwoAssignedTasks);
                 assignedTasks.addAll(phaseThreeAssignedTasks);
                 orToolsJobApp.setFirstAssignedTasks(assignedTasks);
-                orToolsJobApp.output(algorithmFileId);
+                orToolsJobApp.output(algorithmFileId,startTime);
 
-                dataSourceTransactionManager.commit(status);
+//                dataSourceTransactionManager.commit(status);
                 jsonObject.put("code", 200);
             } catch (Exception e) {
                 jsonObject.put("code", 500);
@@ -107,7 +111,12 @@ public class RequestSolutionController {
         }
         else if(orders1.size()>0&&orders2.size()>0){
             List<Task> tasks1 = DataGenerator.generateTaskList(orders1);
+            System.out.println("task1");
+            tasks1.forEach(i->System.out.println(i.getId()+" orderIndex:"+i.getOrderIndex()+" stepIndex:"+i.getStepIndex()));
             List<Task> tasks2 = DataGenerator.generateTaskList(orders2);
+            System.out.println("task1");
+            tasks2.forEach(i->System.out.println(i.getId()+" orderIndex:"+i.getOrderIndex()+" stepIndex:"+i.getStepIndex()));
+
             Loader.loadNativeLibraries();
             OrToolsJobApp orToolsJobApp = new OrToolsJobApp();
             orToolsJobApp.setTaskList(tasks1);
@@ -138,7 +147,7 @@ public class RequestSolutionController {
             List<PhaseThreeAssignedTask> phaseThreeAssignedTasks2 = orToolsJobApp.solvePhaseThreeAnother();
             phaseThreeAssignedTaskService.saveOrUpdateBatch(phaseThreeAssignedTasks2);
             List<SubPhaseThreeTask> subPhaseThreeTasks = PhaseThree.splitTask(phaseThreeAssignedTasks);
-            List<SubPhaseThreeTask> subPhaseThreeTasks2 = PhaseThree.splitTask(phaseThreeAssignedTasks2);
+            List<SubPhaseThreeTask> subPhaseThreeTasks2 = PhaseThreeAnother.splitTask(phaseThreeAssignedTasks2);
 
             List<AssignedTask> assignedTasks = new ArrayList<>();
             assignedTasks.addAll(subPhaseOneTasks);
@@ -148,7 +157,8 @@ public class RequestSolutionController {
             assignedTasks.addAll(subPhaseThreeTasks);
             assignedTasks.addAll(subPhaseThreeTasks2);
             orToolsJobApp.setFirstAssignedTasks(assignedTasks);
-            orToolsJobApp.output(algorithmFileId);
+            assignedTasks.forEach(i->System.out.println(i.getOriginalId() + " "+ i.getSubQuantity()));
+            orToolsJobApp.output(algorithmFileId,startTime);
             jsonObject.put("code", 200);
             return jsonObject;
 

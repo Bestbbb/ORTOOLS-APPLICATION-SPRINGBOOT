@@ -29,7 +29,8 @@ public class PhaseThree {
     CpModel model = new CpModel();
     private List<ResourceItem> resourceItems;
     List<PhaseThreeAssignedTask> firstAssignedTasks = new ArrayList<>();
-
+    private static int tempTotal = 0;
+    private static PhaseThreeAssignedTask tempTask;
 
 
     private Integer calculateHorizon(){
@@ -214,6 +215,9 @@ public class PhaseThree {
     public static List<SubPhaseThreeTask> splitTask(List<PhaseThreeAssignedTask> tasks){
         List<SubPhaseThreeTask> subTasks = new ArrayList<>();
         for(PhaseThreeAssignedTask phaseThreeAssignedTask:tasks){
+            tempTotal = 0;
+            tempTask = null;
+            Integer quantity = phaseThreeAssignedTask.getQuantity();
             Integer start = phaseThreeAssignedTask.getStart();
             Integer duration = phaseThreeAssignedTask.getHoursDuration();
             Integer end = phaseThreeAssignedTask.getEnd();
@@ -249,7 +253,26 @@ public class PhaseThree {
                     subTask.setStart(tempStart);
                     subTask.setEnd(tempEnd);
                 }
-                subTasks.add(subTask);
+                int newDuration = tempEnd - tempStart;
+
+                if(newDuration!=0){
+                    if (tempTotal < quantity) {
+
+                        int newQuantity = (int) (Math.floorDiv(phaseThreeAssignedTask.getQuantity() * (tempEnd - tempStart), duration) + 1);
+                        tempTotal += newQuantity;
+                        subTask.setSubQuantity(newQuantity);
+                        subTask.setHoursDuration(newDuration);
+                        subTasks.add(subTask);
+                        tempTask = subTask;
+                    }
+                }
+            }
+            if (tempTotal < quantity) {
+                tempTask.setSubQuantity(tempTask.getSubQuantity() + quantity - tempTotal);
+            } else if (tempTotal > quantity) {
+                if(quantity - tempTotal + tempTask.getSubQuantity()>0){
+                    tempTask.setSubQuantity(quantity - tempTotal + tempTask.getSubQuantity());
+                }
             }
 
 

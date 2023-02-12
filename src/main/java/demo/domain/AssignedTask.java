@@ -3,6 +3,7 @@ package demo.domain;
 //import com.baomidou.mybatisplus.annotation.IdType;
 //import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -51,6 +52,12 @@ public class AssignedTask implements Serializable{
     private String relatedTaskId;
 
     private Integer priority;
+
+    @TableField(exist = false)
+    private Integer subIndex;
+
+    @TableField(exist = false)
+    private Integer subQuantity;
 
 
 

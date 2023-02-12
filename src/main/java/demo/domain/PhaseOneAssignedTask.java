@@ -54,6 +54,8 @@ public class PhaseOneAssignedTask extends AssignedTask implements Serializable{
 
     private String demoTaskQuantity;//小样单对应的任务数量 list
 
+    private String demoTaskDuration;
+
     public PhaseOneAssignedTask(String originalId, Integer start, Integer hoursDuration){
         this.originalId =originalId;
         this.start=start;

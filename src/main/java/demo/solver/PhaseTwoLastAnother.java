@@ -1,12 +1,10 @@
 package demo.solver;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.google.ortools.sat.*;
 import demo.bootstrap.ContextUtil;
 import demo.domain.*;
 import demo.domain.DTO.OrderIdAndTaskDto;
-import demo.service.AssignedTaskService;
 import demo.service.PhaseOneAssignedTaskService;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,9 +17,10 @@ import java.util.stream.Collectors;
 @Setter
 @Getter
 @Component
-public class PhaseTwo {
+public class PhaseTwoLastAnother {
     private PhaseOneAssignedTaskService phaseOneAssignedTaskService = ContextUtil.getBean(PhaseOneAssignedTaskService.class);
     private List<Task> taskList;
+    private List<PhaseTwoAssignedTask> phaseTwoAssignedTasks;
     private Integer horizon=0;
     Map<String, TaskVariable> allTasks = new HashMap<>();
     Map<String, List<IntervalVar>> resourceToIntervals = new HashMap<>();
@@ -40,21 +39,19 @@ public class PhaseTwo {
 
     private void generateVariables() {
         for (Task task : taskList) {
-            Integer max = 0;
-            if(!task.getIsPublic()){
-//                List<Integer> relatedLayer = Arrays.asList(task.getRelatedLayer().
-//                        split(",")).stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
-                LambdaQueryWrapper<PhaseOneAssignedTask> wrapper = new LambdaQueryWrapper<>();
-//                wrapper.in(PhaseOneAssignedTask::getLayerNum, relatedLayer);
-                wrapper.eq(PhaseOneAssignedTask::getOrderId,task.getRelatedOrderId());
-                List<PhaseOneAssignedTask> phaseOneAssignedTasks = phaseOneAssignedTaskService.list(wrapper);
-                max = Collections.max(phaseOneAssignedTasks.stream().map(PhaseOneAssignedTask::getEnd).collect(Collectors.toList()));
+            Integer maxEnd = 0;
+            if (StringUtils.isNotBlank(task.getRelatedLayer())) {
+                List<Integer> relatedLayer = Arrays.asList(task.getRelatedLayer().
+                        split(",")).stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+                List<Integer> collect = phaseTwoAssignedTasks.stream().
+                        filter(i -> relatedLayer.contains(i.getLayerNum())).map(PhaseTwoAssignedTask::getEnd).collect(Collectors.toList());
+                maxEnd = Collections.max(collect);
             }
 
             String suffix = "_" + task.getId();
             TaskVariable taskVariable = new TaskVariable();
-            taskVariable.setStart(model.newIntVar(max, Integer.MAX_VALUE, "start" + suffix));
-            taskVariable.setEnd(model.newIntVar(max, Integer.MAX_VALUE, "end" + suffix));
+            taskVariable.setStart(model.newIntVar(maxEnd, Integer.MAX_VALUE, "start" + suffix));
+            taskVariable.setEnd(model.newIntVar(maxEnd, Integer.MAX_VALUE, "end" + suffix));
             taskVariable.setInterval(model.newIntervalVar(taskVariable.getStart(), LinearExpr.constant(task.getHoursDuration())
                     , taskVariable.getEnd(), "interval" + suffix));
             allTasks.put(task.getId(), taskVariable);

@@ -23,6 +23,8 @@ public class PhaseOneAnother {
      CpModel model = new CpModel();
      private List<ResourceItem> resourceItems;
      List<PhaseOneAssignedTask> firstAssignedTasks = new ArrayList<>();
+     private static int tempTotal = 0;
+     private static SubPhaseOneTask  tempTask;
 
      public List<PhaseOneAssignedTask> splitPhaseOne(){
           //TODO:复杂度太高了，想办法重构吧
@@ -32,12 +34,16 @@ public class PhaseOneAnother {
                     List<String> demoTaskIds = Arrays.asList(assignedTask.getDemoTaskId().split(","));
                     List<Integer> demoTaskQuantity = Arrays.asList(assignedTask.getDemoTaskQuantity().
                            split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());
+                    List<Integer> demoTaskDuration = Arrays.asList(assignedTask.getDemoTaskDuration().
+                            split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());
                     Integer sum = demoTaskQuantity.stream().reduce(Integer::sum).orElse(0);
                     Integer hoursDuration = assignedTask.getHoursDuration();
                     Integer end = assignedTask.getEnd();
+                    Integer start = assignedTask.getStart();
                     Integer quantity = assignedTask.getQuantity();
                     Integer sumDemoHourDuration = 0;
                     for(int i =0;i<demoTaskIds.size();i++){
+                         int demoHoursDuration = demoTaskDuration.get(i);
 //                         int demoHoursDuration = (int) Math.ceil((double)hoursDuration / quantity*demoTaskQuantity.get(i));
                          String demoTaskId = demoTaskIds.get(i);
                          PhaseOneAssignedTask phaseOneAssignedTask = new PhaseOneAssignedTask();
@@ -47,19 +53,23 @@ public class PhaseOneAnother {
                                    BeanUtils.copyProperties(task,phaseOneAssignedTask);
                               }
                          }
-                         int demoHoursDuration = (int) Math.ceil(24.0* demoTaskQuantity.get(i) / phaseOneAssignedTask.getSpeed());
-                         Integer demoEnd = end-sumDemoHourDuration;
-                         phaseOneAssignedTask.setEnd(demoEnd);
+//                         int demoHoursDuration = (int) Math.ceil(24.0* demoTaskQuantity.get(i) / phaseOneAssignedTask.getSpeed());
+//                         Integer demoEnd = end-sumDemoHourDuration;
+                         Integer demoStart = start+ sumDemoHourDuration;
+
+                         phaseOneAssignedTask.setEnd(demoStart+demoHoursDuration);
                          phaseOneAssignedTask.setHoursDuration(demoHoursDuration);
-                         phaseOneAssignedTask.setStart(demoEnd-demoHoursDuration);
+                         phaseOneAssignedTask.setStart(demoStart);
                          demoAssignedTasks.add(phaseOneAssignedTask);
                          sumDemoHourDuration+=demoHoursDuration;
                     }
                     Integer actualHoursDuration = hoursDuration-sumDemoHourDuration;
                     if(actualHoursDuration!=0) {
-                         Integer actualEnd = end - sumDemoHourDuration;
+//                         Integer actualEnd = end - sumDemoHourDuration;
                          assignedTask.setHoursDuration(actualHoursDuration);
-                         assignedTask.setEnd(actualEnd);
+//                         assignedTask.setEnd(actualEnd);
+                         Integer actualStart = start+ sumDemoHourDuration;
+                         assignedTask.setStart(actualStart);
                     }
                     assignedTask.setQuantity(quantity - sum);
 
@@ -261,6 +271,10 @@ public class PhaseOneAnother {
      public static List<SubPhaseOneTask> splitTask(List<PhaseOneAssignedTask> tasks){
           List<SubPhaseOneTask> subTasks = new ArrayList<>();
           for(PhaseOneAssignedTask phaseOneAssignedTask:tasks){
+               tempTotal = 0;
+               tempTask = null;
+               Integer quantity = phaseOneAssignedTask.getQuantity();
+               System.out.println("phase one quantity"+quantity);
                Integer start = phaseOneAssignedTask.getStart();
                Integer duration = phaseOneAssignedTask.getHoursDuration();
                Integer end = phaseOneAssignedTask.getEnd();
@@ -296,13 +310,32 @@ public class PhaseOneAnother {
                          subTask.setStart(tempStart);
                          subTask.setEnd(tempEnd);
                     }
-                    subTasks.add(subTask);
+
+                    int newDuration = tempEnd - tempStart;
+                    if(newDuration!=0) {
+                         if (tempTotal < quantity) {
+                              int newQuantity = (int) (Math.floorDiv(phaseOneAssignedTask.getQuantity() * (tempEnd - tempStart), duration) + 1);
+                              tempTotal += newQuantity;
+                              subTask.setSubQuantity(newQuantity);
+                              subTask.setHoursDuration(newDuration);
+                              subTasks.add(subTask);
+                              tempTask = subTask;
+                         }
+                    }
                }
+               if (tempTotal < quantity) {
+                    tempTask.setSubQuantity(tempTask.getSubQuantity() + quantity - tempTotal);
+               } else if (tempTotal > quantity) {
+                    if(quantity - tempTotal + tempTask.getSubQuantity()>0){
+                         tempTask.setSubQuantity(quantity - tempTotal + tempTask.getSubQuantity());
+                    }
+               }
+
 
 
           }
           subTasks.forEach(i->{
-               System.out.println("start:"+i.getStart()+" end: "+i.getEnd()+" substart:"+i.getSubStart()+" subend:"+i.getSubEnd());
+               System.out.println("id:"+i.getOriginalId()+" start:"+i.getStart()+" end: "+i.getEnd()+" duration:"+i.getHoursDuration()+" quantity:"+i.getQuantity());
           });
           return subTasks;
      }
