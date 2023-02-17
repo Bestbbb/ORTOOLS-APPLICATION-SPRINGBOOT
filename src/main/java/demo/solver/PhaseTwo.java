@@ -46,7 +46,7 @@ public class PhaseTwo {
 //                        split(",")).stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
                 LambdaQueryWrapper<PhaseOneAssignedTask> wrapper = new LambdaQueryWrapper<>();
 //                wrapper.in(PhaseOneAssignedTask::getLayerNum, relatedLayer);
-                wrapper.eq(PhaseOneAssignedTask::getOrderId,task.getRelatedOrderId());
+                wrapper.eq(PhaseOneAssignedTask::getOrderId,task.getOrderId());
                 List<PhaseOneAssignedTask> phaseOneAssignedTasks = phaseOneAssignedTaskService.list(wrapper);
                 max = Collections.max(phaseOneAssignedTasks.stream().map(PhaseOneAssignedTask::getEnd).collect(Collectors.toList()));
             }

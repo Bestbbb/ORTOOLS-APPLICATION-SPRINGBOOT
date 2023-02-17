@@ -335,7 +335,7 @@ public class PhaseOneAnother {
 
           }
           subTasks.forEach(i->{
-               System.out.println("id:"+i.getOriginalId()+" start:"+i.getStart()+" end: "+i.getEnd()+" duration:"+i.getHoursDuration()+" quantity:"+i.getQuantity());
+               System.out.println("id:"+i.getOriginalId()+" start:"+i.getStart()+" end: "+i.getEnd()+" duration:"+i.getHoursDuration()+" quantity:"+i.getSubQuantity());
           });
           return subTasks;
      }

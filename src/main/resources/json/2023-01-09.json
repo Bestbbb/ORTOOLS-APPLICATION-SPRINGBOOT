@@ -699,7 +699,7 @@
           }
         ]
       },
-      "quantity": 30,
+      "quantity": 7,
       "type": 0
     },
     {
@@ -1049,7 +1049,7 @@
           }
         ]
       },
-      "quantity": 12,
+      "quantity": 7,
       "relatedManufactureOrderId": "41178836784",
       "type": 1
     },
@@ -1224,7 +1224,7 @@
           }
         ]
       },
-      "quantity": 50,
+      "quantity": 7,
       "type": 0
     },
     {
@@ -1574,15 +1574,15 @@
           }
         ]
       },
-      "quantity": 15,
+      "quantity": 7,
       "relatedManufactureOrderId": "51178836784",
       "type": 1
     }
   ],
   "outputSetting": {},
   "planningPeriod": {
-    "endTime": 1673250445382,
-    "startTime": 1673250445382
+    "endTime": "2023-07-16",
+    "startTime": "2023-02-09"
   },
   "planningTimeUnit": "schedule",
   "relationID": "31394993921",

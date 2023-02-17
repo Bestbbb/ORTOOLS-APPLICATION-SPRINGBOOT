@@ -259,7 +259,7 @@ public class OrToolsJobApp {
     public List<PhaseTwoAssignedTask> solvePhaseTwoAnother(){
         PhaseTwoAnother phaseTwo = new PhaseTwoAnother();
         //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
-        List<Task> beforeIntegratedDemoTaskList = taskList.stream().
+        List<Task> beforeIntegratedDemoTaskList = taskList2.stream().
                 filter(i->!i.getIsPublic()&&i.getOrderType()==1&&i.getUnit()==0).collect(Collectors.toList());
 
 
@@ -269,7 +269,7 @@ public class OrToolsJobApp {
 
         PhaseTwoLastAnother phaseTwoLast = new PhaseTwoLastAnother();
         //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
-        List<Task> afterIntegratedDemoTaskList = taskList.stream().
+        List<Task> afterIntegratedDemoTaskList = taskList2.stream().
                 filter(i->!i.getIsPublic()&&i.getOrderType()==1&&i.getUnit()==1).collect(Collectors.toList());
 //        List<Task> afterIntegratedNormalTaskList = DataGenerator.createAfterIntegratedNormalTaskList(manufacturerOrders);
         phaseTwoLast.setTaskList(afterIntegratedDemoTaskList);
@@ -454,29 +454,29 @@ public class OrToolsJobApp {
                     if (tempEndTime.toLocalTime().isAfter(scheduleThree)) {
                         if (tempTotal < quantity) {
                             setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
-                                    scheduleTwo).toMinutes(), totalMinutes) + 1));
+                                    scheduleTwo).toMinutes(), totalMinutes)+1));
                         }
                         if (tempTotal < quantity) {
                             setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(scheduleTwo,
-                                    scheduleThree).toMinutes(), totalMinutes) + 1));
+                                    scheduleThree).toMinutes(), totalMinutes)));
                         }
                         if (tempTotal < quantity) {
                             setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(quantity * Duration.between(scheduleThree,
-                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
+                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes)));
                         }
                     } else if (tempEndTime.toLocalTime().isAfter(scheduleTwo)) {
                         if (tempTotal < quantity) {
                             setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
-                                    scheduleTwo).toMinutes(), totalMinutes) + 1));
+                                    scheduleTwo).toMinutes(), totalMinutes)+1));
                         }
                         if (tempTotal < quantity) {
                             setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(scheduleTwo,
-                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
+                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes)));
                         }
                     } else {
                         if (tempTotal < quantity) {
                             setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
-                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
+                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes)+1));
                         }
                     }
 
@@ -485,33 +485,35 @@ public class OrToolsJobApp {
                         if (tempTotal < quantity) {
 
                             setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
-                                    scheduleThree).toMinutes(), totalMinutes) + 1));
+                                    scheduleThree).toMinutes(), totalMinutes)+1));
                         }
                         if (tempTotal < quantity) {
 
                             setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(quantity * Duration.between(scheduleThree,
-                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
+                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes)));
                         }
                     } else {
                         if (tempTotal < quantity) {
                             setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
-                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
+                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes)+1));
                         }
                     }
 
                 } else {
                     if (tempTotal < quantity) {
                         setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
-                                tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
+                                tempEndTime.toLocalTime()).toMinutes(), totalMinutes) ));
                     }
                 }
             }
-//            System.out.println("id:"+assignedTask.getOriginalId() +"quantity:"+assignedTask.getQuantity()+"tempTotal:"+tempTotal);
-            if (tempTotal < quantity) {
-                tempTask.setAmount(tempTask.getAmount() + quantity - tempTotal);
-            } else if (tempTotal > quantity) {
-                if(quantity - tempTotal + tempTask.getAmount()>0){
-                    tempTask.setAmount(quantity - tempTotal + tempTask.getAmount());
+            System.out.println(" "+"id:"+assignedTask.getOriginalId() +"quantity:"+assignedTask.getQuantity()+"tempTotal:"+tempTotal);
+            if(tempTask!=null) {
+                if (tempTotal < quantity) {
+                    tempTask.setAmount(tempTask.getAmount() + quantity - tempTotal);
+                } else if (tempTotal >= quantity) {
+                    if (quantity - tempTotal + tempTask.getAmount() > 0) {
+                        tempTask.setAmount(quantity - tempTotal + tempTask.getAmount());
+                    }
                 }
             }
         });
@@ -540,6 +542,13 @@ public class OrToolsJobApp {
                     return 0;
                 }
         ).collect(Collectors.toList());
+            List<AssignedTask> collect1 = collectFinal.stream().filter(i -> i.getOriginalId().startsWith("3")).collect(Collectors.toList());
+            List<AssignedTask> collect2 = collectFinal.stream().filter(i -> !i.getOriginalId().startsWith("3")).collect(Collectors.toList());
+            LocalDate  max = Collections.max(collect1.stream().map(AssignedTask::getRunTime).collect(Collectors.toList()));
+            LocalDate max2 =  Collections.max(collect2.stream().map(AssignedTask::getRunTime).collect(Collectors.toList()));
+            System.out.println(max+" "+max2);
+
+
 
 //        DateUtil.setOutputDate(collectFinal);
         DateTimeFormatter df2 = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -614,6 +623,7 @@ public class OrToolsJobApp {
         map.add("outputPath", outputPath);
         map.add("algorithmFileId",algorithmFileId);
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity(map, headers);
+        System.out.println(request);
         String url = config.getUrl();
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
         System.out.println(response.getStatusCode());
@@ -622,7 +632,7 @@ public class OrToolsJobApp {
 
     }
     private static void setTask(Output out, AssignedTask task, LocalDateTime runTime, int schedule, Integer amount) {
-        if(amount>0) {
+        if(amount>=0) {
 
             tempTotal += amount;
             AssignedTask assignedTask = new AssignedTask();

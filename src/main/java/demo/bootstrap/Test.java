@@ -3,8 +3,14 @@ package demo.bootstrap;
 import demo.domain.SubPhaseOneTask;
 import org.springframework.beans.BeanUtils;
 
+import java.time.Duration;
+
 public class Test {
     public static void main(String[] args) {
+
+
+       int x =  (int) (Math.floorDiv(15 * 3, 4));
+       System.out.println(x);
         int start = 8;
         int end = 24;
         int duration =17;
