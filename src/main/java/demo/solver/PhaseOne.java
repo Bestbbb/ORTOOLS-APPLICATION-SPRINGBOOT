@@ -46,7 +46,6 @@ public class PhaseOne {
                     Integer hoursDuration = assignedTask.getHoursDuration();
                     Integer end = assignedTask.getEnd();
                     Integer start = assignedTask.getStart();
-                    Integer quantity = assignedTask.getQuantity();
                     Integer sumDemoHourDuration = 0;
                     for(int i =0;i<demoTaskIds.size();i++){
                          int demoHoursDuration = demoTaskDuration.get(i);
@@ -80,7 +79,6 @@ public class PhaseOne {
                          assignedTask.setStart(actualStart);
 
                     }
-                    assignedTask.setQuantity(quantity - sum);
 
 
 

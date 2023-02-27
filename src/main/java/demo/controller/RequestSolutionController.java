@@ -43,12 +43,14 @@ public class RequestSolutionController {
         Input input = LoadFile.readJsonFile(algorithmFileInputPath);
         List<ResourceItem> resourceItems = DataGenerator.generateResources(input);
         LocalDateTime startTime = input.getPlanningPeriod().getStartTime();
+        List<ResourcePool> resourcePool = input.getResourcePool();
 
         List<ManufacturerOrder> manufacturerOrders = DataGenerator.generateOrderList(input);
         if(flag==0){
             List<Task> tasks1 = DataGenerator.generateTaskList(manufacturerOrders);
             Loader.loadNativeLibraries();
             OrToolsJobApp orToolsJobApp = new OrToolsJobApp();
+            orToolsJobApp.setResourcePool(resourcePool);
             orToolsJobApp.setTaskList(tasks1);
             orToolsJobApp.setResourceItems(resourceItems);
             orToolsJobApp.setManufacturerOrders(manufacturerOrders);
@@ -99,6 +101,7 @@ public class RequestSolutionController {
 //                dataSourceTransactionManager.commit(status);
                 jsonObject.put("code", 200);
             } catch (Exception e) {
+                e.printStackTrace();
                 jsonObject.put("code", 500);
                 jsonObject.put("message", e.getMessage());
             }

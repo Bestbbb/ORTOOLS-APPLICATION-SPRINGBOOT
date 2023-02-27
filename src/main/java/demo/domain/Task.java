@@ -111,6 +111,9 @@ public class Task extends TaskOrResource implements Serializable {
 
     private Integer priority;
 
+    //新增字段用来表示任务数量
+    private Integer taskQuantity;
+
     private LocalDateTime taskBeginTime = LocalDateTime.of(2022, 10, 1, 0, 0, 0);
 
 

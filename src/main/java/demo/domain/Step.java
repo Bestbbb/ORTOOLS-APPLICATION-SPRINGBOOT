@@ -38,4 +38,6 @@ public class Step implements Serializable {
 
     private List<String> holidayList;
 
+    private Integer totalHours;
+
 }

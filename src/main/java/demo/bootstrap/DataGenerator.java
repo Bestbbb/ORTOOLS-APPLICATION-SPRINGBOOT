@@ -182,7 +182,8 @@ public class DataGenerator {
                         task.setOrderType(order.getType());
                     }
                     if (task.getQuantity() == null) {
-                        task.setQuantity(order.getJoinQuantity());
+                        task.setQuantity(task.getTaskQuantity());
+//                        task.setTaskQuantity(order.getQuantity());
                     }
                     if (order.getType() == 1 && order.getRelatedManufactureOrderId() != null) {
                         task.setRelatedOrderId(order.getRelatedManufactureOrderId());
@@ -197,14 +198,12 @@ public class DataGenerator {
                     }
 //                    task.setHalfHourDuration((int) Math.ceil(48.0 * order.getQuantity() / task.getSpeed()));
                     if (task.getHoursDuration() == null) {
-                        task.setHoursDuration((int) Math.ceil(24.0 * order.getQuantity() / task.getSpeed()));
+                        task.setHoursDuration((int) Math.ceil(24.0 * task.getTaskQuantity() / task.getSpeed()));
                     }
                     task.setManufacturerOrder(order);
                     task.setRequiredResourceId(resourceRequirementList.get(0).getId());
                     taskIndex++;
-                    if(task.getId().equals("32090057533-1")){
-                        System.out.println("caonimabi"+task.getOrderIndex());
-                    }
+
                 }
                 taskList.addAll(list);
                 stepIndex++;
@@ -322,8 +321,6 @@ public class DataGenerator {
 
         });
         setSplitQuantity(taskList);
-        taskList.forEach(task ->
-                System.out.println(task.getId() + " " + " minutesduration:" + task.getMinutesDuration() + " hourduration:" + task.getHoursDuration() + " " + task.getDemoTaskId() + " " + task.getDemoTaskQuantity()));
         return taskList;
     }
 
@@ -465,7 +462,7 @@ public class DataGenerator {
                     for (Task demoTask : taskList1) {
                         if (Objects.equals(demoTask.getStepIndex(), task.getStepIndex()) && Objects.equals(demoTask.getTaskIndex(), task.getTaskIndex())) {
                             demoTaskIdList.add(demoTask.getId());
-                            demoTaskQuantityList.add(demoTask.getQuantity());
+                            demoTaskQuantityList.add(demoTask.getTaskQuantity());
                             demoTaskDurationList.add(demoTask.getHoursDuration());
                         }
                     }
@@ -585,6 +582,7 @@ public class DataGenerator {
                                 Integer quantity = order.getQuantity();
                                 Integer delayDays = order.getDelayDays();
                                 task.setQuantity(quantity);
+                                task.setTaskQuantity(quantity);
                                 task.setHoursDuration((int) Math.ceil(24.0 * quantity / task.getSpeed()));
                                 task.setOrderDelayDays(delayDays);
 

@@ -45,6 +45,7 @@ import java.util.stream.Collectors;
 public class OrToolsJobApp {
     private MesConfig config = ContextUtil.getBean(MesConfig.class);
 
+    private List<ResourcePool> resourcePool;
 
     Integer horizon = 0;
     Map<String, TaskVariable> allTasks = new HashMap<>();
@@ -71,6 +72,7 @@ public class OrToolsJobApp {
     private static final int SCHEDULE_THREE = 2;
 
     private static int tempTotal = 0;
+    private static int tempHoursDuration  = 0;
     private static AssignedTask tempTask;
 
     private static int index;
@@ -388,6 +390,7 @@ public class OrToolsJobApp {
         out.setCode(200);
         out.setMessage("成功");
         out.setStatus(0);
+        out.setResourcePool(resourcePool);
         out.setRequestId(UUID.randomUUID().toString());
 
         manufacturerOrders.forEach(i->
@@ -396,8 +399,9 @@ public class OrToolsJobApp {
         });
         out.setManufacturerOrderList(manufacturerOrders);
         System.out.println(firstAssignedTasks.size());
+        List<String> strings = resourcePool.stream().map(ResourcePool::getTypeId).collect(Collectors.toList());
         firstAssignedTasks.forEach(i->System.out.println(i.getOriginalId() +" orderIndex:"+i.getOrderIndex()+" stepIndex:"+i.getStepIndex()));
-
+        HashMap<LocalDate,Map<String,Long>> map = new HashMap<>();
         if(firstAssignedTasks.size()==0){
 
             AssignedTask assignedTask = new AssignedTask();
@@ -437,6 +441,7 @@ public class OrToolsJobApp {
             LocalDateTime actualStartTime = assignedTime.plusHours(Optional.of(assignedTask.getStart()).orElse(0));
             LocalDateTime actualEndTime = assignedTime.plusHours(Optional.of(assignedTask.getStart()).orElse(0))
                     .plusHours(Optional.of(assignedTask.getHoursDuration()).orElse(0));
+            Integer hoursDuration = assignedTask.getHoursDuration();
             Duration duration = Duration.between(actualStartTime, actualEndTime);
             long totalMinutes = duration.toMinutes();
             List<LocalDateTime[]> everyDay = getEveryDay(actualStartTime, actualEndTime);
@@ -444,8 +449,19 @@ public class OrToolsJobApp {
             index = 0;
             tempTask = null;
             for(LocalDateTime[] a:everyDay){
+                tempHoursDuration = 0;
                 final LocalDateTime tempStartTime = a[0];
                 final LocalDateTime tempEndTime = a[1];
+                LocalDate date = tempEndTime.toLocalDate();
+                String resourceId = assignedTask.getRequiredResourceId();
+                Map<String,Long>  resourceToDuration= map.get(date);
+                if(resourceToDuration==null){
+                    resourceToDuration = new HashMap<>();
+                }
+                Long totalDuration = resourceToDuration.get(resourceId);
+                if(totalDuration==null){
+                    totalDuration=0l;
+                }
                 if(tempStartTime.isEqual(tempEndTime)){
                     continue;
                 }
@@ -455,6 +471,8 @@ public class OrToolsJobApp {
                         if (tempTotal < quantity) {
                             setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
                                     scheduleTwo).toMinutes(), totalMinutes)+1));
+                            tempHoursDuration+=(int) (Math.floorDiv(hoursDuration * Duration.between(tempStartTime.toLocalTime(),
+                                    scheduleTwo).toMinutes(), totalMinutes)+1);
                         }
                         if (tempTotal < quantity) {
                             setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(scheduleTwo,
@@ -487,13 +505,13 @@ public class OrToolsJobApp {
                             setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
                                     scheduleThree).toMinutes(), totalMinutes)+1));
                         }
-                        if (tempTotal < quantity) {
+                        if (tempTotal < quantity ) {
 
                             setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(quantity * Duration.between(scheduleThree,
                                     tempEndTime.toLocalTime()).toMinutes(), totalMinutes)));
                         }
                     } else {
-                        if (tempTotal < quantity) {
+                        if (tempTotal < quantity ) {
                             setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
                                     tempEndTime.toLocalTime()).toMinutes(), totalMinutes)+1));
                         }
@@ -505,19 +523,28 @@ public class OrToolsJobApp {
                                 tempEndTime.toLocalTime()).toMinutes(), totalMinutes) ));
                     }
                 }
+                Long todayDuration = Duration.between(tempStartTime,tempEndTime).toHours()+1;
+                totalDuration+=todayDuration;
+                if(totalDuration>24l){
+                    totalDuration=24l;
+                }
+                resourceToDuration.put(resourceId,totalDuration);
+
+                map.put(date,resourceToDuration);
+
             }
-            System.out.println(" "+"id:"+assignedTask.getOriginalId() +"quantity:"+assignedTask.getQuantity()+"tempTotal:"+tempTotal);
             if(tempTask!=null) {
-                if (tempTotal < quantity) {
+                if (tempTotal < quantity ) {
                     tempTask.setAmount(tempTask.getAmount() + quantity - tempTotal);
-                } else if (tempTotal >= quantity) {
+                } else if (tempTotal >= quantity ) {
                     if (quantity - tempTotal + tempTask.getAmount() > 0) {
                         tempTask.setAmount(quantity - tempTotal + tempTask.getAmount());
                     }
                 }
             }
-        });
 
+        });
+        out.setDateToResourceIdToHoursPerDay(map);
         for (ManufacturerOrder mOrder : manufacturerOrders) {
             Product product = mOrder.getProduct();
             product.getStepList().forEach(outputStep -> {
@@ -542,11 +569,11 @@ public class OrToolsJobApp {
                     return 0;
                 }
         ).collect(Collectors.toList());
-            List<AssignedTask> collect1 = collectFinal.stream().filter(i -> i.getOriginalId().startsWith("3")).collect(Collectors.toList());
-            List<AssignedTask> collect2 = collectFinal.stream().filter(i -> !i.getOriginalId().startsWith("3")).collect(Collectors.toList());
-            LocalDate  max = Collections.max(collect1.stream().map(AssignedTask::getRunTime).collect(Collectors.toList()));
-            LocalDate max2 =  Collections.max(collect2.stream().map(AssignedTask::getRunTime).collect(Collectors.toList()));
-            System.out.println(max+" "+max2);
+//            List<AssignedTask> collect1 = collectFinal.stream().filter(i -> i.getOriginalId().startsWith("3")).collect(Collectors.toList());
+//            List<AssignedTask> collect2 = collectFinal.stream().filter(i -> !i.getOriginalId().startsWith("3")).collect(Collectors.toList());
+//            LocalDate  max = Collections.max(collect1.stream().map(AssignedTask::getRunTime).collect(Collectors.toList()));
+//            LocalDate max2 =  Collections.max(collect2.stream().map(AssignedTask::getRunTime).collect(Collectors.toList()));
+//            System.out.println(max+" "+max2);
 
 
 

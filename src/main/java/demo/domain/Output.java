@@ -6,7 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @ToString
@@ -19,5 +22,8 @@ public class Output implements Serializable {
     private int status;
     private String requestId;
     private List<ManufacturerOrder> manufacturerOrderList;
+    private List<ResourcePool> resourcePool;
+    private HashMap<LocalDate, Map<String,Long>> dateToResourceIdToHoursPerDay;
+
 
 }
