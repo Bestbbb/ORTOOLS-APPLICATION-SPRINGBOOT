@@ -1,7 +1,14 @@
 package demo.bootstrap;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import demo.domain.*;
+import demo.domain.DTO.NextWorkDayDto;
+import demo.service.HolidayService;
+import demo.service.PhaseOneAssignedTaskService;
+import org.checkerframework.checker.units.qual.C;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -13,8 +20,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
-
+@Component
 public class DateUtil {
+    static HolidayService holidayService = ContextUtil.getBean(HolidayService.class);
 
     static String nextDayURL = "http://timor.tech/api/holiday/workday/next/";
     static String isHolidayURL = "http://timor.tech/api/holiday/info/";
@@ -35,6 +43,7 @@ public class DateUtil {
 //                "target": '国庆节'     // 只在调休下有该字段。表示调休的节假日
 //    }
 //    }
+    //api版本获取日期
     public static JSONObject getNextWorkDay(String startDate){
         RestTemplate restTemplate = new RestTemplate();
         MultiValueMap<String, String> map= new LinkedMultiValueMap();
@@ -44,6 +53,23 @@ public class DateUtil {
         return JSONObject.parseObject(res).getJSONObject("workday");
     }
 
+    //数据库版本获取日期
+    public static NextWorkDayDto getNextWorkDayNew(String startDate){
+        LocalDate today = LocalDate.parse(startDate);
+        NextWorkDayDto nextWorkDayDto = new NextWorkDayDto();
+        LambdaQueryWrapper<Holiday> wrapper = new LambdaQueryWrapper<>();
+        wrapper.gt(Holiday::getHolidayDate,startDate);
+        wrapper.eq(Holiday::getType,0);
+        wrapper.last("limit 1");
+        Holiday holiday = holidayService.getOne(wrapper);
+        LocalDate holidayDate = holiday.getHolidayDate();
+        long rest = holidayDate.toEpochDay()-today.toEpochDay();
+        nextWorkDayDto.setDate(holidayDate.toString());
+        nextWorkDayDto.setRest(rest);
+        return nextWorkDayDto;
+    }
+
+    //旧版api
     public static Boolean getIsHoliday(String startDate){
         RestTemplate restTemplate = new RestTemplate();
         MultiValueMap<String, String> map= new LinkedMultiValueMap();
@@ -51,6 +77,18 @@ public class DateUtil {
         JSONObject type = JSONObject.parseObject(res).getJSONObject("type");
         //"type": enum(0, 1, 2, 3), // 节假日类型，分别表示 工作日、周末、节日、调休。
         Integer typeNumber = (int) type.get("type");
+        if(typeNumber==1 || typeNumber==2){
+            return true;
+        }
+        return false;
+    }
+    //新版数据库版
+    public static Boolean getIsHolidayNew(String startDate){
+        LambdaQueryWrapper<Holiday> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Holiday::getHolidayDate,startDate);
+        Holiday holiday = holidayService.getOne(wrapper);
+
+        Integer typeNumber = holiday.getType();
         if(typeNumber==1 || typeNumber==2){
             return true;
         }
@@ -114,11 +152,15 @@ public class DateUtil {
 //            assignedTaskList.forEach(i->i.setRunTime(LocalDate.of(2022,12,1)));
             String dateStr = runTime.format(df);
             String getNextDateStr = runTime.format(df);
-            Boolean isHoliday = getIsHoliday(dateStr);
+            Boolean isHoliday = getIsHolidayNew(dateStr);
             if (isHoliday) {
-                JSONObject nextWorkDay = getNextWorkDay(getNextDateStr);
-                String newDate = nextWorkDay.get("date")+"";
-                rest.set((Integer) nextWorkDay.get("rest"));
+                //旧的接口型写法
+//                JSONObject nextWorkDay = getNextWorkDay(getNextDateStr);
+//                String newDate = nextWorkDay.get("date")+"";
+//                rest.set((Integer) nextWorkDay.get("rest"));
+                NextWorkDayDto nextWorkDayDto = getNextWorkDayNew(getNextDateStr);
+                String newDate = nextWorkDayDto.getDate();
+                rest.set((int) nextWorkDayDto.getRest());
                 LocalDate newRunTime = LocalDate.parse(newDate, df);
                 List<AssignedTask> collect = assignedTasks.stream().
                         filter(assignedTask -> assignedTask.getRunTime().isAfter(runTime)).collect(Collectors.toList());
@@ -130,12 +172,12 @@ public class DateUtil {
                 assignedTaskList.forEach(i->i.setRunTime(newRunTime));
 
             }
-            try {
-                Thread.sleep(3000);//单位：毫秒
-
-            }catch (Exception e){
-
-            }
+//            try {
+//                Thread.sleep(3000);//单位：毫秒
+//
+//            }catch (Exception e){
+//
+//            }
 
 
         });
@@ -145,15 +187,16 @@ public class DateUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(DateUtil.getIsHoliday("2022-12-31"));
-        JSONObject nextWorkDay = DateUtil.getNextWorkDay("2022-12-27");
-        System.out.println(nextWorkDay.get("date"));
-        LocalDate date1 = LocalDate.of(2022,12,22);
-        LocalDate date2 = LocalDate.of(2022,12,22);
-        boolean after = date1.equals(date2);
-        System.out.println(after);
-
-        Boolean isHolidayRoll = getIsHolidayRoll("20221229");
-        System.out.println(isHolidayRoll);
+//        System.out.println(DateUtil.getIsHoliday("2022-12-31"));
+//        JSONObject nextWorkDay = DateUtil.getNextWorkDay("2022-12-27");
+//        System.out.println(nextWorkDay.get("date"));
+//        LocalDate date1 = LocalDate.of(2022,12,22);
+//        LocalDate date2 = LocalDate.of(2022,12,22);
+//        boolean after = date1.equals(date2);
+//        System.out.println(after);
+//
+//        Boolean isHolidayRoll = getIsHolidayRoll("20221229");
+//        System.out.println(isHolidayRoll);
+        getNextWorkDayNew("2023-03-14");
     }
 }

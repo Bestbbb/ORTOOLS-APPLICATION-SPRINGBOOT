@@ -68,7 +68,7 @@ public class DataGenerator {
                     return 0;
                 }
         ).collect(Collectors.toList());
-        collect.forEach(i->System.out.println("prioirty"+i.getPriority()));
+        collect.forEach(i -> System.out.println("prioirty" + i.getPriority()));
         return manufacturerOrderList;
     }
 
@@ -125,10 +125,9 @@ public class DataGenerator {
         List<ManufacturerOrder> list1 = new ArrayList<>();
         List<ManufacturerOrder> list2 = new ArrayList<>();
         int i = 0;
-        if(listSize==1){
+        if (listSize == 1) {
             list1 = manufacturerOrderList;
-        }
-        else if (listSize > 1) {
+        } else if (listSize > 1) {
             for (String key : dict.keySet()) {
                 if (i < (listSize / 2)) {
                     list1.addAll(dict.get(key));
@@ -140,10 +139,10 @@ public class DataGenerator {
         }
 
         ArrayList<List<ManufacturerOrder>> res = new ArrayList<>();
-        if(list1.size()>=list2.size()){
+        if (list1.size() >= list2.size()) {
             res.add(list1);
             res.add(list2);
-        }else{
+        } else {
             res.add(list2);
             res.add(list1);
         }
@@ -161,13 +160,14 @@ public class DataGenerator {
             List<Step> stepList = product.getStepList();
             int stepIndex = 0;
             int orderIndex = order.getIndex();
-
+            int orderIsComplete = order.getIsComplete();
+            int delayDays = order.getDelayDays();
             for (Step step : stepList) {
                 List<ResourceRequirement> resourceRequirementList = step.getResourceRequirementList();
                 List<Task> list = step.getTaskList();
                 Integer taskIndex = 0;
                 for (Task task : list) {
-
+                    task.setOrderIsComplete(orderIsComplete);
                     task.setPriority(priority);
                     task.setTaskIndex(taskIndex);
                     task.setProduct(product);
@@ -188,6 +188,11 @@ public class DataGenerator {
                     if (order.getType() == 1 && order.getRelatedManufactureOrderId() != null) {
                         task.setRelatedOrderId(order.getRelatedManufactureOrderId());
                     }
+                    if(task.getOrderDelayDays()==null){
+                        task.setOrderDelayDays(delayDays);
+
+                    }
+
                     //duration 还得修改
                     task.setDuration((int) Math.ceil((double) order.getQuantity() / task.getSpeed()));
                     task.setSingleTimeSlotSpeed(BigDecimal.valueOf(task.getSpeed()).divide(BigDecimal.valueOf(3), 4, RoundingMode.CEILING));
@@ -339,6 +344,7 @@ public class DataGenerator {
 
 
     }
+
     //随机挑选一个小样单作为正常单的后续步骤
     public static List<Task> createAfterIntegratedNormalTaskList(List<ManufacturerOrder> orderList) {
         List<Task> tasks = new ArrayList<>();
@@ -346,26 +352,27 @@ public class DataGenerator {
         Map<String, List<ManufacturerOrder>> orderIdToOrderList =
                 orderList.parallelStream().filter(order -> order.getRelatedManufactureOrderId() != null).collect(Collectors.groupingBy(ManufacturerOrder::getRelatedManufactureOrderId));
         orderIdToOrderList.forEach((k, v) -> {
+
             //v是小样单
             Integer sum = v.stream().mapToInt(ManufacturerOrder::getQuantity).sum();
             orderList.stream().filter(manufacturerOrder -> manufacturerOrder.getId().equals(k)).
                     forEach(i -> {
                         i.setJoinQuantity(i.getQuantity() + sum);
-                        Integer demoStepListSize =  v.get(0).getProduct().getStepList().size();
-                        Integer normalStepListSize  =  i.getProduct().getStepList().size();
+                        Integer demoStepListSize = v.get(0).getProduct().getStepList().size();
+                        Integer normalStepListSize = i.getProduct().getStepList().size();
 
-                        if(demoStepListSize>normalStepListSize){
-                            List<Step> demoDifferentStepList =  v.get(0).getProduct().getStepList().subList(normalStepListSize,demoStepListSize);
-                            for(int index= 0;index<demoDifferentStepList.size();index++){
+                        if (demoStepListSize > normalStepListSize) {
+                            List<Step> demoDifferentStepList = v.get(0).getProduct().getStepList().subList(normalStepListSize, demoStepListSize);
+                            for (int index = 0; index < demoDifferentStepList.size(); index++) {
                                 Step step = demoDifferentStepList.get(index);
-                                for(int taskIndex = 0;taskIndex<step.getTaskList().size();taskIndex++){
+                                for (int taskIndex = 0; taskIndex < step.getTaskList().size(); taskIndex++) {
                                     Task task = step.getTaskList().get(taskIndex);
-                                    if(index==0&&taskIndex==0){
+                                    if (index == 0 && taskIndex == 0) {
                                         task.setIsSplit(true);
                                     }
                                     task.setIsPublic(false);
                                     task.setRelatedTaskId(task.getId());
-                                    task.setId(task.getId()+"-demo");
+                                    task.setId(task.getId() + "-demo");
                                     task.setOrderType(i.getType());
                                     task.setOrderIndex(i.getIndex());
                                     Integer quantity = i.getQuantity();
@@ -377,10 +384,10 @@ public class DataGenerator {
 
                                 }
                             }
-                            demoDifferentStepList.forEach(j->j.getTaskList().forEach(
+                            demoDifferentStepList.forEach(j -> j.getTaskList().forEach(
                                     task -> {
                                         task.setRelatedTaskId(task.getId());
-                                        task.setId(task.getId()+"-demo");
+                                        task.setId(task.getId() + "-demo");
                                         task.setOrderType(i.getType());
                                         task.setOrderIndex(i.getIndex());
                                         Integer quantity = i.getQuantity();
@@ -472,7 +479,7 @@ public class DataGenerator {
                     String demoTaskDuration = Joiner.on(",").join(demoTaskDurationList);
                     int duration = task.getHoursDuration();
                     task.setDemoTaskId(demoTaskId);
-                    task.setHoursDuration(duration+demoTaskDurationSum);
+                    task.setHoursDuration(duration + demoTaskDurationSum);
                     task.setDemoTaskQuantity(demoTaskQuantity);
                     task.setDemoTaskDuration(demoTaskDuration);
                 }
@@ -482,7 +489,7 @@ public class DataGenerator {
     }
 
     public static void joinOrderList(List<ManufacturerOrder> orderList) {
-        for(int i=0;i< orderList.size();i++){
+        for (int i = 0; i < orderList.size(); i++) {
             ManufacturerOrder order = orderList.get(i);
             order.setIndex(i);
             order.setJoinQuantity(order.getQuantity());
@@ -494,30 +501,32 @@ public class DataGenerator {
         orderIdToOrderList.forEach((k, v) -> {
             //v是小样单
             Integer sum = v.stream().mapToInt(ManufacturerOrder::getQuantity).sum();
-            for(ManufacturerOrder order:orderList){
-                if(order.getId().equals(k)){
-                    order.setJoinQuantity(order.getQuantity() + sum);
-                    Integer demoStepListSize =  v.get(0).getProduct().getStepList().size();
-                    Integer normalStepListSize  =  order.getProduct().getStepList().size();
+            for (ManufacturerOrder order : orderList) {
+                if (order.getId().equals(k)) {
+                    if (order.getIsComplete() == 0) {
 
-                    if(demoStepListSize>normalStepListSize){
-                        List<Step> demoDifferentStepList =  v.get(0).getProduct().getStepList().subList(normalStepListSize,demoStepListSize);
-                        demoDifferentStepList.stream().forEach(i->i.getTaskList().forEach(j->j.setIsPublic(false)));
-                        List<Step> copy = new ArrayList<>();
-                        for(int idx =0;idx <demoDifferentStepList.size();idx++){
-                            Step step = new Step();
-                            step.setId(demoDifferentStepList.get(idx).getId());
-                            step.setCode(demoDifferentStepList.get(idx).getCode());
-                            step.setName(demoDifferentStepList.get(idx).getName());
-                            step.setStepStartTime(demoDifferentStepList.get(idx).getStepStartTime());
-                            step.setExecutionDays(demoDifferentStepList.get(idx).getExecutionDays());
-                            step.setResourceRequirementList(demoDifferentStepList.get(idx).getResourceRequirementList());
-                            List<Task> list = demoDifferentStepList.get(idx).getTaskList();
-                            List<Task> newList = new ArrayList<>();
-                            for(int a = 0;a<list.size();a++){
-                                Task item = list.get(a);
-                                Task task = new Task();
-                                BeanUtils.copyProperties(item,task);
+                        order.setJoinQuantity(order.getQuantity() + sum);
+                        Integer demoStepListSize = v.get(0).getProduct().getStepList().size();
+                        Integer normalStepListSize = order.getProduct().getStepList().size();
+
+                        if (demoStepListSize > normalStepListSize) {
+                            List<Step> demoDifferentStepList = v.get(0).getProduct().getStepList().subList(normalStepListSize, demoStepListSize);
+                            demoDifferentStepList.stream().forEach(i -> i.getTaskList().forEach(j -> j.setIsPublic(false)));
+                            List<Step> copy = new ArrayList<>();
+                            for (int idx = 0; idx < demoDifferentStepList.size(); idx++) {
+                                Step step = new Step();
+                                step.setId(demoDifferentStepList.get(idx).getId());
+                                step.setCode(demoDifferentStepList.get(idx).getCode());
+                                step.setName(demoDifferentStepList.get(idx).getName());
+                                step.setStepStartTime(demoDifferentStepList.get(idx).getStepStartTime());
+                                step.setExecutionDays(demoDifferentStepList.get(idx).getExecutionDays());
+                                step.setResourceRequirementList(demoDifferentStepList.get(idx).getResourceRequirementList());
+                                List<Task> list = demoDifferentStepList.get(idx).getTaskList();
+                                List<Task> newList = new ArrayList<>();
+                                for (int a = 0; a < list.size(); a++) {
+                                    Task item = list.get(a);
+                                    Task task = new Task();
+                                    BeanUtils.copyProperties(item, task);
 //                                task.setId("");
 //                                task.setCode("");
 //                                task.setSpeed(0);
@@ -558,36 +567,36 @@ public class DataGenerator {
 //                                task.setIsPublic(false);
 //                                task.setTaskBeginTime(LocalDateTime.now());
 
-                                newList.add(task);
+                                    newList.add(task);
 
-                            }
-                            step.setTaskList(newList);
-                            step.setAssignedTaskList(new ArrayList<>());
-                            step.setProductId(demoDifferentStepList.get(idx).getProductId());
-                            copy.add(step);
-                        }
-                        for(int index= 0;index<copy.size();index++){
-                            Step step = copy.get(index);
-                            for(int taskIndex = 0;taskIndex<step.getTaskList().size();taskIndex++){
-                                Task task = step.getTaskList().get(taskIndex);
-                                if(index==0&&taskIndex==0){
-                                    task.setIsSplit(true);
                                 }
-                                task.setIsPublic(false);
-                                task.setOrderId(order.getId());
-                                task.setRelatedTaskId(task.getId());
-                                task.setId(task.getId()+"-demo");
-                                task.setOrderType(order.getType());
-                                task.setOrderIndex(order.getIndex());
-                                Integer quantity = order.getQuantity();
-                                Integer delayDays = order.getDelayDays();
-                                task.setQuantity(quantity);
-                                task.setTaskQuantity(quantity);
-                                task.setHoursDuration((int) Math.ceil(24.0 * quantity / task.getSpeed()));
-                                task.setOrderDelayDays(delayDays);
-
+                                step.setTaskList(newList);
+                                step.setAssignedTaskList(new ArrayList<>());
+                                step.setProductId(demoDifferentStepList.get(idx).getProductId());
+                                copy.add(step);
                             }
-                        }
+                            for (int index = 0; index < copy.size(); index++) {
+                                Step step = copy.get(index);
+                                for (int taskIndex = 0; taskIndex < step.getTaskList().size(); taskIndex++) {
+                                    Task task = step.getTaskList().get(taskIndex);
+                                    if (index == 0 && taskIndex == 0) {
+                                        task.setIsSplit(true);
+                                    }
+                                    task.setIsPublic(false);
+                                    task.setOrderId(order.getId());
+                                    task.setRelatedTaskId(task.getId());
+                                    task.setId(task.getId() + "-demo");
+                                    task.setOrderType(order.getType());
+                                    task.setOrderIndex(order.getIndex());
+                                    Integer quantity = order.getQuantity();
+                                    Integer delayDays = order.getDelayDays();
+                                    task.setQuantity(quantity);
+                                    task.setTaskQuantity(quantity);
+                                    task.setHoursDuration((int) Math.ceil(24.0 * quantity / task.getSpeed()));
+                                    task.setOrderDelayDays(delayDays);
+
+                                }
+                            }
 //                            demoDifferentStepList.forEach(j->j.getTaskList().forEach(
 //                                    task -> {
 //                                        task.setRelatedTaskId(task.getId());
@@ -601,9 +610,12 @@ public class DataGenerator {
 //                                        task.setOrderDelayDays(delayDays);
 //                                    }
 //                            ));
-                        order.getProduct().getStepList().addAll(copy);
-                        order.getProduct().getStepList().forEach(d->d.getTaskList().forEach(System.out::println));
+                            order.getProduct().getStepList().addAll(copy);
+                            order.getProduct().getStepList().forEach(d -> d.getTaskList().forEach(System.out::println));
 
+                        }
+                    }else if(order.getIsComplete() == 1){
+                        // do nothing
                     }
                 }
             }

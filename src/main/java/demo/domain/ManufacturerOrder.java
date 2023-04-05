@@ -51,6 +51,8 @@ public class ManufacturerOrder {
 
     private Integer index;
 
+    private Integer isComplete;
+
 
 
 }

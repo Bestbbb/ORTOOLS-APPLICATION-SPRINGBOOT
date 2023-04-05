@@ -10,4 +10,6 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "config")
 public class MesConfig {
     private String url;
+
+    private String outputPath;
 }

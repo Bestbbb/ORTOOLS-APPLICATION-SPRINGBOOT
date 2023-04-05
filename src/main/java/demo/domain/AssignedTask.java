@@ -59,6 +59,11 @@ public class AssignedTask implements Serializable{
     @TableField(exist = false)
     private Integer subQuantity;
 
+    @TableField(exist = false)
+    private Boolean isSplit;
+    @TableField(exist = false)
+    private Boolean isPublic;
+
 
 
     public AssignedTask(String originalId,Integer start,Integer hoursDuration){

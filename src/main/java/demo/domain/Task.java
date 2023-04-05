@@ -40,9 +40,9 @@ public class Task extends TaskOrResource implements Serializable {
     private TaskOrResource previousTaskOrResource;
 
 
-    private Integer startTime;
+    private LocalDateTime startTime;
 
-    private Integer endTime;
+    private LocalDateTime endTime;
 
     private int readyTime;
 
@@ -114,15 +114,17 @@ public class Task extends TaskOrResource implements Serializable {
     //新增字段用来表示任务数量
     private Integer taskQuantity;
 
+    private Integer orderIsComplete;
+
     private LocalDateTime taskBeginTime = LocalDateTime.of(2022, 10, 1, 0, 0, 0);
 
 
-    public LocalDateTime getActualStartTime(){
-        return taskBeginTime.plusMinutes(Optional.ofNullable(this.startTime).orElse(0));
-    }
-    public LocalDateTime getActualEndTime(){
-        return taskBeginTime.plusMinutes(Optional.ofNullable(this.endTime).orElse(0));
-    }
+//    public LocalDateTime getActualStartTime(){
+//        return taskBeginTime.plusMinutes(Optional.ofNullable(this.startTime).orElse(0));
+//    }
+//    public LocalDateTime getActualEndTime(){
+//        return taskBeginTime.plusMinutes(Optional.ofNullable(this.endTime).orElse(0));
+//    }
 
 
     public Task(String id, String code, Integer speed, Integer unit, String taskOrder, Integer layerNum, String relatedLayer) {
@@ -135,21 +137,26 @@ public class Task extends TaskOrResource implements Serializable {
         this.relatedLayer = relatedLayer;
     }
 
-    public String getFullTaskName() {
-        return this.code + " 所在工序组：" + Optional.ofNullable(this.requiredResourceId).orElse("错误：工序组为空")
-                + " 开始时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.startTime).orElse(0)) +
-                " 结束时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.endTime).orElse(0));
-    }
-
     @Override
     public Integer getEndTime(int quantity) {
-        if (startTime == null) {
-            return null;
-        }
-
-        this.endTime = startTime + (int) Math.ceil(24.0 * 60 * quantity / this.speed);
-        return this.endTime;
+        return null;
     }
+
+//    public String getFullTaskName() {
+//        return this.code + " 所在工序组：" + Optional.ofNullable(this.requiredResourceId).orElse("错误：工序组为空")
+//                + " 开始时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.startTime).orElse(0)) +
+//                " 结束时间：" + taskBeginTime.plusMinutes(Optional.ofNullable(this.endTime).orElse(0));
+//    }
+
+//    @Override
+//    public Integer getEndTime(int quantity) {
+//        if (startTime == null) {
+//            return null;
+//        }
+//
+//        this.endTime = startTime + (int) Math.ceil(24.0 * 60 * quantity / this.speed);
+//        return this.endTime;
+//    }
 
 
 

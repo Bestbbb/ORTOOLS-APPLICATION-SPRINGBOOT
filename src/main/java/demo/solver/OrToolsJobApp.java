@@ -1,5 +1,7 @@
 package demo.solver;
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.collect.Lists;
 // [START import]
 
@@ -11,11 +13,13 @@ import demo.bootstrap.ContextUtil;
 import demo.bootstrap.DataGenerator;
 import demo.bootstrap.DateUtil;
 import demo.domain.*;
+import demo.service.HolidayService;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.tomcat.jni.Local;
+import org.checkerframework.checker.lock.qual.Holding;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -44,6 +48,8 @@ import java.util.stream.Collectors;
 @Service
 public class OrToolsJobApp {
     private MesConfig config = ContextUtil.getBean(MesConfig.class);
+
+    private HolidayService holidayService = ContextUtil.getBean(HolidayService.class);
 
     private List<ResourcePool> resourcePool;
 
@@ -197,6 +203,26 @@ public class OrToolsJobApp {
 
 
     public List<PhaseOneAssignedTask> solvePhaseOne(){
+        PhaseOne phaseOne = new PhaseOne();
+        //第一阶段，找到所有公共的task，并将小样单和正常单合并
+        List<Task> beforeIntegratedTaskList = taskList.stream().
+                filter(i->i.getUnit()!=null&&i.getUnit()==0&&i.getOrderType()==0&&i.getIsPublic()).collect(Collectors.toList());
+        phaseOne.setTaskList(beforeIntegratedTaskList);
+        List<Task> beforeIntegratedDemoTaskList = taskList.stream().
+                filter(i->i.getUnit()!=null&&i.getUnit()==0&&i.getOrderType()==1&&i.getIsPublic()).collect(Collectors.toList());
+        phaseOne.setResourceItems(resourceItems);
+        phaseOne.setDemoTaskList(beforeIntegratedDemoTaskList);
+        List<PhaseOneAssignedTask> assignedTasks = phaseOne.solvePhaseOne();
+        List<PhaseOneAssignedTask> demoAssignedTasks = phaseOne.splitPhaseOne();
+        assignedTasks.addAll(demoAssignedTasks);
+        assignedTasks.forEach(i->{
+            System.out.println(" "+i.getStart()+" "+i.getEnd());
+        });
+        return assignedTasks;
+    }
+
+    //该代码用来处理正常单和小样单前面步骤不一样的情况
+    public List<PhaseOneAssignedTask> solvePhaseOneForNotMatched(){
         PhaseOne phaseOne = new PhaseOne();
         //第一阶段，找到所有公共的task，并将小样单和正常单合并
         List<Task> beforeIntegratedTaskList = taskList.stream().
@@ -577,7 +603,7 @@ public class OrToolsJobApp {
 
 
 
-//        DateUtil.setOutputDate(collectFinal);
+        DateUtil.setOutputDate(collectFinal);
         DateTimeFormatter df2 = DateTimeFormatter.ofPattern("yyyyMMdd");
         DateTimeFormatter df3 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -599,6 +625,7 @@ public class OrToolsJobApp {
                     outputStep.setExecutionDays(collect.get(collect.size() - 1).getRunTime().toEpochDay() -
                             collect.get(0).getRunTime().toEpochDay() + 1);
                     LocalDate endRunTime = firstRunTime.plusDays(outputStep.getExecutionDays());
+                    //旧版获取节假日列表
 //                    List<String> holidayList = new ArrayList<>();
 //                    for (LocalDate i = firstRunTime; i.isBefore(endRunTime); i = i.plusDays(1)){
 //                        String dateStr = i.format(df3);
@@ -613,8 +640,15 @@ public class OrToolsJobApp {
 //
 //                        }
 //                    }
-//                    System.out.println(holidayList);
-//                    outputStep.setHolidayList(holidayList);
+                    //新版获取节假日列表
+                    LambdaQueryWrapper<Holiday> wrapper = new LambdaQueryWrapper<>();
+                    wrapper.ge(Holiday::getHolidayDate,firstRunTime);
+                    wrapper.lt(Holiday::getHolidayDate,endRunTime);
+                    wrapper.eq(Holiday::getType,1);
+                    List<String> holidayList =
+                            holidayService.list(wrapper).stream().map(i->{return i.getHolidayDate().toString();}).collect(Collectors.toList());
+                    System.out.println(holidayList);
+                    outputStep.setHolidayList(holidayList);
                 }
 
             });
@@ -632,7 +666,7 @@ public class OrToolsJobApp {
 //        DataGenerator.writeResult(json);
         }
         DateTimeFormatter dfDateTime = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss");
-        String outputPath = "D:\\data\\"+dfDateTime.format(LocalDateTime.now())+"output.json";
+        String outputPath = config.getOutputPath()+dfDateTime.format(LocalDateTime.now())+"output.json";
         DataGenerator.writeObjectToFile(out,outputPath);
         System.out.println("Start sending request");
         sendOutputRequest(outputPath,algorithmFileId);
@@ -659,7 +693,7 @@ public class OrToolsJobApp {
 
     }
     private static void setTask(Output out, AssignedTask task, LocalDateTime runTime, int schedule, Integer amount) {
-        if(amount>=0) {
+        if(amount>0) {
 
             tempTotal += amount;
             AssignedTask assignedTask = new AssignedTask();

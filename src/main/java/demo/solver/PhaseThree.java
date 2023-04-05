@@ -57,11 +57,13 @@ public class PhaseThree {
                     wrapper.eq(PhaseOneAssignedTask::getOrderId,task.getOrderId());
                     List<PhaseOneAssignedTask> phaseOneAssignedTasks = phaseOneAssignedTaskService.list(wrapper);
                     max = Collections.max(phaseOneAssignedTasks.stream().map(PhaseOneAssignedTask::getEnd).collect(Collectors.toList()));
-
+                    System.out.println(max);
                     LambdaQueryWrapper<PhaseTwoAssignedTask> wrapper2 = new LambdaQueryWrapper<>();
                     wrapper2.eq(PhaseTwoAssignedTask::getRelatedOrderId,task.getOrderId());
                     List<PhaseTwoAssignedTask> phaseTwoAssignedTasks = phaseTwoAssignedTaskService.list(wrapper2);
                     maxEnd = Collections.max(phaseTwoAssignedTasks.stream().map(PhaseTwoAssignedTask::getEnd).collect(Collectors.toList()));
+                    System.out.println(maxEnd);
+
                     if(maxEnd - max<=task.getOrderDelayDays()*24){
                         start = max+ task.getOrderDelayDays()*24;
                     }else{
