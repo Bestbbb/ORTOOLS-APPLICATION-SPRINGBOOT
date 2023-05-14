@@ -1,0 +1,5828 @@
+{
+  "dateTimeFormat": "yyyy-MM-dd HH:mm:ss",
+  "id": 34143499017,
+  "inputSetting": {},
+  "manufacturerOrderList": [
+    {
+      "code": "34100434480",
+      "delayDays": 7,
+      "id": "34100434480",
+      "isComplete": 0,
+      "name": "CTR-033-230512-标准生产计划",
+      "period": {
+        "endTime": "2023-06-10 23:59:59",
+        "startTime": "2023-05-14 00:00:00"
+      },
+      "priority": 0,
+      "product": {
+        "code": "CPPC-1683856159514",
+        "id": "CPPC-1683856159514",
+        "name": "CTR-033-230512",
+        "stepList": [
+          {
+            "code": "打孔",
+            "id": "34100432433",
+            "name": "打孔",
+            "resourceRequirementList": [
+              {
+                "id": "29410924800",
+                "requirement": 1,
+                "resourceId": "打孔"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "打孔_打孔",
+                "id": "34100432434-0",
+                "layerNum": 0,
+                "speed": 30,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432435-0",
+                "layerNum": 1,
+                "speed": 30,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432436-0",
+                "layerNum": 2,
+                "speed": 30,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432437-0",
+                "layerNum": 3,
+                "speed": 30,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432438-0",
+                "layerNum": 4,
+                "speed": 30,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432439-0",
+                "layerNum": 5,
+                "speed": 30,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432440-0",
+                "layerNum": 6,
+                "speed": 30,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432441-0",
+                "layerNum": 7,
+                "speed": 30,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432442-0",
+                "layerNum": 8,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432443-0",
+                "layerNum": 9,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432444-0",
+                "layerNum": 10,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432445-0",
+                "layerNum": 11,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432446-0",
+                "layerNum": 12,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432447-0",
+                "layerNum": 13,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432448-0",
+                "layerNum": 14,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432449-0",
+                "layerNum": 15,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "贴膜",
+            "id": "34100432450",
+            "name": "覆膜",
+            "resourceRequirementList": [
+              {
+                "id": "29410924799",
+                "requirement": 1,
+                "resourceId": "覆膜"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432451-0",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432452-0",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432453-0",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432454-0",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432455-0",
+                "layerNum": 4,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432456-0",
+                "layerNum": 5,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432457-0",
+                "layerNum": 6,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432458-0",
+                "layerNum": 7,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432459-0",
+                "layerNum": 8,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432460-0",
+                "layerNum": 9,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432461-0",
+                "layerNum": 10,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432462-0",
+                "layerNum": 11,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432463-0",
+                "layerNum": 12,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432464-0",
+                "layerNum": 13,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432465-0",
+                "layerNum": 14,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432466-0",
+                "layerNum": 15,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "清扫",
+            "id": "34100432467",
+            "name": "清洁",
+            "resourceRequirementList": [
+              {
+                "id": "29410924802",
+                "requirement": 1,
+                "resourceId": "清洁"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "清洁_清扫",
+                "id": "34100432468-0",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100432469-0",
+                "layerNum": 1,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100432470-0",
+                "layerNum": 2,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100432471-0",
+                "layerNum": 3,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100432472-0",
+                "layerNum": 4,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100432473-0",
+                "layerNum": 5,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100432474-0",
+                "layerNum": 6,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100432475-0",
+                "layerNum": 7,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100432476-0",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100432477-0",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100432478-0",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100432479-0",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100432480-0",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100432481-0",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100432482-0",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100432483-0",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "打孔质检",
+            "id": "34100432484",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432485-0",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432486-0",
+                "layerNum": 1,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432487-0",
+                "layerNum": 2,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432488-0",
+                "layerNum": 3,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432489-0",
+                "layerNum": 4,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432490-0",
+                "layerNum": 5,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432491-0",
+                "layerNum": 6,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432492-0",
+                "layerNum": 7,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432493-0",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432494-0",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432495-0",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432496-0",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432497-0",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432498-0",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432499-0",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100432500-0",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "填孔",
+            "id": "34100432501",
+            "name": "填孔",
+            "resourceRequirementList": [
+              {
+                "id": "29410924803",
+                "requirement": 1,
+                "resourceId": "填孔"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "填孔_填孔",
+                "id": "34100432502-0",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100432503-0",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100432504-0",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100432505-0",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100432506-0",
+                "layerNum": 4,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100432507-0",
+                "layerNum": 5,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100432508-0",
+                "layerNum": 6,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100432509-0",
+                "layerNum": 7,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100432510-0",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100432511-0",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100432640-0",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100432641-0",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100432642-0",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100432643-0",
+                "layerNum": 13,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100432644-0",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100432645-0",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "填孔烘干",
+            "id": "34100432646",
+            "name": "烘干",
+            "resourceRequirementList": [
+              {
+                "id": "29410924804",
+                "requirement": 1,
+                "resourceId": "烘干"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432647-0",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432648-0",
+                "layerNum": 1,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432649-0",
+                "layerNum": 2,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432650-0",
+                "layerNum": 3,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432651-0",
+                "layerNum": 4,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432652-0",
+                "layerNum": 5,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432653-0",
+                "layerNum": 6,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432654-0",
+                "layerNum": 7,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432655-0",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432656-0",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432657-0",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432658-0",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432659-0",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432660-0",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432661-0",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100432662-0",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "填孔压平",
+            "id": "34100432663",
+            "name": "压平",
+            "resourceRequirementList": [
+              {
+                "id": "29410924805",
+                "requirement": 1,
+                "resourceId": "压平"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432664-0",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432665-0",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432666-0",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432667-0",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432668-0",
+                "layerNum": 4,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432669-0",
+                "layerNum": 5,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432670-0",
+                "layerNum": 6,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432671-0",
+                "layerNum": 7,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432672-0",
+                "layerNum": 8,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432673-0",
+                "layerNum": 9,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432674-0",
+                "layerNum": 10,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432675-0",
+                "layerNum": 11,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432676-0",
+                "layerNum": 12,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432677-0",
+                "layerNum": 13,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432678-0",
+                "layerNum": 14,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100432679-0",
+                "layerNum": 15,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "填孔质检",
+            "id": "34100432680",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432681-0",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432682-0",
+                "layerNum": 1,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432683-0",
+                "layerNum": 2,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432684-0",
+                "layerNum": 3,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432685-0",
+                "layerNum": 4,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432686-0",
+                "layerNum": 5,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432687-0",
+                "layerNum": 6,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432688-0",
+                "layerNum": 7,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432689-0",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432690-0",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432691-0",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432692-0",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432693-0",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432694-0",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432695-0",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100432696-0",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "印刷",
+            "id": "34100432697",
+            "name": "印刷",
+            "resourceRequirementList": [
+              {
+                "id": "29410924807",
+                "requirement": 1,
+                "resourceId": "印刷"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "印刷_印刷",
+                "id": "34100432698-0",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100432699-0",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100432700-0",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100432701-0",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100432702-0",
+                "layerNum": 4,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100432703-0",
+                "layerNum": 5,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100432704-0",
+                "layerNum": 6,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100432705-0",
+                "layerNum": 7,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100432706-0",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100432707-0",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100432708-0",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100432709-0",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100432710-0",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100432711-0",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100432712-0",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100432713-0",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "印刷烘干",
+            "id": "34100432714",
+            "name": "烘干",
+            "resourceRequirementList": [
+              {
+                "id": "29410924804",
+                "requirement": 1,
+                "resourceId": "烘干"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432715-0",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432716-0",
+                "layerNum": 1,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432717-0",
+                "layerNum": 2,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432718-0",
+                "layerNum": 3,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432719-0",
+                "layerNum": 4,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432720-0",
+                "layerNum": 5,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432721-0",
+                "layerNum": 6,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432722-0",
+                "layerNum": 7,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432723-0",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432724-0",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432725-0",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432726-0",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432727-0",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432728-0",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432729-0",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100432730-0",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "印刷压平",
+            "id": "34100432731",
+            "name": "压平",
+            "resourceRequirementList": [
+              {
+                "id": "29410924805",
+                "requirement": 1,
+                "resourceId": "压平"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432732-0",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432733-0",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432734-0",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432735-0",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432736-0",
+                "layerNum": 4,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432737-0",
+                "layerNum": 5,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432738-0",
+                "layerNum": 6,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432739-0",
+                "layerNum": 7,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432740-0",
+                "layerNum": 8,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432741-0",
+                "layerNum": 9,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432742-0",
+                "layerNum": 10,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432743-0",
+                "layerNum": 11,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432744-0",
+                "layerNum": 12,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432745-0",
+                "layerNum": 13,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432746-0",
+                "layerNum": 14,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100432747-0",
+                "layerNum": 15,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "印刷质检",
+            "id": "34100432748",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432749-0",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432750-0",
+                "layerNum": 1,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432751-0",
+                "layerNum": 2,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432752-0",
+                "layerNum": 3,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432753-0",
+                "layerNum": 4,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432754-0",
+                "layerNum": 5,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432755-0",
+                "layerNum": 6,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432756-0",
+                "layerNum": 7,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432757-0",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432758-0",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432759-0",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432760-0",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432761-0",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432762-0",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432763-0",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100432764-0",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "销钉反冲",
+            "id": "34100432765",
+            "name": "打孔",
+            "resourceRequirementList": [
+              {
+                "id": "29410924800",
+                "requirement": 1,
+                "resourceId": "打孔"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432766-0",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432767-0",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432896-0",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432897-0",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432898-0",
+                "layerNum": 4,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432899-0",
+                "layerNum": 5,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432900-0",
+                "layerNum": 6,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432901-0",
+                "layerNum": 7,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432902-0",
+                "layerNum": 8,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432903-0",
+                "layerNum": 9,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432904-0",
+                "layerNum": 10,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432905-0",
+                "layerNum": 11,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432906-0",
+                "layerNum": 12,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432907-0",
+                "layerNum": 13,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432908-0",
+                "layerNum": 14,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100432909-0",
+                "layerNum": 15,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "销钉反冲质检",
+            "id": "34100432910",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432911-0",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432912-0",
+                "layerNum": 1,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432913-0",
+                "layerNum": 2,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432914-0",
+                "layerNum": 3,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432915-0",
+                "layerNum": 4,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432916-0",
+                "layerNum": 5,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432917-0",
+                "layerNum": 6,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432918-0",
+                "layerNum": 7,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432919-0",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432920-0",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432921-0",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432922-0",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432923-0",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432924-0",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432925-0",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100432926-0",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "叠片覆膜",
+            "id": "34100432927",
+            "name": "覆膜",
+            "resourceRequirementList": [
+              {
+                "id": "29410924799",
+                "requirement": 1,
+                "resourceId": "覆膜"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432928-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432929-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432930-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432931-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432932-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432933-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432934-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432935-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432936-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432937-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432938-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432939-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432940-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432941-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432942-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100432943-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "叠片",
+            "id": "34100432944",
+            "name": "叠片",
+            "resourceRequirementList": [
+              {
+                "id": "29410924808",
+                "requirement": 1,
+                "resourceId": "叠片"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "叠片_叠片",
+                "id": "34100432945-0",
+                "relatedLayer": "0,1,2,3",
+                "speed": 30,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "叠片_叠片",
+                "id": "34100432946-0",
+                "relatedLayer": "4,5,6,7",
+                "speed": 35,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "叠片_叠片",
+                "id": "34100432947-0",
+                "relatedLayer": "8,9,10,11",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "叠片_叠片",
+                "id": "34100432948-0",
+                "relatedLayer": "12,13,14,15",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "叠片质检",
+            "id": "34100432949",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_叠片质检",
+                "id": "34100432950-0",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "质检_叠片质检",
+                "id": "34100432951-0",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "质检_叠片质检",
+                "id": "34100432952-0",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "质检_叠片质检",
+                "id": "34100432953-0",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "层压",
+            "id": "34100432954",
+            "name": "层压",
+            "resourceRequirementList": [
+              {
+                "id": "29410924809",
+                "requirement": 1,
+                "resourceId": "层压"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "层压_层压",
+                "id": "34100432955-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "层压_层压",
+                "id": "34100432956-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "层压_层压",
+                "id": "34100432957-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "层压_层压",
+                "id": "34100432958-0",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "层压质检",
+            "id": "34100432959",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_层压质检",
+                "id": "34100432960-0",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "质检_层压质检",
+                "id": "34100432961-0",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "质检_层压质检",
+                "id": "34100432962-0",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "质检_层压质检",
+                "id": "34100432963-0",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "划腔",
+            "id": "34100432964",
+            "name": "打孔",
+            "resourceRequirementList": [
+              {
+                "id": "29410924800",
+                "requirement": 1,
+                "resourceId": "打孔"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "打孔_划腔",
+                "id": "34100432965-0",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 1
+              },
+              {
+                "code": "打孔_划腔",
+                "id": "34100432966-0",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 1
+              },
+              {
+                "code": "打孔_划腔",
+                "id": "34100432967-0",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 1
+              },
+              {
+                "code": "打孔_划腔",
+                "id": "34100432968-0",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "划腔质检",
+            "id": "34100432969",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_划腔质检",
+                "id": "34100432970-0",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 1
+              },
+              {
+                "code": "质检_划腔质检",
+                "id": "34100432971-0",
+                "layerNum": 1,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 1
+              },
+              {
+                "code": "质检_划腔质检",
+                "id": "34100432972-0",
+                "layerNum": 2,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 1
+              },
+              {
+                "code": "质检_划腔质检",
+                "id": "34100432973-0",
+                "layerNum": 3,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "叠整体",
+            "id": "34100432974",
+            "name": "叠片",
+            "resourceRequirementList": [
+              {
+                "id": "29410924808",
+                "requirement": 1,
+                "resourceId": "叠片"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "叠片_叠整体",
+                "id": "34100432975-0",
+                "relatedLayer": "0,4,8,12",
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "叠整体烘干",
+            "id": "34100432976",
+            "name": "烘干",
+            "resourceRequirementList": [
+              {
+                "id": "29410924804",
+                "requirement": 1,
+                "resourceId": "烘干"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "烘干_叠整体烘干",
+                "id": "34100432977-0",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "叠整体质检",
+            "id": "34100432978",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_叠整体质检",
+                "id": "34100432979-0",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 6,
+                "taskType": 0,
+                "unit": 1
+              }
+            ]
+          }
+        ]
+      },
+      "quantity": 6,
+      "type": 0
+    },
+    {
+      "code": "34100434481",
+      "delayDays": 0,
+      "id": "34100434481",
+      "isComplete": 1,
+      "name": "CTR-033-230512-试样1生产计划",
+      "period": {
+        "endTime": "2023-06-10 23:59:59",
+        "startTime": "2023-05-14 00:00:00"
+      },
+      "priority": 0,
+      "product": {
+        "code": "CPPC-1683856159514",
+        "id": "CPPC-1683856159514",
+        "name": "CTR-033-230512",
+        "stepList": [
+          {
+            "code": "打孔",
+            "id": "34100432981",
+            "name": "打孔",
+            "resourceRequirementList": [
+              {
+                "id": "29410924800",
+                "requirement": 1,
+                "resourceId": "打孔"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "打孔_打孔",
+                "id": "34100432982-1",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432983-1",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432984-1",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432985-1",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432986-1",
+                "layerNum": 4,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432987-1",
+                "layerNum": 5,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432988-1",
+                "layerNum": 6,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432989-1",
+                "layerNum": 7,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432990-1",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432991-1",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432992-1",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432993-1",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432994-1",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432995-1",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432996-1",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_打孔",
+                "id": "34100432997-1",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "贴膜",
+            "id": "34100432998",
+            "name": "覆膜",
+            "resourceRequirementList": [
+              {
+                "id": "29410924799",
+                "requirement": 1,
+                "resourceId": "覆膜"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100432999-1",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100433000-1",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100433001-1",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100433002-1",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100433003-1",
+                "layerNum": 4,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100433004-1",
+                "layerNum": 5,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100433005-1",
+                "layerNum": 6,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100433006-1",
+                "layerNum": 7,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100433007-1",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100433008-1",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100433009-1",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100433010-1",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100433011-1",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100433012-1",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100433013-1",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "覆膜_贴膜",
+                "id": "34100433014-1",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "清扫",
+            "id": "34100433015",
+            "name": "清洁",
+            "resourceRequirementList": [
+              {
+                "id": "29410924802",
+                "requirement": 1,
+                "resourceId": "清洁"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "清洁_清扫",
+                "id": "34100433016-1",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100433017-1",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100433018-1",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100433019-1",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100433020-1",
+                "layerNum": 4,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100433021-1",
+                "layerNum": 5,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100433022-1",
+                "layerNum": 6,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100433023-1",
+                "layerNum": 7,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100433152-1",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100433153-1",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100433154-1",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100433155-1",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100433156-1",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100433157-1",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100433158-1",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "清洁_清扫",
+                "id": "34100433159-1",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "打孔质检",
+            "id": "34100433160",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433161-1",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433162-1",
+                "layerNum": 1,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433163-1",
+                "layerNum": 2,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433164-1",
+                "layerNum": 3,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433165-1",
+                "layerNum": 4,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433166-1",
+                "layerNum": 5,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433167-1",
+                "layerNum": 6,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433168-1",
+                "layerNum": 7,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433169-1",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433170-1",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433171-1",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433172-1",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433173-1",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433174-1",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433175-1",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_打孔质检",
+                "id": "34100433176-1",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "填孔",
+            "id": "34100433177",
+            "name": "填孔",
+            "resourceRequirementList": [
+              {
+                "id": "29410924803",
+                "requirement": 1,
+                "resourceId": "填孔"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "填孔_填孔",
+                "id": "34100433178-1",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100433179-1",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100433180-1",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100433181-1",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100433182-1",
+                "layerNum": 4,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100433183-1",
+                "layerNum": 5,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100433184-1",
+                "layerNum": 6,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100433185-1",
+                "layerNum": 7,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100433186-1",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100433187-1",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100433188-1",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100433189-1",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100433190-1",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100433191-1",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100433192-1",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "填孔_填孔",
+                "id": "34100433193-1",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "填孔烘干",
+            "id": "34100433194",
+            "name": "烘干",
+            "resourceRequirementList": [
+              {
+                "id": "29410924804",
+                "requirement": 1,
+                "resourceId": "烘干"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433195-1",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433196-1",
+                "layerNum": 1,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433197-1",
+                "layerNum": 2,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433198-1",
+                "layerNum": 3,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433199-1",
+                "layerNum": 4,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433200-1",
+                "layerNum": 5,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433201-1",
+                "layerNum": 6,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433202-1",
+                "layerNum": 7,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433203-1",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433204-1",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433205-1",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433206-1",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433207-1",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433208-1",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433209-1",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_填孔烘干",
+                "id": "34100433210-1",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "填孔压平",
+            "id": "34100433211",
+            "name": "压平",
+            "resourceRequirementList": [
+              {
+                "id": "29410924805",
+                "requirement": 1,
+                "resourceId": "压平"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433212-1",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433213-1",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433214-1",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433215-1",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433216-1",
+                "layerNum": 4,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433217-1",
+                "layerNum": 5,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433218-1",
+                "layerNum": 6,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433219-1",
+                "layerNum": 7,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433220-1",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433221-1",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433222-1",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433223-1",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433224-1",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433225-1",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433226-1",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_填孔压平",
+                "id": "34100433227-1",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "填孔质检",
+            "id": "34100433228",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433229-1",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433230-1",
+                "layerNum": 1,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433231-1",
+                "layerNum": 2,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433232-1",
+                "layerNum": 3,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433233-1",
+                "layerNum": 4,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433234-1",
+                "layerNum": 5,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433235-1",
+                "layerNum": 6,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433236-1",
+                "layerNum": 7,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433237-1",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433238-1",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433239-1",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433240-1",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433241-1",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433242-1",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433243-1",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_填孔质检",
+                "id": "34100433244-1",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "印刷",
+            "id": "34100433245",
+            "name": "印刷",
+            "resourceRequirementList": [
+              {
+                "id": "29410924807",
+                "requirement": 1,
+                "resourceId": "印刷"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "印刷_印刷",
+                "id": "34100433246-1",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100433247-1",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100433248-1",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100433249-1",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100433250-1",
+                "layerNum": 4,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100433251-1",
+                "layerNum": 5,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100433252-1",
+                "layerNum": 6,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100433253-1",
+                "layerNum": 7,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100433254-1",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100433255-1",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100433256-1",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100433257-1",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100433258-1",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100433259-1",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100433260-1",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "印刷_印刷",
+                "id": "34100433261-1",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "印刷烘干",
+            "id": "34100433262",
+            "name": "烘干",
+            "resourceRequirementList": [
+              {
+                "id": "29410924804",
+                "requirement": 1,
+                "resourceId": "烘干"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433263-1",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433264-1",
+                "layerNum": 1,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433265-1",
+                "layerNum": 2,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433266-1",
+                "layerNum": 3,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433267-1",
+                "layerNum": 4,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433268-1",
+                "layerNum": 5,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433269-1",
+                "layerNum": 6,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433270-1",
+                "layerNum": 7,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433271-1",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433272-1",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433273-1",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433274-1",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433275-1",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433276-1",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433277-1",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "烘干_印刷烘干",
+                "id": "34100433278-1",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "印刷压平",
+            "id": "34100433279",
+            "name": "压平",
+            "resourceRequirementList": [
+              {
+                "id": "29410924805",
+                "requirement": 1,
+                "resourceId": "压平"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433408-1",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433409-1",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433410-1",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433411-1",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433412-1",
+                "layerNum": 4,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433413-1",
+                "layerNum": 5,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433414-1",
+                "layerNum": 6,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433415-1",
+                "layerNum": 7,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433416-1",
+                "layerNum": 8,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433417-1",
+                "layerNum": 9,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433418-1",
+                "layerNum": 10,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433419-1",
+                "layerNum": 11,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433420-1",
+                "layerNum": 12,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433421-1",
+                "layerNum": 13,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433422-1",
+                "layerNum": 14,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "压平_印刷压平",
+                "id": "34100433423-1",
+                "layerNum": 15,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "印刷质检",
+            "id": "34100433424",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433425-1",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433426-1",
+                "layerNum": 1,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433427-1",
+                "layerNum": 2,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433428-1",
+                "layerNum": 3,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433429-1",
+                "layerNum": 4,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433430-1",
+                "layerNum": 5,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433431-1",
+                "layerNum": 6,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433432-1",
+                "layerNum": 7,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433433-1",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433434-1",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433435-1",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433436-1",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433437-1",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433438-1",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433439-1",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_印刷质检",
+                "id": "34100433440-1",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "销钉反冲",
+            "id": "34100433441",
+            "name": "打孔",
+            "resourceRequirementList": [
+              {
+                "id": "29410924800",
+                "requirement": 1,
+                "resourceId": "打孔"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433442-1",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433443-1",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433444-1",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433445-1",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433446-1",
+                "layerNum": 4,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433447-1",
+                "layerNum": 5,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433448-1",
+                "layerNum": 6,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433449-1",
+                "layerNum": 7,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433450-1",
+                "layerNum": 8,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433451-1",
+                "layerNum": 9,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433452-1",
+                "layerNum": 10,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433453-1",
+                "layerNum": 11,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433454-1",
+                "layerNum": 12,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433455-1",
+                "layerNum": 13,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433456-1",
+                "layerNum": 14,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "打孔_销钉反冲",
+                "id": "34100433457-1",
+                "layerNum": 15,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "销钉反冲质检",
+            "id": "34100433458",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433459-1",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433460-1",
+                "layerNum": 1,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433461-1",
+                "layerNum": 2,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433462-1",
+                "layerNum": 3,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433463-1",
+                "layerNum": 4,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433464-1",
+                "layerNum": 5,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433465-1",
+                "layerNum": 6,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433466-1",
+                "layerNum": 7,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433467-1",
+                "layerNum": 8,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433468-1",
+                "layerNum": 9,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433469-1",
+                "layerNum": 10,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433470-1",
+                "layerNum": 11,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433471-1",
+                "layerNum": 12,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433472-1",
+                "layerNum": 13,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433473-1",
+                "layerNum": 14,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              },
+              {
+                "code": "质检_销钉反冲质检",
+                "id": "34100433474-1",
+                "layerNum": 15,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 0
+              }
+            ]
+          },
+          {
+            "code": "叠片覆膜",
+            "id": "34100433475",
+            "name": "覆膜",
+            "resourceRequirementList": [
+              {
+                "id": "29410924799",
+                "requirement": 1,
+                "resourceId": "覆膜"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433476-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433477-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433478-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433479-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433480-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433481-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433482-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433483-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433484-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433485-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433486-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433487-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433488-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433489-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433490-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "覆膜_叠片覆膜",
+                "id": "34100433491-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "叠片",
+            "id": "34100433492",
+            "name": "叠片",
+            "resourceRequirementList": [
+              {
+                "id": "29410924808",
+                "requirement": 1,
+                "resourceId": "叠片"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "叠片_叠片",
+                "id": "34100433493-1",
+                "relatedLayer": "0,1,2,3",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "叠片_叠片",
+                "id": "34100433494-1",
+                "relatedLayer": "4,5,6,7",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "叠片_叠片",
+                "id": "34100433495-1",
+                "relatedLayer": "8,9,10,11",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "叠片_叠片",
+                "id": "34100433496-1",
+                "relatedLayer": "12,13,14,15",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "叠片质检",
+            "id": "34100433497",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_叠片质检",
+                "id": "34100433498-1",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "质检_叠片质检",
+                "id": "34100433499-1",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "质检_叠片质检",
+                "id": "34100433500-1",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "质检_叠片质检",
+                "id": "34100433501-1",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "层压",
+            "id": "34100433502",
+            "name": "层压",
+            "resourceRequirementList": [
+              {
+                "id": "29410924809",
+                "requirement": 1,
+                "resourceId": "层压"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "层压_层压",
+                "id": "34100433503-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "层压_层压",
+                "id": "34100433504-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "层压_层压",
+                "id": "34100433505-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "层压_层压",
+                "id": "34100433506-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "层压质检",
+            "id": "34100433507",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_层压质检",
+                "id": "34100433508-1",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "质检_层压质检",
+                "id": "34100433509-1",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "质检_层压质检",
+                "id": "34100433510-1",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              },
+              {
+                "code": "质检_层压质检",
+                "id": "34100433511-1",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "划腔",
+            "id": "34100433512",
+            "name": "打孔",
+            "resourceRequirementList": [
+              {
+                "id": "29410924800",
+                "requirement": 1,
+                "resourceId": "打孔"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "打孔_划腔",
+                "id": "34100433513-1",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 1
+              },
+              {
+                "code": "打孔_划腔",
+                "id": "34100433514-1",
+                "layerNum": 1,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 1
+              },
+              {
+                "code": "打孔_划腔",
+                "id": "34100433515-1",
+                "layerNum": 2,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 1
+              },
+              {
+                "code": "打孔_划腔",
+                "id": "34100433516-1",
+                "layerNum": 3,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "划腔质检",
+            "id": "34100433517",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_划腔质检",
+                "id": "34100433518-1",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 1
+              },
+              {
+                "code": "质检_划腔质检",
+                "id": "34100433519-1",
+                "layerNum": 1,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 1
+              },
+              {
+                "code": "质检_划腔质检",
+                "id": "34100433520-1",
+                "layerNum": 2,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 1
+              },
+              {
+                "code": "质检_划腔质检",
+                "id": "34100433521-1",
+                "layerNum": 3,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "叠整体",
+            "id": "34100433522",
+            "name": "叠片",
+            "resourceRequirementList": [
+              {
+                "id": "29410924808",
+                "requirement": 1,
+                "resourceId": "叠片"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "叠片_叠整体",
+                "id": "34100433523-1",
+                "relatedLayer": "0,4,8,12",
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "叠整体烘干",
+            "id": "34100433524",
+            "name": "烘干",
+            "resourceRequirementList": [
+              {
+                "id": "29410924804",
+                "requirement": 1,
+                "resourceId": "烘干"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "烘干_叠整体烘干",
+                "id": "34100433525-1",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "叠整体质检",
+            "id": "34100433526",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_叠整体质检",
+                "id": "34100433527-1",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "水压",
+            "id": "34100433528",
+            "name": "层压",
+            "resourceRequirementList": [
+              {
+                "id": "29410924809",
+                "requirement": 1,
+                "resourceId": "层压"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "层压_水压",
+                "id": "34100433529-1",
+                "relatedLayer": "",
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "水压质检",
+            "id": "34100433530",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_水压纸巾",
+                "id": "34100433531-1",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "背面印刷",
+            "id": "34100433532",
+            "name": "印刷",
+            "resourceRequirementList": [
+              {
+                "id": "29410924807",
+                "requirement": 1,
+                "resourceId": "印刷"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "印刷_背面印刷",
+                "id": "34100433533-1",
+                "layerNum": 0,
+                "speed": 40,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "背面印刷质检",
+            "id": "34100433534",
+            "name": "质检",
+            "resourceRequirementList": [
+              {
+                "id": "29410924798",
+                "requirement": 1,
+                "resourceId": "质检"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "质检_背面印刷质检",
+                "id": "34100433535-1",
+                "layerNum": 0,
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 0,
+                "unit": 1
+              }
+            ]
+          },
+          {
+            "code": "热切",
+            "id": "34100433664",
+            "name": "热切",
+            "resourceRequirementList": [
+              {
+                "id": "29410924810",
+                "requirement": 1,
+                "resourceId": "热切"
+              }
+            ],
+            "taskList": [
+              {
+                "code": "热切_热切",
+                "id": "34100433665-1",
+                "relatedLayer": "",
+                "speed": 50,
+                "taskQuantity": 2,
+                "taskType": 1,
+                "unit": 1
+              }
+            ]
+          }
+        ]
+      },
+      "quantity": 2,
+      "relatedManufactureOrderId": "34100434480",
+      "type": 1
+    }
+  ],
+  "outputSetting": {},
+  "planningPeriod": {
+    "endTime": "2023-06-10",
+    "startTime": "2023-05-14"
+  },
+  "planningTimeUnit": "schedule",
+  "relationID": "34143499018",
+  "resourcePool": [
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "打孔设备",
+          "id": "29410924800",
+          "period": {
+            "endTime": "2023-05-13 17:33:34",
+            "startTime": "2023-05-13 17:33:34"
+          }
+        }
+      ],
+      "code": "打孔",
+      "id": "34100432432",
+      "typeId": "29410924800"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "覆膜设备",
+          "id": "29410924799",
+          "period": {
+            "endTime": "2023-05-13 17:33:34",
+            "startTime": "2023-05-13 17:33:34"
+          }
+        }
+      ],
+      "code": "覆膜",
+      "id": "34100432432",
+      "typeId": "29410924799"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "清洁设备",
+          "id": "29410924802",
+          "period": {
+            "endTime": "2023-05-13 17:33:34",
+            "startTime": "2023-05-13 17:33:34"
+          }
+        }
+      ],
+      "code": "清洁",
+      "id": "34100432432",
+      "typeId": "29410924802"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "质检设备",
+          "id": "29410924798",
+          "period": {
+            "endTime": "2023-05-13 17:33:34",
+            "startTime": "2023-05-13 17:33:34"
+          }
+        }
+      ],
+      "code": "质检",
+      "id": "34100432432",
+      "typeId": "29410924798"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "填孔设备",
+          "id": "29410924803",
+          "period": {
+            "endTime": "2023-05-13 17:33:34",
+            "startTime": "2023-05-13 17:33:34"
+          }
+        }
+      ],
+      "code": "填孔",
+      "id": "34100432432",
+      "typeId": "29410924803"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "烘干设备",
+          "id": "29410924804",
+          "period": {
+            "endTime": "2023-05-13 17:33:34",
+            "startTime": "2023-05-13 17:33:34"
+          }
+        }
+      ],
+      "code": "烘干",
+      "id": "34100432432",
+      "typeId": "29410924804"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "压平设备",
+          "id": "29410924805",
+          "period": {
+            "endTime": "2023-05-13 17:33:34",
+            "startTime": "2023-05-13 17:33:34"
+          }
+        }
+      ],
+      "code": "压平",
+      "id": "34100432432",
+      "typeId": "29410924805"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "印刷设备",
+          "id": "29410924807",
+          "period": {
+            "endTime": "2023-05-13 17:33:34",
+            "startTime": "2023-05-13 17:33:34"
+          }
+        }
+      ],
+      "code": "印刷",
+      "id": "34100432432",
+      "typeId": "29410924807"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "叠片设备",
+          "id": "29410924808",
+          "period": {
+            "endTime": "2023-05-13 17:33:34",
+            "startTime": "2023-05-13 17:33:34"
+          }
+        }
+      ],
+      "code": "叠片",
+      "id": "34100432432",
+      "typeId": "29410924808"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "层压设备",
+          "id": "29410924809",
+          "period": {
+            "endTime": "2023-05-13 17:33:34",
+            "startTime": "2023-05-13 17:33:34"
+          }
+        }
+      ],
+      "code": "层压",
+      "id": "34100432432",
+      "typeId": "29410924809"
+    },
+    {
+      "availableList": [
+        {
+          "capacity": 1,
+          "code": "热切设备",
+          "id": "29410924810",
+          "period": {
+            "endTime": "2023-05-13 17:33:34",
+            "startTime": "2023-05-13 17:33:34"
+          }
+        }
+      ],
+      "code": "热切",
+      "id": "34100432980",
+      "typeId": "29410924810"
+    }
+  ]
+}

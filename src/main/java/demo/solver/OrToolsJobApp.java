@@ -214,9 +214,41 @@ public class OrToolsJobApp {
         phaseOne.setDemoTaskList(beforeIntegratedDemoTaskList);
         List<PhaseOneAssignedTask> assignedTasks = phaseOne.solvePhaseOne();
         List<PhaseOneAssignedTask> demoAssignedTasks = phaseOne.splitPhaseOne();
+
+        PhaseOneLast phaseOneLast = new PhaseOneLast();
         assignedTasks.addAll(demoAssignedTasks);
+
+        List<Task> beforeIntegratedTaskListUnit1 = taskList.stream().
+                filter(i->i.getUnit()!=null&&i.getUnit()==1&&i.getOrderType()==0&&i.getIsPublic()).collect(Collectors.toList());
+        phaseOneLast.setTaskList(beforeIntegratedTaskListUnit1);
+        List<Task> beforeIntegratedDemoTaskListUnit1 = taskList.stream().
+                filter(i->i.getUnit()!=null&&i.getUnit()==1&&i.getOrderType()==1&&i.getIsPublic()).collect(Collectors.toList());
+        phaseOneLast.setResourceItems(resourceItems);
+        phaseOneLast.setDemoTaskList(beforeIntegratedDemoTaskListUnit1);
+        phaseOneLast.setPhaseOneAssignedTasks(assignedTasks);
+        List<PhaseOneAssignedTask> assignedTasksUnit1 = phaseOneLast.solvePhaseOne();
+        List<PhaseOneAssignedTask> demoAssignedTasksUnit1 = phaseOneLast.splitPhaseOne();
+
+        assignedTasksUnit1.addAll(demoAssignedTasksUnit1);
+        PhaseOneAssignedTask phaseOneAssignedTask =
+                assignedTasksUnit1.stream().filter(i -> i.getStart() == 0).collect(Collectors.toList()).get(0);
+        String orderid = phaseOneAssignedTask.getOrderId();
+        List<Integer> collect = assignedTasks.stream().filter(i->i.getOrderId().equals(orderid)|| i.getOrderId().equals(orderid))
+                            .map(PhaseOneAssignedTask::getEnd).collect(Collectors.toList());
+        int maxEnd = Collections.max(collect);
+
+        assignedTasksUnit1.forEach(i->{
+            int start = i.getStart();
+            int end = i.getEnd();
+            i.setStart(start+maxEnd);
+
+            i.setEnd(end+maxEnd);
+        });
+        assignedTasks.addAll(assignedTasksUnit1);
+
+
         assignedTasks.forEach(i->{
-            System.out.println(" "+i.getStart()+" "+i.getEnd());
+            System.out.println("caonimabi"+i.getOriginalId()+" "+i.getStart()+" "+i.getEnd());
         });
         return assignedTasks;
     }
@@ -621,11 +653,14 @@ public class OrToolsJobApp {
                     ).collect(Collectors.toList());
                     System.out.println("outpustep tasks:"+collect.size());
                     LocalDate firstRunTime = collect.get(0).getRunTime();
-                    outputStep.setStepStartTime(collect.get(0).getRunTime());
-                    outputStep.setExecutionDays(collect.get(collect.size() - 1).getRunTime().toEpochDay() -
-                            collect.get(0).getRunTime().toEpochDay() + 1);
-                    LocalDate endRunTime = firstRunTime.plusDays(outputStep.getExecutionDays());
-                    //旧版获取节假日列表
+                    if (firstRunTime!=null) {
+
+
+                        outputStep.setStepStartTime(collect.get(0).getRunTime());
+                        outputStep.setExecutionDays(collect.get(collect.size() - 1).getRunTime().toEpochDay() -
+                                collect.get(0).getRunTime().toEpochDay() + 1);
+                        LocalDate endRunTime = firstRunTime.plusDays(outputStep.getExecutionDays());
+                        //旧版获取节假日列表
 //                    List<String> holidayList = new ArrayList<>();
 //                    for (LocalDate i = firstRunTime; i.isBefore(endRunTime); i = i.plusDays(1)){
 //                        String dateStr = i.format(df3);
@@ -640,20 +675,28 @@ public class OrToolsJobApp {
 //
 //                        }
 //                    }
-                    //新版获取节假日列表
-                    LambdaQueryWrapper<Holiday> wrapper = new LambdaQueryWrapper<>();
-                    wrapper.ge(Holiday::getHolidayDate,firstRunTime);
-                    wrapper.lt(Holiday::getHolidayDate,endRunTime);
-                    wrapper.eq(Holiday::getType,1);
-                    List<String> holidayList =
-                            holidayService.list(wrapper).stream().map(i->{return i.getHolidayDate().toString();}).collect(Collectors.toList());
-                    System.out.println(holidayList);
-                    outputStep.setHolidayList(holidayList);
+                        //新版获取节假日列表
+                        LambdaQueryWrapper<Holiday> wrapper = new LambdaQueryWrapper<>();
+                        wrapper.ge(Holiday::getHolidayDate, firstRunTime);
+                        wrapper.lt(Holiday::getHolidayDate, endRunTime);
+                        wrapper.eq(Holiday::getType, 1);
+                        List<String> holidayList =
+                                holidayService.list(wrapper).stream().map(i -> {
+                                    return i.getHolidayDate().toString();
+                                }).collect(Collectors.toList());
+                        System.out.println(holidayList);
+                        outputStep.setHolidayList(holidayList);
+                    }
                 }
 
             });
 
         }
+        manufacturerOrders.forEach(i->{
+            List<Step> stepList = i.getProduct().getStepList();
+            List<Step> collect = stepList.stream().filter(j -> j.getAssignedTaskList().size() != 0).collect(Collectors.toList());
+            i.getProduct().setStepList(collect);
+        });
 //
 //
 //        JSONObject json = new JSONObject();

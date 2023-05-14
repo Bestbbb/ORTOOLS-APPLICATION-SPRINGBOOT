@@ -264,6 +264,7 @@ public class DataGenerator {
                     });
                 }
         );
+        System.out.println("test");
         //对每个unit=1的套型任务的设置
         Map<String, List<Task>> orderIdToTasks =
                 taskList.parallelStream().filter(task -> task.getUnit() == 1).collect(Collectors.groupingBy(Task::getOrderId));
@@ -322,6 +323,9 @@ public class DataGenerator {
 //                System.out.println("ispublic: "+task.getIsPublic()+" orderid: "+task.getOrderId() +" RElated-orderid"+task.getRelatedOrderId()+" "+"taskid: "+task.getId()+" "+
 //                        "ordertype "+task.getOrderType()+" "+"related task id "+task.getRelatedTaskId() +" unit : "+task.getUnit()
 //                        +" next:"+task.getNextTask().getId()+"step index:"+task.getStepIndex()+" task index"+task.getTaskIndex());
+            }else{
+                System.out.println("id:" + task.getId() + " next:" + null);
+
             }
 
         });
@@ -510,8 +514,15 @@ public class DataGenerator {
                         Integer normalStepListSize = order.getProduct().getStepList().size();
 
                         if (demoStepListSize > normalStepListSize) {
+                            //将挑选的随机单设为ispublic false
                             List<Step> demoDifferentStepList = v.get(0).getProduct().getStepList().subList(normalStepListSize, demoStepListSize);
                             demoDifferentStepList.stream().forEach(i -> i.getTaskList().forEach(j -> j.setIsPublic(false)));
+                           //也得把其他的设为ispublic false
+                            v.forEach(otherV->{
+                                List<Step> otherDemoDifferentStepList = otherV.getProduct().getStepList().subList(normalStepListSize, demoStepListSize);
+                                otherDemoDifferentStepList.stream().forEach(i -> i.getTaskList().forEach(j -> j.setIsPublic(false)));
+
+                            });
                             List<Step> copy = new ArrayList<>();
                             for (int idx = 0; idx < demoDifferentStepList.size(); idx++) {
                                 Step step = new Step();
