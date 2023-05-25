@@ -40,19 +40,29 @@ public class PhaseTwoLast {
 
     private void generateVariables() {
         for (Task task : taskList) {
-            Integer maxEnd = 0;
-            if (StringUtils.isNotBlank(task.getRelatedLayer())) {
-                List<Integer> relatedLayer = Arrays.asList(task.getRelatedLayer().
-                        split(",")).stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
-                List<Integer> collect = phaseTwoAssignedTasks.stream().
-                        filter(i -> relatedLayer.contains(i.getLayerNum())).map(PhaseTwoAssignedTask::getEnd).collect(Collectors.toList());
-                maxEnd = Collections.max(collect);
+            Integer max=0;
+//            if (StringUtils.isNotBlank(task.getRelatedLayer())) {
+//                List<Integer> relatedLayer = Arrays.asList(task.getRelatedLayer().
+//                        split(",")).stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+//                List<Integer> collect = phaseTwoAssignedTasks.stream().
+//                        filter(i -> relatedLayer.contains(i.getLayerNum())).map(PhaseTwoAssignedTask::getEnd).collect(Collectors.toList());
+//                maxEnd = Collections.max(collect);
+//            }
+
+            if(!task.getIsPublic()){
+//                List<Integer> relatedLayer = Arrays.asList(task.getRelatedLayer().
+//                        split(",")).stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+                LambdaQueryWrapper<PhaseOneAssignedTask> wrapper = new LambdaQueryWrapper<>();
+//                wrapper.in(PhaseOneAssignedTask::getLayerNum, relatedLayer);
+                wrapper.eq(PhaseOneAssignedTask::getOrderId,task.getOrderId());
+                List<PhaseOneAssignedTask> phaseOneAssignedTasks = phaseOneAssignedTaskService.list(wrapper);
+                max = Collections.max(phaseOneAssignedTasks.stream().map(PhaseOneAssignedTask::getEnd).collect(Collectors.toList()));
             }
 
             String suffix = "_" + task.getId();
             TaskVariable taskVariable = new TaskVariable();
-            taskVariable.setStart(model.newIntVar(maxEnd, Integer.MAX_VALUE, "start" + suffix));
-            taskVariable.setEnd(model.newIntVar(maxEnd, Integer.MAX_VALUE, "end" + suffix));
+            taskVariable.setStart(model.newIntVar(max, Integer.MAX_VALUE, "start" + suffix));
+            taskVariable.setEnd(model.newIntVar(max, Integer.MAX_VALUE, "end" + suffix));
             taskVariable.setInterval(model.newIntervalVar(taskVariable.getStart(), LinearExpr.constant(task.getHoursDuration())
                     , taskVariable.getEnd(), "interval" + suffix));
             allTasks.put(task.getId(), taskVariable);

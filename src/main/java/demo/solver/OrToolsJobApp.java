@@ -521,7 +521,12 @@ public class OrToolsJobApp {
                     totalDuration=0l;
                 }
                 if(tempStartTime.isEqual(tempEndTime)){
-                    continue;
+                    if(quantity!=0){
+                        continue;
+
+                    }else{
+                        setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, 0);
+                    }
                 }
 
                 if (tempStartTime.toLocalTime().isBefore(scheduleTwo)) {
@@ -694,8 +699,13 @@ public class OrToolsJobApp {
         }
         manufacturerOrders.forEach(i->{
             List<Step> stepList = i.getProduct().getStepList();
-            List<Step> collect = stepList.stream().filter(j -> j.getAssignedTaskList().size() != 0).collect(Collectors.toList());
-            i.getProduct().setStepList(collect);
+            stepList.forEach(j->{
+                List<AssignedTask> assignedTaskList = j.getAssignedTaskList();
+                List<AssignedTask> collect = assignedTaskList.stream().filter(m -> m.getAmount() != 0).collect(Collectors.toList());
+                if (collect.size()==0){
+                    j.setIsFinished("0");
+                }
+            });
         });
 //
 //
@@ -736,7 +746,7 @@ public class OrToolsJobApp {
 
     }
     private static void setTask(Output out, AssignedTask task, LocalDateTime runTime, int schedule, Integer amount) {
-        if(amount>0) {
+        if(amount>=0) {
 
             tempTotal += amount;
             AssignedTask assignedTask = new AssignedTask();

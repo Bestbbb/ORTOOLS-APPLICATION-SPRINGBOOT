@@ -40,4 +40,6 @@ public class Step implements Serializable {
 
     private Integer totalHours;
 
+    private String isFinished = "1";
+
 }

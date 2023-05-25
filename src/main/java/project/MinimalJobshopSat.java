@@ -28,6 +28,7 @@ import static java.lang.Math.max;
 /** Minimal Jobshop problem. */
 public class MinimalJobshopSat {
   public static void main(String[] args) {
+    System.out.println(UUID.randomUUID().toString().replace("-",""));
     Loader.loadNativeLibraries();
     // [START data]
     class Task {
