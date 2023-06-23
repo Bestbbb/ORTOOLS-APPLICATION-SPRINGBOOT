@@ -40,6 +40,9 @@ public class Step implements Serializable {
 
     private Integer totalHours;
 
-    private String isFinished = "1";
+    private String isFinished;
+
+    //倒班类型是什么样的
+    private String shiftType = "3";
 
 }

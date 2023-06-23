@@ -64,6 +64,9 @@ public class AssignedTask implements Serializable{
     @TableField(exist = false)
     private Boolean isPublic;
 
+    @TableField(exist = false)
+    private String taskShiftType;
+
 
 
     public AssignedTask(String originalId,Integer start,Integer hoursDuration){

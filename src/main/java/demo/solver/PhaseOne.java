@@ -109,16 +109,21 @@ public class PhaseOne {
 
      private void generateVariables() {
           for (Task task : taskList) {
+
                String suffix = "_" + task.getId();
                TaskVariable taskVariable = new TaskVariable();
                taskVariable.setStart(model.newIntVar(0, horizon, "start" + suffix));
                taskVariable.setEnd(model.newIntVar(0, horizon, "end" + suffix));
                taskVariable.setInterval(model.newIntervalVar(taskVariable.getStart(), LinearExpr.constant(task.getHoursDuration())
                        , taskVariable.getEnd(), "interval" + suffix));
+               if(allTasks.get(task.getId())!=null) {
+                    System.out.println(task.getId()+"nmsl");
+               }
                allTasks.put(task.getId(), taskVariable);
                resourceToIntervals.computeIfAbsent(task.getRequiredResourceId(), key -> new ArrayList<>());
                resourceToIntervals.get(task.getRequiredResourceId()).add(taskVariable.getInterval());
           }
+
           System.out.println("tastlist size"+taskList.size());
      }
 

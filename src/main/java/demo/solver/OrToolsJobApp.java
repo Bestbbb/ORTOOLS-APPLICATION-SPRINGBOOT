@@ -73,6 +73,11 @@ public class OrToolsJobApp {
     private static final LocalTime scheduleTwo = LocalTime.of(8, 0, 0);
     private static final LocalTime scheduleThree = LocalTime.of(16, 0, 0);
 
+
+    private static final LocalTime scheduleOne_2 = LocalTime.of(0, 0, 0);
+    private static final LocalTime scheduleTwo_2 = LocalTime.of(12, 0, 0);
+
+
     private static final int SCHEDULE_ONE = 0;
     private static final int SCHEDULE_TWO = 1;
     private static final int SCHEDULE_THREE = 2;
@@ -250,6 +255,7 @@ public class OrToolsJobApp {
         assignedTasks.forEach(i->{
             System.out.println("caonimabi"+i.getOriginalId()+" "+i.getStart()+" "+i.getEnd());
         });
+        reArrangeFirstTask(assignedTasks);
         return assignedTasks;
     }
 
@@ -313,6 +319,7 @@ public class OrToolsJobApp {
         phaseTwoLast.setPhaseTwoAssignedTasks(assignedTasks);
         List<PhaseTwoAssignedTask> assignedTasks2 = phaseTwoLast.solvePhaseTwo();
         assignedTasks.addAll(assignedTasks2);
+        reArrangeSecondTask(assignedTasks);
 
         return assignedTasks;
     }
@@ -360,6 +367,7 @@ public class OrToolsJobApp {
         phaseThreeLast.setPhaseThreeList(assignedTasks1);
         List<PhaseThreeAssignedTask> assignedTasks2 = phaseThreeLast.solveThree();
         assignedTasks1.addAll(assignedTasks2);
+        reArrangeThirdTask(assignedTasks1);
         return assignedTasks1;
     }
     public List<PhaseThreeAssignedTask> solvePhaseThreeAnother(){
@@ -503,108 +511,234 @@ public class OrToolsJobApp {
             Duration duration = Duration.between(actualStartTime, actualEndTime);
             long totalMinutes = duration.toMinutes();
             List<LocalDateTime[]> everyDay = getEveryDay(actualStartTime, actualEndTime);
-            tempTotal = 0;
-            index = 0;
-            tempTask = null;
-            for(LocalDateTime[] a:everyDay){
-                tempHoursDuration = 0;
-                final LocalDateTime tempStartTime = a[0];
-                final LocalDateTime tempEndTime = a[1];
-                LocalDate date = tempEndTime.toLocalDate();
-                String resourceId = assignedTask.getRequiredResourceId();
-                Map<String,Long>  resourceToDuration= map.get(date);
-                if(resourceToDuration==null){
-                    resourceToDuration = new HashMap<>();
-                }
-                Long totalDuration = resourceToDuration.get(resourceId);
-                if(totalDuration==null){
-                    totalDuration=0l;
-                }
-                if(tempStartTime.isEqual(tempEndTime)){
-                    if(quantity!=0){
-                        continue;
-
-                    }else{
-                        setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, 0);
+            if(assignedTask.getTaskShiftType().equals("3")) {
+                tempTotal = 0;
+                index = 0;
+                tempTask = null;
+                for (LocalDateTime[] a : everyDay) {
+                    tempHoursDuration = 0;
+                    final LocalDateTime tempStartTime = a[0];
+                    final LocalDateTime tempEndTime = a[1];
+                    LocalDate date = tempEndTime.toLocalDate();
+                    String resourceId = assignedTask.getRequiredResourceId();
+                    Map<String, Long> resourceToDuration = map.get(date);
+                    if (resourceToDuration == null) {
+                        resourceToDuration = new HashMap<>();
                     }
-                }
+                    Long totalDuration = resourceToDuration.get(resourceId);
+                    if (totalDuration == null) {
+                        totalDuration = 0l;
+                    }
+                    if (tempStartTime.isEqual(tempEndTime)) {
+                        if (quantity != 0) {
+                            continue;
 
-                if (tempStartTime.toLocalTime().isBefore(scheduleTwo)) {
-                    if (tempEndTime.toLocalTime().isAfter(scheduleThree)) {
-                        if (tempTotal < quantity) {
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
-                                    scheduleTwo).toMinutes(), totalMinutes)+1));
-                            tempHoursDuration+=(int) (Math.floorDiv(hoursDuration * Duration.between(tempStartTime.toLocalTime(),
-                                    scheduleTwo).toMinutes(), totalMinutes)+1);
+                        } else {
+                            setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, 0);
                         }
-                        if (tempTotal < quantity) {
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(scheduleTwo,
-                                    scheduleThree).toMinutes(), totalMinutes)));
+                    }
+                    if (tempStartTime.toLocalTime().isBefore(scheduleTwo)) {
+                        if (tempEndTime.toLocalTime().isAfter(scheduleThree)) {
+                            if (tempTotal < quantity) {
+                                setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
+                                        scheduleTwo).toMinutes(), totalMinutes) + 1));
+                                tempHoursDuration += (int) (Math.floorDiv(hoursDuration * Duration.between(tempStartTime.toLocalTime(),
+                                        scheduleTwo).toMinutes(), totalMinutes) + 1);
+                            }
+                            if (tempTotal < quantity) {
+                                setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(scheduleTwo,
+                                        scheduleThree).toMinutes(), totalMinutes)));
+                            }
+                            if (tempTotal < quantity) {
+                                setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(quantity * Duration.between(scheduleThree,
+                                        tempEndTime.toLocalTime()).toMinutes(), totalMinutes)));
+                            }
+                        } else if (tempEndTime.toLocalTime().isAfter(scheduleTwo)) {
+                            if (tempTotal < quantity) {
+                                setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
+                                        scheduleTwo).toMinutes(), totalMinutes) + 1));
+                            }
+                            if (tempTotal < quantity) {
+                                setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(scheduleTwo,
+                                        tempEndTime.toLocalTime()).toMinutes(), totalMinutes)));
+                            }
+                        } else {
+                            if (tempTotal < quantity) {
+                                setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
+                                        tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
+                            }
                         }
-                        if (tempTotal < quantity) {
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(quantity * Duration.between(scheduleThree,
-                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes)));
+
+                    } else if (tempStartTime.toLocalTime().isBefore(scheduleThree)) {
+                        if (tempEndTime.toLocalTime().isAfter(scheduleThree)) {
+                            if (tempTotal < quantity) {
+
+                                setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
+                                        scheduleThree).toMinutes(), totalMinutes) + 1));
+                            }
+                            if (tempTotal < quantity) {
+
+                                setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(quantity * Duration.between(scheduleThree,
+                                        tempEndTime.toLocalTime()).toMinutes(), totalMinutes)));
+                            }
+                        } else {
+                            if (tempTotal < quantity) {
+                                setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
+                                        tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
+                            }
                         }
-                    } else if (tempEndTime.toLocalTime().isAfter(scheduleTwo)) {
-                        if (tempTotal < quantity) {
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
-                                    scheduleTwo).toMinutes(), totalMinutes)+1));
-                        }
-                        if (tempTotal < quantity) {
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(scheduleTwo,
-                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes)));
-                        }
+
                     } else {
                         if (tempTotal < quantity) {
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
-                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes)+1));
-                        }
-                    }
-
-                } else if (tempStartTime.toLocalTime().isBefore(scheduleThree)) {
-                    if (tempEndTime.toLocalTime().isAfter(scheduleThree)) {
-                        if (tempTotal < quantity) {
-
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
-                                    scheduleThree).toMinutes(), totalMinutes)+1));
-                        }
-                        if (tempTotal < quantity ) {
-
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(quantity * Duration.between(scheduleThree,
+                            setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
                                     tempEndTime.toLocalTime()).toMinutes(), totalMinutes)));
                         }
-                    } else {
-                        if (tempTotal < quantity ) {
-                            setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
-                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes)+1));
+                    }
+                    Long todayDuration = Duration.between(tempStartTime, tempEndTime).toHours() + 1;
+                    totalDuration += todayDuration;
+                    if (totalDuration > 24l) {
+                        totalDuration = 24l;
+                    }
+                    resourceToDuration.put(resourceId, totalDuration);
+
+                    map.put(date, resourceToDuration);
+
+                    if (tempTask != null) {
+                        if (tempTotal < quantity) {
+                            tempTask.setAmount(tempTask.getAmount() + quantity - tempTotal);
+                        } else if (tempTotal >= quantity) {
+                            if (quantity - tempTotal + tempTask.getAmount() > 0) {
+                                tempTask.setAmount(quantity - tempTotal + tempTask.getAmount());
+                            }
+                        }
+                    }
+                }
+
+            }
+            else if(assignedTask.getTaskShiftType().equals("2")) {
+                tempTotal = 0;
+                    index = 0;
+                    tempTask = null;
+                    for (LocalDateTime[] a : everyDay) {
+                        tempHoursDuration = 0;
+                        final LocalDateTime tempStartTime = a[0];
+                        final LocalDateTime tempEndTime = a[1];
+                        LocalDate date = tempEndTime.toLocalDate();
+                        String resourceId = assignedTask.getRequiredResourceId();
+                        Map<String, Long> resourceToDuration = map.get(date);
+                        if (resourceToDuration == null) {
+                            resourceToDuration = new HashMap<>();
+                        }
+                        Long totalDuration = resourceToDuration.get(resourceId);
+                        if (totalDuration == null) {
+                            totalDuration = 0l;
+                        }
+                        if (tempStartTime.isEqual(tempEndTime)) {
+                            if (quantity != 0) {
+                                continue;
+
+                            } else {
+                                setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, 0);
+                            }
+                        }
+                        if (tempStartTime.toLocalTime().isBefore(scheduleTwo_2)) {
+                            if (tempEndTime.toLocalTime().isAfter(scheduleTwo_2)) {
+                                if (tempTotal < quantity) {
+
+                                    setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
+                                            scheduleTwo_2).toMinutes(), totalMinutes) + 1));
+                                }
+                                if (tempTotal < quantity) {
+
+                                    setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(scheduleTwo_2,
+                                            tempEndTime.toLocalTime()).toMinutes(), totalMinutes)));
+                                }
+                            } else {
+                                if (tempTotal < quantity) {
+                                    setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
+                                            tempEndTime.toLocalTime()).toMinutes(), totalMinutes) + 1));
+                                }
+                            }
+
+                        } else {
+                            if (tempTotal < quantity) {
+                                setTask(out, assignedTask, tempStartTime, SCHEDULE_TWO, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
+                                        tempEndTime.toLocalTime()).toMinutes(), totalMinutes)));
+                            }
+                        }
+                        Long todayDuration = Duration.between(tempStartTime, tempEndTime).toHours() + 1;
+                        totalDuration += todayDuration;
+                        if (totalDuration > 24l) {
+                            totalDuration = 24l;
+                        }
+                        resourceToDuration.put(resourceId, totalDuration);
+
+                        map.put(date, resourceToDuration);
+
+                        if (tempTask != null) {
+                            if (tempTotal < quantity) {
+                                tempTask.setAmount(tempTask.getAmount() + quantity - tempTotal);
+                            } else if (tempTotal >= quantity) {
+                                if (quantity - tempTotal + tempTask.getAmount() > 0) {
+                                    tempTask.setAmount(quantity - tempTotal + tempTask.getAmount());
+                                }
+                            }
+                        }
+                }
+            } else {
+                tempTotal = 0;
+                index = 0;
+                tempTask = null;
+                for (LocalDateTime[] a : everyDay) {
+                    tempHoursDuration = 0;
+                    final LocalDateTime tempStartTime = a[0];
+                    final LocalDateTime tempEndTime = a[1];
+                    LocalDate date = tempEndTime.toLocalDate();
+                    String resourceId = assignedTask.getRequiredResourceId();
+                    Map<String, Long> resourceToDuration = map.get(date);
+                    if (resourceToDuration == null) {
+                        resourceToDuration = new HashMap<>();
+                    }
+                    Long totalDuration = resourceToDuration.get(resourceId);
+                    if (totalDuration == null) {
+                        totalDuration = 0l;
+                    }
+                    if (tempStartTime.isEqual(tempEndTime)) {
+                        if (quantity != 0) {
+                            continue;
+
+                        } else {
+                            setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, 0);
                         }
                     }
 
-                } else {
-                    if (tempTotal < quantity) {
-                        setTask(out, assignedTask, tempStartTime, SCHEDULE_THREE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
-                                tempEndTime.toLocalTime()).toMinutes(), totalMinutes) ));
+                        if (tempTotal < quantity) {
+                            setTask(out, assignedTask, tempStartTime, SCHEDULE_ONE, (int) (Math.floorDiv(quantity * Duration.between(tempStartTime.toLocalTime(),
+                                    tempEndTime.toLocalTime()).toMinutes(), totalMinutes)));
+                        }
+
+                    Long todayDuration = Duration.between(tempStartTime, tempEndTime).toHours() + 1;
+                    totalDuration += todayDuration;
+                    if (totalDuration > 24l) {
+                        totalDuration = 24l;
+                    }
+                    resourceToDuration.put(resourceId, totalDuration);
+
+                    map.put(date, resourceToDuration);
+
+                    if (tempTask != null) {
+                        if (tempTotal < quantity) {
+                            tempTask.setAmount(tempTask.getAmount() + quantity - tempTotal);
+                        } else if (tempTotal >= quantity) {
+                            if (quantity - tempTotal + tempTask.getAmount() > 0) {
+                                tempTask.setAmount(quantity - tempTotal + tempTask.getAmount());
+                            }
+                        }
                     }
                 }
-                Long todayDuration = Duration.between(tempStartTime,tempEndTime).toHours()+1;
-                totalDuration+=todayDuration;
-                if(totalDuration>24l){
-                    totalDuration=24l;
-                }
-                resourceToDuration.put(resourceId,totalDuration);
-
-                map.put(date,resourceToDuration);
-
             }
-            if(tempTask!=null) {
-                if (tempTotal < quantity ) {
-                    tempTask.setAmount(tempTask.getAmount() + quantity - tempTotal);
-                } else if (tempTotal >= quantity ) {
-                    if (quantity - tempTotal + tempTask.getAmount() > 0) {
-                        tempTask.setAmount(quantity - tempTotal + tempTask.getAmount());
-                    }
-                }
-            }
+
+
 
         });
         out.setDateToResourceIdToHoursPerDay(map);
@@ -801,5 +935,91 @@ public class OrToolsJobApp {
 //        orToolsJobApp.output();
 
 
+    }
+
+    //将需要一班倒和两班倒的任务单进行时间的重新排布
+    private void reArrangeFirstTask(List<PhaseOneAssignedTask> tasks){
+        List<PhaseOneAssignedTask> collect = tasks.stream().filter(i -> i.getTaskShiftType().equals("1") || i.getTaskShiftType().equals("2")).sorted(new Comparator<AssignedTask>() {
+            @Override
+            public int compare(AssignedTask o1, AssignedTask o2) {
+
+                if (o1.getStart().compareTo(o2.getStart()) > 0)
+                    return 1;
+                if (o1.getStart().compareTo(o2.getStart()) < 0)
+                    return -1;
+                return 0;
+            }
+        }).collect(Collectors.toList());
+        if(collect.size()!=0) {
+            AssignedTask assignedTask = collect.get(0);
+            Integer start = assignedTask.getStart();
+            if (start % 24 != 0) {
+                int newStart = (start / 24 + 1) * 24;
+                int res = newStart - start;
+                collect.forEach(i -> {
+                    int s = i.getStart();
+                    int e = i.getEnd();
+                    i.setStart(s + res);
+                    i.setEnd(e + res);
+                });
+            }
+        }
+    }
+
+    private void reArrangeSecondTask(List<PhaseTwoAssignedTask> tasks){
+        List<PhaseTwoAssignedTask> collect = tasks.stream().filter(i -> i.getTaskShiftType().equals("1") || i.getTaskShiftType().equals("2")).sorted(new Comparator<AssignedTask>() {
+            @Override
+            public int compare(AssignedTask o1, AssignedTask o2) {
+
+                if (o1.getStart().compareTo(o2.getStart()) > 0)
+                    return 1;
+                if (o1.getStart().compareTo(o2.getStart()) < 0)
+                    return -1;
+                return 0;
+            }
+        }).collect(Collectors.toList());
+        if(collect.size()!=0) {
+            AssignedTask assignedTask = collect.get(0);
+            Integer start = assignedTask.getStart();
+            if (start % 24 != 0) {
+                int newStart = (start / 24 + 1) * 24;
+                int res = newStart - start;
+                collect.forEach(i -> {
+                    int s = i.getStart();
+                    int e = i.getEnd();
+                    i.setStart(s + res);
+                    i.setEnd(e + res);
+                });
+            }
+        }
+    }
+
+    private void reArrangeThirdTask(List<PhaseThreeAssignedTask> tasks) {
+        List<PhaseThreeAssignedTask> collect = tasks.stream().filter(i -> i.getTaskShiftType().equals("1") || i.getTaskShiftType().equals("2")).sorted(new Comparator<AssignedTask>() {
+            @Override
+            public int compare(AssignedTask o1, AssignedTask o2) {
+
+                if (o1.getStart().compareTo(o2.getStart()) > 0)
+                    return 1;
+                if (o1.getStart().compareTo(o2.getStart()) < 0)
+                    return -1;
+                return 0;
+            }
+        }).collect(Collectors.toList());
+        if (collect.size() != 0) {
+
+            AssignedTask assignedTask = collect.get(0);
+            Integer start = assignedTask.getStart();
+            if (start % 24 != 0) {
+                int newStart = (start / 24 + 1) * 24;
+                int res = newStart - start;
+                collect.forEach(i -> {
+                    int s = i.getStart();
+                    int e = i.getEnd();
+                    i.setStart(s + res);
+                    i.setEnd(e + res);
+                });
+            }
+        }
     }
 }

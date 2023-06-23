@@ -116,6 +116,8 @@ public class Task extends TaskOrResource implements Serializable {
 
     private Integer orderIsComplete;
 
+    private String taskShiftType;
+
     private LocalDateTime taskBeginTime = LocalDateTime.of(2022, 10, 1, 0, 0, 0);
 
 

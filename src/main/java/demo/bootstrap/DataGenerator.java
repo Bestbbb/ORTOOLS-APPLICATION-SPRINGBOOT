@@ -1,5 +1,6 @@
 package demo.bootstrap;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.google.common.base.Joiner;
 import com.sun.jna.WString;
 import demo.domain.*;
@@ -163,10 +164,20 @@ public class DataGenerator {
             int orderIsComplete = order.getIsComplete();
             int delayDays = order.getDelayDays();
             for (Step step : stepList) {
+//                //测试代码，一会儿删
+//                if(stepIndex<3){
+//                    step.setShiftType("1");
+//                }else if(stepIndex ==3){
+//                    step.setShiftType("2");
+//                }
+                if(StringUtils.isBlank(step.getIsFinished())){
+                    step.setIsFinished("1");
+                }
                 List<ResourceRequirement> resourceRequirementList = step.getResourceRequirementList();
                 List<Task> list = step.getTaskList();
                 Integer taskIndex = 0;
                 for (Task task : list) {
+                    task.setTaskShiftType(step.getShiftType());
                     task.setOrderIsComplete(orderIsComplete);
                     task.setPriority(priority);
                     task.setTaskIndex(taskIndex);
@@ -203,7 +214,13 @@ public class DataGenerator {
                     }
 //                    task.setHalfHourDuration((int) Math.ceil(48.0 * order.getQuantity() / task.getSpeed()));
                     if (task.getHoursDuration() == null) {
-                        task.setHoursDuration((int) Math.ceil(24.0 * task.getTaskQuantity() / task.getSpeed()));
+                        if(task.getTaskShiftType().equals("3")){
+                            task.setHoursDuration((int) Math.ceil(24.0 * task.getTaskQuantity() / task.getSpeed()));
+                        }else if(task.getTaskShiftType().equals("2")){
+                            task.setHoursDuration((int) Math.ceil(16.0 * task.getTaskQuantity() / task.getSpeed()));
+                        }else{
+                            task.setHoursDuration((int) Math.ceil(8.0 * task.getTaskQuantity() / task.getSpeed()));
+                        }
                     }
                     task.setManufacturerOrder(order);
                     task.setRequiredResourceId(resourceRequirementList.get(0).getId());
