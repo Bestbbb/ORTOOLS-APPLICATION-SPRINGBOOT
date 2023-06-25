@@ -603,13 +603,14 @@ public class OrToolsJobApp {
 
                     map.put(date, resourceToDuration);
 
-                    if (tempTask != null) {
-                        if (tempTotal < quantity) {
-                            tempTask.setAmount(tempTask.getAmount() + quantity - tempTotal);
-                        } else if (tempTotal >= quantity) {
-                            if (quantity - tempTotal + tempTask.getAmount() > 0) {
-                                tempTask.setAmount(quantity - tempTotal + tempTask.getAmount());
-                            }
+
+                }
+                if (tempTask != null) {
+                    if (tempTotal < quantity) {
+                        tempTask.setAmount(tempTask.getAmount() + quantity - tempTotal);
+                    } else if (tempTotal >= quantity) {
+                        if (quantity - tempTotal + tempTask.getAmount() > 0) {
+                            tempTask.setAmount(quantity - tempTotal + tempTask.getAmount());
                         }
                     }
                 }
@@ -675,15 +676,16 @@ public class OrToolsJobApp {
 
                         map.put(date, resourceToDuration);
 
-                        if (tempTask != null) {
-                            if (tempTotal < quantity) {
-                                tempTask.setAmount(tempTask.getAmount() + quantity - tempTotal);
-                            } else if (tempTotal >= quantity) {
-                                if (quantity - tempTotal + tempTask.getAmount() > 0) {
-                                    tempTask.setAmount(quantity - tempTotal + tempTask.getAmount());
-                                }
-                            }
+
+                }
+                if (tempTask != null) {
+                    if (tempTotal < quantity) {
+                        tempTask.setAmount(tempTask.getAmount() + quantity - tempTotal);
+                    } else if (tempTotal >= quantity) {
+                        if (quantity - tempTotal + tempTask.getAmount() > 0) {
+                            tempTask.setAmount(quantity - tempTotal + tempTask.getAmount());
                         }
+                    }
                 }
             } else {
                 tempTotal = 0;
@@ -726,13 +728,14 @@ public class OrToolsJobApp {
 
                     map.put(date, resourceToDuration);
 
-                    if (tempTask != null) {
-                        if (tempTotal < quantity) {
-                            tempTask.setAmount(tempTask.getAmount() + quantity - tempTotal);
-                        } else if (tempTotal >= quantity) {
-                            if (quantity - tempTotal + tempTask.getAmount() > 0) {
-                                tempTask.setAmount(quantity - tempTotal + tempTask.getAmount());
-                            }
+
+                }
+                if (tempTask != null) {
+                    if (tempTotal < quantity) {
+                        tempTask.setAmount(tempTask.getAmount() + quantity - tempTotal);
+                    } else if (tempTotal >= quantity) {
+                        if (quantity - tempTotal + tempTask.getAmount() > 0) {
+                            tempTask.setAmount(quantity - tempTotal + tempTask.getAmount());
                         }
                     }
                 }
