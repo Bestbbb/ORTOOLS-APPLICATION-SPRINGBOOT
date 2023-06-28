@@ -118,6 +118,8 @@ public class Task extends TaskOrResource implements Serializable {
 
     private String taskShiftType;
 
+    private Boolean isBeforeDiepian;
+
     private LocalDateTime taskBeginTime = LocalDateTime.of(2022, 10, 1, 0, 0, 0);
 
 

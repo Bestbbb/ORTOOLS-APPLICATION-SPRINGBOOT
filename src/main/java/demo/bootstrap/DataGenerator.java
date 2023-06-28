@@ -7,6 +7,7 @@ import demo.domain.*;
 import demo.jsonUtils.LoadFile;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
+import org.w3c.dom.ls.LSException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -155,6 +156,8 @@ public class DataGenerator {
     public static List<Task> generateTaskList(List<ManufacturerOrder> manufacturerOrderList) {
         List<Task> taskList = new ArrayList<>();
 //        ManufacturerOrder order = manufacturerOrderList.get(0);
+        List<Task> beforeDiepianTask = new ArrayList<>();
+        List<Task> afterDiepianTask = new ArrayList<>();
         for (ManufacturerOrder order : manufacturerOrderList) {
             Product product = order.getProduct();
             Integer priority = order.getPriority();
@@ -230,6 +233,7 @@ public class DataGenerator {
                 taskList.addAll(list);
                 stepIndex++;
             }
+
 //            for (int i = stepList.size() - 1; i >= 0; i--) {
 //                Step step = stepList.get(i);
 //                List<ResourceRequirement> resourceRequirementList = step.getResourceRequirementList();
@@ -262,10 +266,35 @@ public class DataGenerator {
 //            }
 //            order.setTaskList(taskList);
             orderIndex++;
+
+            int diePianIndex = 0;
+
+
+            for(int i=0;i<stepList.size();i++){
+                Step step = stepList.get(i);
+                List<Task> stepTasks = step.getTaskList();
+                Task stepTask = stepTasks.get(0);
+                if(stepTask.getUnit() ==0){
+                    beforeDiepianTask.addAll(stepTasks);
+                }
+                if(stepTask.getUnit() ==1){
+                    diePianIndex = i;
+                    break;
+                }
+            }
+
+            for(int i=diePianIndex;i<stepList.size();i++){
+                Step step = stepList.get(i);
+                List<Task> stepTasks = step.getTaskList();
+                afterDiepianTask.addAll(stepTasks);
+            }
         }
-        //对每个unit = 0的单个任务设置
+
+        beforeDiepianTask.forEach(i->i.setIsBeforeDiepian(true));
+        afterDiepianTask.forEach(i->i.setIsBeforeDiepian(false));
+
         Map<String, Map<Integer, List<Task>>> orderIdToLayerNumberToTasks =
-                taskList.parallelStream().filter(task -> task.getUnit() == 0).collect(Collectors.groupingBy(Task::getOrderId, Collectors.groupingBy(Task::getLayerNum)));
+                beforeDiepianTask.parallelStream().collect(Collectors.groupingBy(Task::getOrderId, Collectors.groupingBy(Task::getLayerNum)));
         orderIdToLayerNumberToTasks.forEach(
                 (orderId, map) -> {
                     map.forEach((layerNumber, tasks) -> {
@@ -280,11 +309,29 @@ public class DataGenerator {
                         }
                     });
                 }
-        );
+        );        //对每个unit = 0的单个任务设置
+//
+//        Map<String, Map<Integer, List<Task>>> orderIdToLayerNumberToTasks =
+//                taskList.parallelStream().filter(task -> task.getUnit() == 0).collect(Collectors.groupingBy(Task::getOrderId, Collectors.groupingBy(Task::getLayerNum)));
+//        orderIdToLayerNumberToTasks.forEach(
+//                (orderId, map) -> {
+//                    map.forEach((layerNumber, tasks) -> {
+//                        //看是否需要对tasks按照id进行排序
+//                        for (int i = 0; i < tasks.size(); i++) {
+//                            if (i != tasks.size() - 1) {
+//                                Task current = tasks.get(i);
+//                                Task next = tasks.get(i + 1);
+//                                current.setNextTask(next);
+//                                next.setPreTask(current);
+//                            }
+//                        }
+//                    });
+//                }
+//        );
         System.out.println("test");
         //对每个unit=1的套型任务的设置
         Map<String, List<Task>> orderIdToTasks =
-                taskList.parallelStream().filter(task -> task.getUnit() == 1).collect(Collectors.groupingBy(Task::getOrderId));
+                afterDiepianTask.parallelStream().collect(Collectors.groupingBy(Task::getOrderId));
         orderIdToTasks.forEach((orderId, tasks) -> {
             for (int i = 0; i < tasks.size(); i++) {
                 if (i != tasks.size() - 1) {

@@ -211,10 +211,10 @@ public class OrToolsJobApp {
         PhaseOne phaseOne = new PhaseOne();
         //第一阶段，找到所有公共的task，并将小样单和正常单合并
         List<Task> beforeIntegratedTaskList = taskList.stream().
-                filter(i->i.getUnit()!=null&&i.getUnit()==0&&i.getOrderType()==0&&i.getIsPublic()).collect(Collectors.toList());
+                filter(i->i.getIsBeforeDiepian()&&i.getOrderType()==0&&i.getIsPublic()).collect(Collectors.toList());
         phaseOne.setTaskList(beforeIntegratedTaskList);
         List<Task> beforeIntegratedDemoTaskList = taskList.stream().
-                filter(i->i.getUnit()!=null&&i.getUnit()==0&&i.getOrderType()==1&&i.getIsPublic()).collect(Collectors.toList());
+                filter(i->i.getIsBeforeDiepian()&&i.getOrderType()==1&&i.getIsPublic()).collect(Collectors.toList());
         phaseOne.setResourceItems(resourceItems);
         phaseOne.setDemoTaskList(beforeIntegratedDemoTaskList);
         List<PhaseOneAssignedTask> assignedTasks = phaseOne.solvePhaseOne();
@@ -224,10 +224,10 @@ public class OrToolsJobApp {
         assignedTasks.addAll(demoAssignedTasks);
 
         List<Task> beforeIntegratedTaskListUnit1 = taskList.stream().
-                filter(i->i.getUnit()!=null&&i.getUnit()==1&&i.getOrderType()==0&&i.getIsPublic()).collect(Collectors.toList());
+                filter(i->!i.getIsBeforeDiepian()&&i.getOrderType()==0&&i.getIsPublic()).collect(Collectors.toList());
         phaseOneLast.setTaskList(beforeIntegratedTaskListUnit1);
         List<Task> beforeIntegratedDemoTaskListUnit1 = taskList.stream().
-                filter(i->i.getUnit()!=null&&i.getUnit()==1&&i.getOrderType()==1&&i.getIsPublic()).collect(Collectors.toList());
+                filter(i->!i.getIsBeforeDiepian()&&i.getOrderType()==1&&i.getIsPublic()).collect(Collectors.toList());
         phaseOneLast.setResourceItems(resourceItems);
         phaseOneLast.setDemoTaskList(beforeIntegratedDemoTaskListUnit1);
         phaseOneLast.setPhaseOneAssignedTasks(assignedTasks);
@@ -235,20 +235,20 @@ public class OrToolsJobApp {
         List<PhaseOneAssignedTask> demoAssignedTasksUnit1 = phaseOneLast.splitPhaseOne();
 
         assignedTasksUnit1.addAll(demoAssignedTasksUnit1);
-        PhaseOneAssignedTask phaseOneAssignedTask =
-                assignedTasksUnit1.stream().filter(i -> i.getStart() == 0).collect(Collectors.toList()).get(0);
-        String orderid = phaseOneAssignedTask.getOrderId();
-        List<Integer> collect = assignedTasks.stream().filter(i->i.getOrderId().equals(orderid)|| i.getOrderId().equals(orderid))
-                            .map(PhaseOneAssignedTask::getEnd).collect(Collectors.toList());
-        int maxEnd = Collections.max(collect);
-
-        assignedTasksUnit1.forEach(i->{
-            int start = i.getStart();
-            int end = i.getEnd();
-            i.setStart(start+maxEnd);
-
-            i.setEnd(end+maxEnd);
-        });
+//        PhaseOneAssignedTask phaseOneAssignedTask =
+//                assignedTasksUnit1.stream().filter(i -> i.getStart() == 0).collect(Collectors.toList()).get(0);
+//        String orderid = phaseOneAssignedTask.getOrderId();
+//        List<Integer> collect = assignedTasks.stream().filter(i->i.getOrderId().equals(orderid)|| i.getOrderId().equals(orderid))
+//                            .map(PhaseOneAssignedTask::getEnd).collect(Collectors.toList());
+//        int maxEnd = Collections.max(collect);
+//
+//        assignedTasksUnit1.forEach(i->{
+//            int start = i.getStart();
+//            int end = i.getEnd();
+//            i.setStart(start+maxEnd);
+//
+//            i.setEnd(end+maxEnd);
+//        });
         assignedTasks.addAll(assignedTasksUnit1);
 
 
@@ -302,7 +302,7 @@ public class OrToolsJobApp {
         PhaseTwo phaseTwo = new PhaseTwo();
         //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
         List<Task> beforeIntegratedDemoTaskList = taskList.stream().
-                filter(i->!i.getIsPublic()&&i.getOrderType()==1&&i.getUnit()==0).collect(Collectors.toList());
+                filter(i->!i.getIsPublic()&&i.getOrderType()==1&&i.getIsBeforeDiepian()).collect(Collectors.toList());
 
 
         phaseTwo.setTaskList(beforeIntegratedDemoTaskList);
@@ -312,7 +312,7 @@ public class OrToolsJobApp {
         PhaseTwoLast phaseTwoLast = new PhaseTwoLast();
         //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
         List<Task> afterIntegratedDemoTaskList = taskList.stream().
-                filter(i->!i.getIsPublic()&&i.getOrderType()==1&&i.getUnit()==1).collect(Collectors.toList());
+                filter(i->!i.getIsPublic()&&i.getOrderType()==1&&!i.getIsBeforeDiepian()).collect(Collectors.toList());
 //        List<Task> afterIntegratedNormalTaskList = DataGenerator.createAfterIntegratedNormalTaskList(manufacturerOrders);
         phaseTwoLast.setTaskList(afterIntegratedDemoTaskList);
         phaseTwoLast.setResourceItems(resourceItems);
@@ -351,7 +351,7 @@ public class OrToolsJobApp {
         PhaseThree phaseThree = new PhaseThree();
         //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
         List<Task> beforeIntegratedNormalTaskList = taskList.stream().
-                filter(i->!i.getIsPublic()&&i.getOrderType()==0&&i.getUnit()==0).collect(Collectors.toList());
+                filter(i->!i.getIsPublic()&&i.getOrderType()==0&&i.getIsBeforeDiepian()).collect(Collectors.toList());
 //        List<Task> afterIntegratedNormalTaskList = DataGenerator.createAfterIntegratedNormalTaskList(manufacturerOrders);
         phaseThree.setTaskList(beforeIntegratedNormalTaskList);
         phaseThree.setResourceItems(resourceItems);
@@ -360,7 +360,7 @@ public class OrToolsJobApp {
         PhaseThreeLast phaseThreeLast = new PhaseThreeLast();
         //找到所有的小样单，开始时间>=小样单相关的正常单的结束时间
         List<Task> afterIntegratedNormalTaskList = taskList.stream().
-                filter(i->!i.getIsPublic()&&i.getOrderType()==0&&i.getUnit()==1).collect(Collectors.toList());
+                filter(i->!i.getIsPublic()&&i.getOrderType()==0&&!i.getIsBeforeDiepian()).collect(Collectors.toList());
 //        List<Task> afterIntegratedNormalTaskList = DataGenerator.createAfterIntegratedNormalTaskList(manufacturerOrders);
         phaseThreeLast.setTaskList(afterIntegratedNormalTaskList);
         phaseThreeLast.setResourceItems(resourceItems);

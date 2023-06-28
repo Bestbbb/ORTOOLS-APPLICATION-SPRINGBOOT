@@ -109,17 +109,19 @@ public class PhaseOneLast {
 
           for (Task task : taskList) {
                int maxEnd = 0;
-//               if(task.getUnit()==1&&task.getPreTask()==null){
-//
-//                    List<Integer> collect = phaseOneAssignedTasks.stream().filter(i->i.getOrderId().equals(task.getOrderId())|| i.getOrderId().equals(task.getRelatedOrderId()))
-//                            .map(PhaseOneAssignedTask::getEnd).collect(Collectors.toList());
-//                    maxEnd = Collections.max(collect);
-//               }
+
+                    List<Integer> collect = phaseOneAssignedTasks.stream().filter(i->i.getOrderId().equals(task.getOrderId())|| i.getOrderId().equals(task.getRelatedOrderId()))
+                            .map(PhaseOneAssignedTask::getEnd).collect(Collectors.toList());
+                    maxEnd = Collections.max(collect);
+
 
                String suffix = "_" + task.getId();
                TaskVariable taskVariable = new TaskVariable();
-               taskVariable.setStart(model.newIntVar(maxEnd, horizon+maxEnd, "start" + suffix));
-               taskVariable.setEnd(model.newIntVar(maxEnd, horizon+maxEnd, "end" + suffix));
+               taskVariable.setStart(model.newIntVar(maxEnd, maxEnd+horizon, "start" + suffix));
+               taskVariable.setEnd(model.newIntVar(maxEnd, maxEnd+horizon, "end" + suffix));
+               if(allTasks.get(task.getId())!=null) {
+                    System.out.println(task.getId()+"nmsl2");
+               }
                taskVariable.setInterval(model.newIntervalVar(taskVariable.getStart(), LinearExpr.constant(task.getHoursDuration())
                        , taskVariable.getEnd(), "interval" + suffix));
                allTasks.put(task.getId(), taskVariable);
@@ -149,9 +151,9 @@ public class PhaseOneLast {
                if(nextTask!=null&&nextTask.getIsPublic()){
                     Integer unit = task.getUnit();
                     Integer nextUnit = nextTask.getUnit();
-                    if(unit==0&&nextUnit==1){
-                         continue;
-                    }
+//                    if(unit==0&&nextUnit==1){
+//                         continue;
+//                    }
                     String preKey = task.getId();
                     String nextKey = nextTask.getId();
                     System.out.println(nextKey);
@@ -218,7 +220,7 @@ public class PhaseOneLast {
      }
 
      private void defineObjective(){
-          IntVar objVar = model.newIntVar(0, horizon, "makespan");
+          IntVar objVar = model.newIntVar(0, Integer.MAX_VALUE, "makespan");
           List<IntVar> ends = new ArrayList<>();
           for (Task task : taskList) {
                Task nextTask = task.getNextTask();
