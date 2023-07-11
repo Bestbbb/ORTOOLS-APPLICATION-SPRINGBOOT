@@ -45,4 +45,6 @@ public class Step implements Serializable {
     //倒班类型是什么样的
     private String shiftType = "3";
 
+    private Double brokenRate = 1.0;
+
 }

@@ -196,7 +196,7 @@ public class DataGenerator {
                         task.setOrderType(order.getType());
                     }
                     if (task.getQuantity() == null) {
-                        task.setQuantity(task.getTaskQuantity());
+                        task.setQuantity((int) (task.getTaskQuantity()*step.getBrokenRate()));
 //                        task.setTaskQuantity(order.getQuantity());
                     }
                     if (order.getType() == 1 && order.getRelatedManufactureOrderId() != null) {
