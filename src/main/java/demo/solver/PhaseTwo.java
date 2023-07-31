@@ -33,7 +33,7 @@ public class PhaseTwo {
 
     private Integer calculateHorizon(){
         for (Task task:taskList){
-            horizon+= task.getHoursDuration();
+            horizon+= task.getMinutesDuration();
         }
         return horizon;
     }
@@ -49,13 +49,14 @@ public class PhaseTwo {
                 wrapper.eq(PhaseOneAssignedTask::getOrderId,task.getOrderId());
                 List<PhaseOneAssignedTask> phaseOneAssignedTasks = phaseOneAssignedTaskService.list(wrapper);
                 max = Collections.max(phaseOneAssignedTasks.stream().map(PhaseOneAssignedTask::getEnd).collect(Collectors.toList()));
+                max = 60*max;
             }
 
             String suffix = "_" + task.getId();
             TaskVariable taskVariable = new TaskVariable();
             taskVariable.setStart(model.newIntVar(max, Integer.MAX_VALUE, "start" + suffix));
             taskVariable.setEnd(model.newIntVar(max, Integer.MAX_VALUE, "end" + suffix));
-            taskVariable.setInterval(model.newIntervalVar(taskVariable.getStart(), LinearExpr.constant(task.getHoursDuration())
+            taskVariable.setInterval(model.newIntervalVar(taskVariable.getStart(), LinearExpr.constant(task.getMinutesDuration())
                     , taskVariable.getEnd(), "interval" + suffix));
             allTasks.put(task.getId(), taskVariable);
             resourceToIntervals.computeIfAbsent(task.getRequiredResourceId(), key -> new ArrayList<>());
@@ -144,8 +145,9 @@ public class PhaseTwo {
                 String taskId = task.getId();
                 String key = taskId;
                 PhaseTwoAssignedTask assignedTask = new PhaseTwoAssignedTask(
-                        taskId, (int) solver.value(allTasks.get(key).getStart()), task.getHoursDuration());
+                        taskId, (int) solver.value(allTasks.get(key).getStart()), task.getMinutesDuration());
                 BeanUtils.copyProperties(task,assignedTask);
+                assignedTask.setHoursDuration(task.getMinutesDuration());
                 assignedJobs.computeIfAbsent(task.getRequiredResourceId(), k -> new ArrayList<>());
                 assignedJobs.get(task.getRequiredResourceId()).add(assignedTask);
                 firstAssignedTasks.add(assignedTask);

@@ -54,10 +54,13 @@ public class PhaseTwoAssignedTask extends AssignedTask implements Serializable {
 
     private String requiredResourceId;
 
+    private Integer minutesDuration;
+
     public PhaseTwoAssignedTask(String originalId, Integer start, Integer hoursDuration){
         this.originalId =originalId;
         this.start=start;
         this.hoursDuration=hoursDuration;
+        this.minutesDuration = hoursDuration;
         this.end = start+hoursDuration;
     }
 

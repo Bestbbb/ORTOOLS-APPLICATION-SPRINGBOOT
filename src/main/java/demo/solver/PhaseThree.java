@@ -62,8 +62,7 @@ public class PhaseThree {
                     wrapper2.eq(PhaseTwoAssignedTask::getRelatedOrderId,task.getOrderId());
                     List<PhaseTwoAssignedTask> phaseTwoAssignedTasks = phaseTwoAssignedTaskService.list(wrapper2);
                     maxEnd = Collections.max(phaseTwoAssignedTasks.stream().map(PhaseTwoAssignedTask::getEnd).collect(Collectors.toList()));
-                    System.out.println(maxEnd);
-
+                    maxEnd = maxEnd/60;
                     if(maxEnd - max<=task.getOrderDelayDays()*24){
                         start = max+ task.getOrderDelayDays()*24;
                     }else{

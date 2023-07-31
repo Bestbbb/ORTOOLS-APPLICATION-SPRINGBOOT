@@ -504,9 +504,21 @@ public class OrToolsJobApp {
             }else{
                 quantity = assignedTask.getSubQuantity();
             }
-            LocalDateTime actualStartTime = assignedTime.plusHours(Optional.of(assignedTask.getStart()).orElse(0));
-            LocalDateTime actualEndTime = assignedTime.plusHours(Optional.of(assignedTask.getStart()).orElse(0))
-                    .plusHours(Optional.of(assignedTask.getHoursDuration()).orElse(0));
+            LocalDateTime actualStartTime = null;
+            LocalDateTime actualEndTime = null;
+            if(assignedTask.getPhase()==2){
+                 actualStartTime = assignedTime.plusMinutes(Optional.of(assignedTask.getStart()).orElse(0));
+                 actualEndTime = assignedTime.plusMinutes(Optional.of(assignedTask.getStart()).orElse(0))
+                        .plusMinutes(Optional.of(assignedTask.getHoursDuration()).orElse(0));
+
+            }else{
+                 actualStartTime = assignedTime.plusHours(Optional.of(assignedTask.getStart()).orElse(0));
+                 actualEndTime = assignedTime.plusHours(Optional.of(assignedTask.getStart()).orElse(0))
+                        .plusHours(Optional.of(assignedTask.getHoursDuration()).orElse(0));
+            }
+//            LocalDateTime actualStartTime = assignedTime.plusHours(Optional.of(assignedTask.getStart()).orElse(0));
+//            LocalDateTime actualEndTime = assignedTime.plusHours(Optional.of(assignedTask.getStart()).orElse(0))
+//                    .plusHours(Optional.of(assignedTask.getHoursDuration()).orElse(0));
             Integer hoursDuration = assignedTask.getHoursDuration();
             Duration duration = Duration.between(actualStartTime, actualEndTime);
             long totalMinutes = duration.toMinutes();

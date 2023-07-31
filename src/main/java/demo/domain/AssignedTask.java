@@ -67,6 +67,9 @@ public class AssignedTask implements Serializable{
     @TableField(exist = false)
     private String taskShiftType;
 
+    @TableField(exist = false)
+    private Integer phase;
+
 
 
     public AssignedTask(String originalId,Integer start,Integer hoursDuration){

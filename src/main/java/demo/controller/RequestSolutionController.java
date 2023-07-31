@@ -61,6 +61,7 @@ public class RequestSolutionController {
 //        orToolsJobApp.createPrecedence();
 //        orToolsJobApp.defineObjective();
             List<PhaseOneAssignedTask> phaseOneAssignedTasks = orToolsJobApp.solvePhaseOne();
+            phaseOneAssignedTasks.forEach(i->i.setPhase(1));
             if (phaseOneAssignedTasks == null) {
                 jsonObject.put("code", 500);
                 jsonObject.put("message", "Error in phase 1");
@@ -78,6 +79,7 @@ public class RequestSolutionController {
                 phaseOneAssignedTaskService.saveOrUpdateBatch(phaseOneAssignedTasks);
 //                List<SubPhaseOneTask> subPhaseOneTasks = PhaseOne.splitTask(phaseOneAssignedTasks);
                 phaseTwoAssignedTasks = orToolsJobApp.solvePhaseTwo();
+                phaseTwoAssignedTasks.forEach(i->i.setPhase(2));
                 if (phaseTwoAssignedTasks == null) {
                     jsonObject.put("code", 500);
                     jsonObject.put("message", "Error in phase 2");
@@ -85,6 +87,8 @@ public class RequestSolutionController {
                 }
                 phaseTwoAssignedTaskService.saveOrUpdateBatch(phaseTwoAssignedTasks);
                 phaseThreeAssignedTasks = orToolsJobApp.solvePhaseThree();
+                phaseThreeAssignedTasks.forEach(i->i.setPhase(3));
+
                 if (phaseThreeAssignedTasks == null || phaseThreeAssignedTasks.size() == 0) {
                     jsonObject.put("code", 500);
                     jsonObject.put("message", "Error in phase 3");
