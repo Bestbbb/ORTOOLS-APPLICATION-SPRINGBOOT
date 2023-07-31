@@ -39,7 +39,9 @@
         <dependency>
             <groupId>com.google.ortools</groupId>
             <artifactId>ortools-java</artifactId>
-            <version>[9.4.1874,)</version>
+            <version>9.6.2534</version>
+
+<!--            <version>[9.4.1874,)</version>-->
             <!--    <version>9.3.10497</version>-->
             <type>jar</type>
             <scope>compile</scope>

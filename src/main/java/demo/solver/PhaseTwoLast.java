@@ -183,7 +183,7 @@ public class PhaseTwoLast {
             System.out.printf(output);
 
         }else{
-            System.out.println("No solution found.");
+            System.out.println("Phase two last:No solution found.");
         }
         Collections.sort(firstAssignedTasks, new SortTasks());
 

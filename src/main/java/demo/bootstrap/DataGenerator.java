@@ -218,7 +218,7 @@ public class DataGenerator {
 //                    task.setHalfHourDuration((int) Math.ceil(48.0 * order.getQuantity() / task.getSpeed()));
                     if (task.getHoursDuration() == null) {
                         if(task.getTaskShiftType().equals("3")){
-                            task.setHoursDuration((int) Math.ceil(24.0 * task.getTaskQuantity() / task.getSpeed()));
+                            task.setHoursDuration((int) Math.ceil(24.0 * 3* task.getTaskQuantity() / task.getSpeed()));
                         }else if(task.getTaskShiftType().equals("2")){
                             task.setHoursDuration((int) Math.ceil(16.0 * task.getTaskQuantity() / task.getSpeed()));
                         }else{
@@ -533,23 +533,37 @@ public class DataGenerator {
                 List<String> demoTaskIdList = new ArrayList<>();
                 List<Integer> demoTaskQuantityList = new ArrayList<>();
                 List<Integer> demoTaskDurationList = new ArrayList<>();
+                List<Integer> demoTaskMinutesDurationList = new ArrayList<>();
+
                 if (task.getOrderId().equals(s)) {
                     for (Task demoTask : taskList1) {
                         if (Objects.equals(demoTask.getStepIndex(), task.getStepIndex()) && Objects.equals(demoTask.getTaskIndex(), task.getTaskIndex())) {
                             demoTaskIdList.add(demoTask.getId());
                             demoTaskQuantityList.add(demoTask.getTaskQuantity());
                             demoTaskDurationList.add(demoTask.getHoursDuration());
+                            demoTaskMinutesDurationList.add(demoTask.getMinutesDuration());
                         }
                     }
                     String demoTaskId = Joiner.on(",").join(demoTaskIdList);
                     String demoTaskQuantity = Joiner.on(",").join(demoTaskQuantityList);
                     Integer demoTaskDurationSum = demoTaskDurationList.stream().reduce(Integer::sum).orElse(0);
+                    Integer demoTaskMinutesDurationSum = demoTaskMinutesDurationList.stream().reduce(Integer::sum).orElse(0);
                     String demoTaskDuration = Joiner.on(",").join(demoTaskDurationList);
+                    String demoTaskMinutesDuration = Joiner.on(",").join(demoTaskMinutesDurationList);
                     int duration = task.getHoursDuration();
+                    int minutesDuration = task.getMinutesDuration();
                     task.setDemoTaskId(demoTaskId);
-                    task.setHoursDuration(duration + demoTaskDurationSum);
+                    int sumMinutes = minutesDuration+demoTaskDurationSum;
+                    if(Math.ceil(1.0*sumMinutes) <= 60){
+                        task.setHoursDuration(duration);
+                    }else{
+                        int d = (int) (Math.ceil(1.0*sumMinutes)  / 60 + 1);
+                        task.setHoursDuration(d);
+                    }
+//                    task.setHoursDuration(duration + demoTaskDurationSum);
                     task.setDemoTaskQuantity(demoTaskQuantity);
                     task.setDemoTaskDuration(demoTaskDuration);
+                    task.setDemoTaskMinutesDuration(demoTaskMinutesDuration);
                 }
             }
         });
@@ -667,7 +681,7 @@ public class DataGenerator {
                                     Integer delayDays = order.getDelayDays();
                                     task.setQuantity(quantity);
                                     task.setTaskQuantity(quantity);
-                                    task.setHoursDuration((int) Math.ceil(24.0 * quantity / task.getSpeed()));
+                                    task.setHoursDuration((int) Math.ceil(24.0 * 3* quantity / task.getSpeed()));
                                     task.setOrderDelayDays(delayDays);
 
                                 }

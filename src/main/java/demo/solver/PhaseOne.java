@@ -41,12 +41,18 @@ public class PhaseOne {
                            split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());
                     List<Integer> demoTaskDuration = Arrays.asList(assignedTask.getDemoTaskDuration().
                             split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());
-                    Integer sum = demoTaskQuantity.stream().reduce(Integer::sum).orElse(0);
-//                    Integer demoTaskDurationSum = demoTaskDuration.stream().reduce(Integer::sum).orElse(0);
+                    List<Integer> demoTaskMinutesDuration = Arrays.asList(assignedTask.getDemoTaskMinutesDuration().
+                            split(",")).stream().map(Integer::parseInt).collect(Collectors.toList());
+                    Integer demoTaskMinutesDurationSum = demoTaskMinutesDuration.stream().reduce(Integer::sum).orElse(0);
+
+
                     Integer hoursDuration = assignedTask.getHoursDuration();
+//                    int minutesDuration = assignedTask.getMinutesDuration();
                     Integer end = assignedTask.getEnd();
                     Integer start = assignedTask.getStart();
-                    Integer sumDemoHourDuration = 0;
+//                    Integer sumDemoHourDuration = 0;
+                    int sumDemoHourDuration = demoTaskMinutesDurationSum / 60 + 1;
+
                     for(int i =0;i<demoTaskIds.size();i++){
                          int demoHoursDuration = demoTaskDuration.get(i);
 //                         int demoHoursDuration= (Math.floorDiv(hoursDuration,quantity*demoTaskQuantity.get(i)) + 1);
@@ -62,23 +68,24 @@ public class PhaseOne {
 //                         int demoHoursDuration= (Math.floorDiv(24* demoTaskQuantity.get(i), phaseOneAssignedTask.getSpeed()) + 1);
 //                         int demoHoursDuration = (int) Math.ceil(24.0* demoTaskQuantity.get(i) / phaseOneAssignedTask.getSpeed());
 //                         Integer demoEnd = end-sumDemoHourDuration;
-                         Integer demoStart = start+ sumDemoHourDuration;
+//                         Integer demoStart = start+ sumDemoHourDuration;
+                         int demoStart = start;
 
-                         phaseOneAssignedTask.setEnd(demoStart+demoHoursDuration);
-                         phaseOneAssignedTask.setHoursDuration(demoHoursDuration);
-                         phaseOneAssignedTask.setStart(demoStart);
+                         phaseOneAssignedTask.setEnd(end);
+                         phaseOneAssignedTask.setHoursDuration(hoursDuration);
+                         phaseOneAssignedTask.setStart(start);
                          demoAssignedTasks.add(phaseOneAssignedTask);
-                         sumDemoHourDuration+=demoHoursDuration;
+//                         sumDemoHourDuration+=demoHoursDuration;
                     }
-                    Integer actualHoursDuration = hoursDuration-sumDemoHourDuration;
-                    if(actualHoursDuration!=0) {
-//                         Integer actualEnd = end - sumDemoHourDuration;
-                         assignedTask.setHoursDuration(actualHoursDuration);
-//                         assignedTask.setEnd(actualEnd);
-                         Integer actualStart = start+ sumDemoHourDuration;
-                         assignedTask.setStart(actualStart);
-
-                    }
+//                    Integer actualHoursDuration = hoursDuration-sumDemoHourDuration;
+//                    if(actualHoursDuration!=0) {
+////                         Integer actualEnd = end - sumDemoHourDuration;
+//                         assignedTask.setHoursDuration(actualHoursDuration);
+////                         assignedTask.setEnd(actualEnd);
+//                         Integer actualStart = start+ sumDemoHourDuration;
+//                         assignedTask.setStart(actualStart);
+//
+//                    }
 
 
 
@@ -94,7 +101,7 @@ public class PhaseOne {
           generateVariables();
           createConstraints();
           createPrecedence();
-         createPriorityHardConstraint();
+//         createPriorityHardConstraint();
 //          createPriorityConstraint();
           defineObjective();
           solve();
@@ -147,9 +154,9 @@ public class PhaseOne {
                if(nextTask!=null&&nextTask.getIsPublic()){
                     Integer unit = task.getUnit();
                     Integer nextUnit = nextTask.getUnit();
-                    if(unit==0&&nextUnit==1){
-                         continue;
-                    }
+//                    if(unit==0&&nextUnit==1){
+//                         continue;
+//                    }
                     String preKey = task.getId();
                     String nextKey = nextTask.getId();
                     System.out.println(nextKey);
@@ -216,11 +223,11 @@ public class PhaseOne {
      }
 
      private void defineObjective(){
-          IntVar objVar = model.newIntVar(0, horizon, "makespan");
+          IntVar objVar = model.newIntVar(0,horizon, "makespan");
           List<IntVar> ends = new ArrayList<>();
           for (Task task : taskList) {
                Task nextTask = task.getNextTask();
-               if(nextTask==null||!nextTask.getIsPublic()){
+               if(nextTask==null){
                     IntVar end = allTasks.get(task.getId()).getEnd();
                     ends.add(end);
                }
@@ -274,7 +281,7 @@ public class PhaseOne {
                System.out.printf(output);
 
           }else{
-               System.out.println("No solution found.");
+               System.out.println("Phase one : No solution found.");
           }
           Collections.sort(firstAssignedTasks, new SortTasks());
 

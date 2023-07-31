@@ -198,7 +198,7 @@ public class PhaseThree {
             System.out.printf(output);
 
         }else{
-            System.out.println("No solution found.");
+            System.out.println("Phase three:No solution found.");
         }
         Collections.sort(firstAssignedTasks, new SortTasks());
 

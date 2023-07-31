@@ -107,6 +107,8 @@ public class Task extends TaskOrResource implements Serializable {
 
     private String demoTaskDuration;
 
+    private String demoTaskMinutesDuration;
+
     private Integer taskIndex;
 
     private Integer priority;
