@@ -44,9 +44,13 @@ public class DataGenerator {
         List<ManufacturerOrder> manufacturerOrderList = input.getManufacturerOrderList();
 
         // 把一个订单才分2个小定单
-
+        for (int i = 0; i < manufacturerOrderList.size(); i++) {
+            ManufacturerOrder order = manufacturerOrderList.get(i);
+            order.setIndex(i);
+            order.setJoinQuantity(order.getQuantity());
+        }
         //合并小样单和正常单
-        joinOrderList(manufacturerOrderList);
+//        joinOrderList(manufacturerOrderList);
 //        List<List<ManufacturerOrder>> lists = divideOrderToTwoPart(manufacturerOrderList);
 
 //        for(List<ManufacturerOrder> i:lists){
@@ -196,8 +200,8 @@ public class DataGenerator {
                         task.setOrderType(order.getType());
                     }
                     if (task.getQuantity() == null) {
-                        task.setQuantity((int) (task.getTaskQuantity()*step.getBrokenRate()));
-//                        task.setTaskQuantity(order.getQuantity());
+                        task.setQuantity((int) (order.getQuantity()*step.getBrokenRate()));
+                        task.setTaskQuantity(order.getQuantity());
                     }
                     if (order.getType() == 1 && order.getRelatedManufactureOrderId() != null) {
                         task.setRelatedOrderId(order.getRelatedManufactureOrderId());
@@ -212,17 +216,17 @@ public class DataGenerator {
                     task.setSingleTimeSlotSpeed(BigDecimal.valueOf(task.getSpeed()).divide(BigDecimal.valueOf(3), 4, RoundingMode.CEILING));
 //                    task.setTimeSlotDuration(BigDecimal.valueOf(order.getQuantity()).divide(task.getSingleTimeSlotSpeed(), 4, RoundingMode.CEILING));
                     task.setMinutesDuration((int) Math.ceil(24.0 * 60 * order.getQuantity() / task.getSpeed()));
-                    if (task.getHalfHourDuration() == null) {
-                        task.setHalfHourDuration((int) Math.ceil(48.0 * order.getJoinQuantity() / task.getSpeed()));
-                    }
+//                    if (task.getHalfHourDuration() == null) {
+//                        task.setHalfHourDuration((int) Math.ceil(48.0 * order.getJoinQuantity() / task.getSpeed()));
+//                    }
 //                    task.setHalfHourDuration((int) Math.ceil(48.0 * order.getQuantity() / task.getSpeed()));
                     if (task.getHoursDuration() == null) {
                         if(task.getTaskShiftType().equals("3")){
-                            task.setHoursDuration((int) Math.ceil(24.0 * 3* task.getTaskQuantity() / task.getSpeed()));
+                            task.setHoursDuration((int) Math.ceil(24.0 * task.getQuantity() / task.getSpeed()));
                         }else if(task.getTaskShiftType().equals("2")){
-                            task.setHoursDuration((int) Math.ceil(16.0 * task.getTaskQuantity() / task.getSpeed()));
+                            task.setHoursDuration((int) Math.ceil(16.0 * task.getQuantity() / task.getSpeed()));
                         }else{
-                            task.setHoursDuration((int) Math.ceil(8.0 * task.getTaskQuantity() / task.getSpeed()));
+                            task.setHoursDuration((int) Math.ceil(8.0 * task.getQuantity() / task.getSpeed()));
                         }
                     }
                     task.setManufacturerOrder(order);

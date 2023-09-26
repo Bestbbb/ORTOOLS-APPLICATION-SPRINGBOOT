@@ -206,6 +206,26 @@ public class OrToolsJobApp {
 
     }
 
+    public List<PhaseOneAssignedTask> solvePhaseNew(){
+        PhaseUnit0 phaseUnit0 = new PhaseUnit0();
+        List<Task> beforeIntegratedTaskList = taskList.stream().
+                filter(i->i.getIsBeforeDiepian()).collect(Collectors.toList());
+        phaseUnit0.setTaskList(beforeIntegratedTaskList);
+        phaseUnit0.setResourceItems(resourceItems);
+        List<PhaseOneAssignedTask> assignedTasks = phaseUnit0.solvePhaseOne();
+
+        PhaseUnit1 phaseUnit1 = new PhaseUnit1();
+        List<Task> beforeIntegratedTaskListUnit1 = taskList.stream().
+                filter(i->!i.getIsBeforeDiepian()).collect(Collectors.toList());
+        phaseUnit1.setTaskList(beforeIntegratedTaskListUnit1);
+        phaseUnit1.setResourceItems(resourceItems);
+        phaseUnit1.setPhaseOneAssignedTasks(assignedTasks);
+        List<PhaseOneAssignedTask> assignedTasksUnit1 = phaseUnit1.solvePhaseOne();
+        assignedTasks.addAll(assignedTasksUnit1);
+        reArrangeFirstTask(assignedTasks);
+        return assignedTasks;
+    }
+
 
     public List<PhaseOneAssignedTask> solvePhaseOne(){
         PhaseOne phaseOne = new PhaseOne();
