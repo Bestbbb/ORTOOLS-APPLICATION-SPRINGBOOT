@@ -200,8 +200,9 @@ public class DataGenerator {
                         task.setOrderType(order.getType());
                     }
                     if (task.getQuantity() == null) {
-                        task.setQuantity((int) (order.getQuantity()*step.getBrokenRate()));
-                        task.setTaskQuantity(order.getQuantity());
+                        task.setQuantity(task.getTaskQuantity());
+//                        task.setQuantity((int) (order.getQuantity()*step.getBrokenRate()));
+//                        task.setTaskQuantity(order.getQuantity());
                     }
                     if (order.getType() == 1 && order.getRelatedManufactureOrderId() != null) {
                         task.setRelatedOrderId(order.getRelatedManufactureOrderId());
@@ -222,11 +223,11 @@ public class DataGenerator {
 //                    task.setHalfHourDuration((int) Math.ceil(48.0 * order.getQuantity() / task.getSpeed()));
                     if (task.getHoursDuration() == null) {
                         if(task.getTaskShiftType().equals("3")){
-                            task.setHoursDuration((int) Math.ceil(24.0 * task.getQuantity() / task.getSpeed()));
+                            task.setHoursDuration((int) Math.ceil(24.0 * task.getTaskQuantity() / task.getSpeed()));
                         }else if(task.getTaskShiftType().equals("2")){
-                            task.setHoursDuration((int) Math.ceil(16.0 * task.getQuantity() / task.getSpeed()));
+                            task.setHoursDuration((int) Math.ceil(16.0 * task.getTaskQuantity() / task.getSpeed()));
                         }else{
-                            task.setHoursDuration((int) Math.ceil(8.0 * task.getQuantity() / task.getSpeed()));
+                            task.setHoursDuration((int) Math.ceil(8.0 * task.getTaskQuantity() / task.getSpeed()));
                         }
                     }
                     task.setManufacturerOrder(order);
