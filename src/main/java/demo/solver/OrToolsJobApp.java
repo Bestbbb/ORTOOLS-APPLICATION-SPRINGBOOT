@@ -216,7 +216,7 @@ public class OrToolsJobApp {
 
         PhaseUnit1 phaseUnit1 = new PhaseUnit1();
         List<Task> beforeIntegratedTaskListUnit1 = taskList.stream().
-                filter(i->!i.getIsBeforeDiepian()).collect(Collectors.toList());
+                filter(i->!i.getIsBeforeDiepian()) .sorted(Comparator.comparing(Task::getId)).collect(Collectors.toList());
         phaseUnit1.setTaskList(beforeIntegratedTaskListUnit1);
         phaseUnit1.setResourceItems(resourceItems);
         phaseUnit1.setPhaseOneAssignedTasks(assignedTasks);

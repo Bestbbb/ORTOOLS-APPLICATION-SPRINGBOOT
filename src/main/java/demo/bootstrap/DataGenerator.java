@@ -302,12 +302,17 @@ public class DataGenerator {
                 beforeDiepianTask.parallelStream().collect(Collectors.groupingBy(Task::getOrderId, Collectors.groupingBy(Task::getLayerNum)));
         orderIdToLayerNumberToTasks.forEach(
                 (orderId, map) -> {
+                    System.out.println("orderId"+orderId);
                     map.forEach((layerNumber, tasks) -> {
+                        System.out.println("layernnum"+layerNumber);
                         //看是否需要对tasks按照id进行排序
-                        for (int i = 0; i < tasks.size(); i++) {
-                            if (i != tasks.size() - 1) {
-                                Task current = tasks.get(i);
-                                Task next = tasks.get(i + 1);
+                        List<Task> sortedTasks = tasks.stream()
+                                .sorted(Comparator.comparing(Task::getLayerNum))
+                                .collect(Collectors.toList());
+                        for (int i = 0; i < sortedTasks.size(); i++) {
+                            if (i != sortedTasks.size() - 1) {
+                                Task current = sortedTasks.get(i);
+                                Task next = sortedTasks.get(i + 1);
                                 current.setNextTask(next);
                                 next.setPreTask(current);
                             }
@@ -398,7 +403,8 @@ public class DataGenerator {
             }
 
         });
-        setSplitQuantity(taskList);
+        System.out.println("你好呀"+taskList.size());
+//        setSplitQuantity(taskList);
         return taskList;
     }
 
