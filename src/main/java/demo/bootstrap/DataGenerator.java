@@ -287,6 +287,9 @@ public class DataGenerator {
                     break;
                 }
             }
+            if(diePianIndex == 0){
+                diePianIndex = stepList.size();
+            }
 
             for(int i=diePianIndex;i<stepList.size();i++){
                 Step step = stepList.get(i);
