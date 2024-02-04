@@ -116,7 +116,9 @@ public class PhaseUnit1 {
 
                     List<Integer> collect = phaseOneAssignedTasks.stream().filter(i->i.getOrderId().equals(task.getOrderId())|| i.getOrderId().equals(task.getRelatedOrderId()))
                             .map(PhaseOneAssignedTask::getEnd).collect(Collectors.toList());
-                    maxEnd = Collections.max(collect);
+                    if(!collect.isEmpty()){
+                        maxEnd = Collections.max(collect);
+                    }
                     if(maxEnd!=null){
                          set.add(maxEnd);
 
